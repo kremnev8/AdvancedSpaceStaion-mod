@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ASS mod",
+  "name": "glider",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [ "kremnev8" ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

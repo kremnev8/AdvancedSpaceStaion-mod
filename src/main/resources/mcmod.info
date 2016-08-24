@@ -1,0 +1,16 @@
+[
+{
+  "modid": "FTBTweaks",
+  "name": "FTBTweaks",
+  "description": "Some tweaks for my ftb map",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [ "kremnev8" ],
+  "credits": "Thanks to: CreSerty - Assistant developer.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

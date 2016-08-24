@@ -1,0 +1,89 @@
+FTBTweaks:Builder.item=Builder
+FTBTweaks:ironScaffold.item=Iron Scaffold
+FTBTweaks:dockingComponent.item=Docking Port Component
+FTBTweaks:brokenTin.item=Broken Tin Plate
+FTBTweaks:brokenSteel.item=Broken Steel Plate
+FTBTweaks:brokenAluminum.item=Broken Aluminum Plate
+FTBTweaks:debugTool.item=Debug Tool
+FTBTweaks:Jetpack.item=Space Jetpack
+FTBTweaks:Fuelloader.item=Portable fuel loader
+
+glider:block.BuildPoint.name=Build Point
+glider.DockingPoint=Docking Port
+glider.InfoBlock=Info Block
+glider.RemoveInfoBlock=Logbook
+glider.ArtificialGsource=Artificial Gravity Source
+
+builder.hall.name=Hall
+builder.corner.name=Corner
+builder.crossroad.name=Crossroad
+builder.airlock.name=Airlock
+builder.window.name=Window
+builder.cupola.name=Cupola
+builder.dockport.name=Dock Port
+builder.greenhouse.name=Greenhouse
+builder.pierce.name="Pierce"
+builder.name=Builder
+builder.successfully=Server successfully builded
+builder.failed=Building on server was failed!
+builder.failed.noitems=Building on server was failed! Not enough items to build structure.
+builder.failed.itemsreturn=Most items has been returned, but some get damaged...
+builder.solarpanel.name=Solar Panel
+builder.thall.name=T Hall
+builder.bighall.name=Bighall
+builder.build_button.name=Build
+
+builder.window.rot0= in wall
+builder.window.rot1=-stub
+
+builder.solarpanel.rot0=Basic 
+builder.solarpanel.rot1=Advanced 
+
+builder.solarpanel.rot0_short=Basic 
+builder.solarpanel.rot1_short=Adv. 
+
+builder.side_info.name=Structure name
+builder.side_info.connections=Connections
+builder.side_info.add_connections=Add connections
+builder.side_info.special_func=Special function
+builder.side_info.special_func.none=none
+builder.side_info.required=Required items
+
+builder.side_info.short.name=Name
+builder.side_info.short.connections=Connections
+builder.side_info.short.add_connections=Add connect.
+builder.side_info.short.special_func=Function
+builder.side_info.short.special_func.none=none
+builder.side_info.short.required=Required items
+
+builder.side_info.funcs.airlock.name=inline Airlock
+builder.side_info.funcs.cupola.name=Earth view
+builder.side_info.funcs.dockport.name=+1 Docking slot
+builder.side_info.funcs.greenhouse.name=Plants Growing
+
+builder.deconstruct.failed=Deconstruction on server was failed!
+builder.deconstruct.successfully=Server successfully deconstructed selected structures
+
+remover.name=Remover
+remover.deconstruct_button.name=Deconstruct
+
+remover.no_selected.name=No selected structures found!
+remover.no_linked_tile.name=No linked TileEntityInfo block found!
+
+#haschilds_tip is complex. do not translate separately
+#you need to traslate whole sentence and then split it by lenth
+remover.haschilds_tip0.name=This structure have
+remover.haschilds_tip1.name=child structures.
+remover.haschilds_tip2.name=Before it can be
+remover.haschilds_tip3.name=removed, you need to
+remover.haschilds_tip4.name=remove all his child
+remover.haschilds_tip5.name=structures 
+#num of lines. if you use less or more
+remover.haschilds_tip.num_lines=6
+
+ForgeDirs.DOWN.name=Down
+ForgeDirs.UP.name=Up
+ForgeDirs.NORTH.name=North
+ForgeDirs.SOUTH.name=South
+ForgeDirs.WEST.name=West
+ForgeDirs.EAST.name=East

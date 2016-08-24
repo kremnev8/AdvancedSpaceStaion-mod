@@ -1,0 +1,11 @@
+/bin
+/eclipse
+/libs
+/src/main/resources/assets/computronics
+/src/main/resources/assets/galacticraftasteroids
+/src/main/resources/assets/galacticraftcore
+/src/main/resources/assets/galacticraftmars
+/src/main/resources/assets/galacticraftmoon
+/src/main/resources/assets/projecte
+.gradle
+.settings
