@@ -28,23 +28,28 @@ import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import cofh.thermaldynamics.duct.BlockDuct;
-import cofh.thermaldynamics.duct.energy.TileEnergyDuct;
-import cofh.thermaldynamics.duct.energy.TileEnergyDuctSuper;
 import buildcraft.BuildCraftTransport;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportFluids;
+import cofh.thermaldynamics.duct.BlockDuct;
+import cofh.thermaldynamics.duct.energy.TileEnergyDuct;
+import cofh.thermaldynamics.duct.energy.TileEnergyDuctSuper;
+import cofh.thermaldynamics.duct.item.TileItemDuct;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import crazypants.enderio.conduit.BlockConduitBundle;
+import crazypants.enderio.conduit.TileConduitBundle;
+import crazypants.enderio.conduit.item.ItemConduit;
+import crazypants.enderio.conduit.power.PowerConduit;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
-
+	
 	private static final ResourceLocation rl = new ResourceLocation(GliderModInfo.ModTestures, "textures/blocks/ArmorStand.png");
 	private ModelArmorStand model = new ModelArmorStand();
 	public int rot = 0;
-
+	
 	private float modelScale = 0.0666667F;
 	private boolean helmLeatherLayer = false;
 	private boolean thuamcraftRobeChest = false;
@@ -67,12 +72,12 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 	public static String[] defaultBootArmorPaths = { "textures/models/armor/leather_layer_1.png", "textures/models/armor/iron_layer_1.png", "textures/models/armor/chainmail_layer_1.png", "textures/models/armor/gold_layer_1.png", "textures/models/armor/diamond_layer_1.png" };
 	private int degreeAngle;
 	public static final ResourceLocation GLINT_PNG = new ResourceLocation("textures/misc/enchanted_item_glint.png");
-
+	
 	public void renderTileEntityAt(TileEntity te, double dx, double dy, double dz, float f1)
 	{
 		renderTE((TileEntityArmorStand) te, dx, dy, dz, f1);
 	}
-
+	
 	public void renderTE(TileEntity te, double dx, double dy, double dz, float tick)
 	{
 		GL11.glTranslatef(0, 0.01F, 0);
@@ -91,9 +96,9 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 		{
 			degreeAngle = 90;
 		}
-
+		
 		float scale = 0.0625F;
-
+		
 		if (this.steve == null)
 		{
 			this.steve = new AbstractSteve(te.getWorldObj());
@@ -101,7 +106,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 		RenderManager.renderPosX = this.steve.posX = dx;
 		RenderManager.renderPosY = this.steve.posY = dy;
 		RenderManager.renderPosZ = this.steve.posZ = dz;
-
+		
 		TileEntityArmorStand standTile = (TileEntityArmorStand) te;
 		ItemStack helmStack = standTile.getArmor(0);
 		ItemStack chestStack = standTile.getArmor(1);
@@ -175,12 +180,12 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 				float colorBase = 1.0F;
 				ItemArmor armorCuirass = (ItemArmor) cuirassItem;
 				int aType = armorCuirass.armorType;
-
+				
 				ModelBiped cuirassModel = cuirassItem.getArmorModel(this.steve, chestStack, 1);
-
+				
 				String cuirassTexture = ForgeHooksClient.getArmorTexture(this.steve, chestStack, getArmor(chestStack.getUnlocalizedName(), aType), aType, null);
 				boolean isEnchanted = armorCuirass.hasEffect(chestStack, 0);
-
+				
 				GL11.glPushMatrix();
 				GL11.glTranslated(dx + 0.5D, dy + 1.600000023841858D, dz + 0.5D);
 				GL11.glRotatef(this.degreeAngle, 0.0F, 2.0F, 0.0F);
@@ -232,17 +237,17 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 				float colorBase = 1.0F;
 				ItemArmor armorGreaves = (ItemArmor) greavesItem;
 				int aType = armorGreaves.armorType;
-
+				
 				ModelBiped greavesModel = greavesItem.getArmorModel(this.steve, legginsStack, 2);
-
+				
 				String greavesTexture = ForgeHooksClient.getArmorTexture(this.steve, legginsStack, getArmor(legginsStack.getUnlocalizedName(), aType), aType, null);
 				boolean isEnchanted = armorGreaves.hasEffect(legginsStack, 0);
-
+				
 				GL11.glPushMatrix();
 				GL11.glTranslated(dx + 0.5D, dy + 1.799999952316284D, dz + 0.5D);
 				GL11.glRotatef(this.degreeAngle, 0.0F, 2.0F, 0.0F);
 				GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-
+				
 				GL11.glColor3f(1.0F, 1.0F, 1.0F);
 				this.legLeatherLayer = false;
 				this.thaumcraftRobeLegs = false;
@@ -300,11 +305,11 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 				float colorBase = 1.0F;
 				ItemArmor armorBoots = (ItemArmor) bootsItem;
 				int aType = armorBoots.armorType;
-
+				
 				ModelBiped bootsModel = bootsItem.getArmorModel(this.steve, bootsStack, 3);
 				String bootsTexture = ForgeHooksClient.getArmorTexture(this.steve, bootsStack, getArmor(bootsStack.getUnlocalizedName(), aType), aType, null);
 				boolean isEnchanted = armorBoots.hasEffect(bootsStack, 0);
-
+				
 				GL11.glPushMatrix();
 				GL11.glTranslated(dx + 0.5D, dy + 1.7D, dz + 0.5D);
 				GL11.glRotatef(this.degreeAngle, 0.0F, 2.0F, 0.0F);
@@ -370,23 +375,23 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 			GL11.glRotatef(180, -1.0F, 0.0F, -1.0F);
 		}
 		// GL11.glTranslatef(0F, 0F, 0.1F);
-
+		
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		bindTexture(rl);
 		model.render(0.0625F);
-
+		
 		World world = te.getWorldObj();
 		for (int l = 0; l < 4; l++)
 		{
 			int meta = world.getBlockMetadata(te.xCoord, te.yCoord, te.zCoord);
-
+			
 			int o = l + meta;
 			if (o > 3)
 			{
 				o -= 4;
 			}
-
+			
 			Block bl = world.getBlock(te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0));
 			if (bl == GCBlocks.fuelLoader)
 			{
@@ -404,7 +409,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 			{
 				if (BlockGenericPipe.getPipe(world, te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0)) == null || BlockGenericPipe.getPipe(world, te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0)).transport instanceof PipeTransportFluids)
 				{
-
+					
 				} else
 				{
 					model.render("wire", l + 3 > 3 ? (l - 4) + 3 : l + 3);
@@ -413,7 +418,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 			if (Loader.isModLoaded("ThermalDynamics") && bl instanceof BlockDuct)
 			{
 				TileEntity te2 = world.getTileEntity(te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0));
-				if (te2 instanceof TileEnergyDuct && !(te2 instanceof TileEnergyDuctSuper))
+				if (te2 instanceof TileEnergyDuct || te2 instanceof TileItemDuct && !(te2 instanceof TileEnergyDuctSuper))
 				{
 					model.render("wire", l + 3 > 3 ? (l - 4) + 3 : l + 3);
 				} else if (te2 instanceof TileEnergyDuctSuper)
@@ -421,14 +426,22 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 					model.render("fuel", l + 3 > 3 ? (l - 4) + 3 : l + 3);
 				}
 			}
+			if (Loader.isModLoaded("EnderIO") && bl instanceof BlockConduitBundle)
+			{
+				TileConduitBundle te2 = (TileConduitBundle) world.getTileEntity(te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0));
+				if (te2 != null && te2.hasType(PowerConduit.class) || te2.hasType(ItemConduit.class))
+				{
+					model.render("wire", l + 3 > 3 ? (l - 4) + 3 : l + 3);
+				}
+			}
 		}
-
+		
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
+		
 		GL11.glEnable(GL11.GL_LIGHTING);
-
+		
 		/*	int armortextnum = standTile.getArmorText();
 			if ((armortextnum > 0) && (armortextnum < 5))
 			{
@@ -515,14 +528,14 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 			GL11.glScalef(1.0F, -1.0F, -1.0F);
 			GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glRotatef(this.degreeAngle - 180, 0.0F, 1.0F, 0.0F);
-
+			
 			RenderManager.instance.renderEntitySimple(this.steve, -0.3F);
-
+			
 			GL11.glPopMatrix();
 		}
 		GL11.glTranslatef(0, -0.01F, 0);
 	}
-
+	
 	/*public void renderText(String text, String text2, String text3, String text4, String text5, int numlines, double yadjust, double zadjust)
 	{
 		FontRenderer fontRender = func_147498_b();
@@ -555,7 +568,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 		}
 		GL11.glDepthMask(true);
 	}*/
-
+	
 	public String getArmor(String itemStackName, int armorType)
 	{
 		String armorDefault = "textures/models/armor/iron_layer_1.png";
@@ -611,7 +624,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 		}
 		return armorDefault;
 	}
-
+	
 	public void enchant(int armorType)
 	{
 		float tickModifier = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F * 48.0F;
@@ -660,5 +673,5 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 		GL11.glDepthFunc(GL11.GL_LEQUAL);
 		GL11.glEnable(GL11.GL_CULL_FACE);
 	}
-
+	
 }

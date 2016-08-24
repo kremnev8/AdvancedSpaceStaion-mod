@@ -31,6 +31,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
@@ -126,6 +127,15 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 						IElectricItemManager manager = ElectricItem.manager;
 						double charge = manager.charge(item, storage.getEnergyStoredGC() * EnergyConfigHandler.TO_IC2_RATIO, 4, false, false);
 						this.storage.extractEnergyGC((float) (EnergyConfigHandler.IC2_RATIO * charge), false);
+					}
+				}
+				if (Loader.isModLoaded("CoFHCore"))
+				{
+					if (item.getItem() instanceof IEnergyContainerItem)
+					{
+						IEnergyContainerItem cont = (IEnergyContainerItem) item.getItem();
+						int used = cont.receiveEnergy(item, 500, false);
+						this.storage.extractEnergyGC((float) (EnergyConfigHandler.RF_RATIO * used), false);
 					}
 				}
 				//TODO add enderIO compactability
