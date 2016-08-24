@@ -269,7 +269,6 @@ public class BlockArmorStand extends BlockContainerMod implements ItemBlockDesc.
 	 */
 	public boolean onMachineActivated(World world, int x, int y, int z, EntityPlayer par5EntityPlayer, int side, float hitX, float hitY, float hitZ)
 	{
-		// GUI
 		par5EntityPlayer.openGui(GliderCore.instance, GuiHandler.ARMORSTANDGUI, world, x, y, z);
 		return true;
 	}

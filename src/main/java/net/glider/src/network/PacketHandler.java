@@ -25,7 +25,6 @@ import net.glider.src.network.packets.SendUUIDPacket;
 import net.glider.src.network.packets.SetThirdPersonPacket;
 import net.glider.src.network.packets.StartChoreoClientPacket;
 import net.glider.src.network.packets.SwapArmorPacket;
-import net.glider.src.network.packets.SyncFuelLoaderPacket;
 import net.glider.src.network.packets.SyncPlayerFallPacket;
 import net.glider.src.network.packets.SyncPressedKeysPacket;
 import net.glider.src.network.packets.SyncRocketTierPacket;
@@ -68,21 +67,20 @@ public final class PacketHandler {
 		HANDLER.registerMessage(SyncPressedKeysPacket.Handler.class, SyncPressedKeysPacket.class, 17, Side.SERVER);
 		
 		HANDLER.registerMessage(JetpackUseFuelPacket.Handler.class, JetpackUseFuelPacket.class, 18, Side.SERVER);
-		HANDLER.registerMessage(SyncFuelLoaderPacket.Handler.class, SyncFuelLoaderPacket.class, 19, Side.CLIENT);
 		
-		HANDLER.registerMessage(OpenBuilderGuiPacket.Handler.class, OpenBuilderGuiPacket.class, 20, Side.CLIENT);
+		HANDLER.registerMessage(OpenBuilderGuiPacket.Handler.class, OpenBuilderGuiPacket.class, 19, Side.CLIENT);
 		
-		HANDLER.registerMessage(OpenGuiOnServerPacket.Handler.class, OpenGuiOnServerPacket.class, 21, Side.SERVER);
+		HANDLER.registerMessage(OpenGuiOnServerPacket.Handler.class, OpenGuiOnServerPacket.class, 20, Side.SERVER);
 		
-		HANDLER.registerMessage(CloseScreenPacket.Handler.class, CloseScreenPacket.class, 22, Side.CLIENT);
-		HANDLER.registerMessage(BuildPointSyncPacket.Handler.class, BuildPointSyncPacket.class, 23, Side.CLIENT);
+		HANDLER.registerMessage(CloseScreenPacket.Handler.class, CloseScreenPacket.class, 21, Side.CLIENT);
+		HANDLER.registerMessage(BuildPointSyncPacket.Handler.class, BuildPointSyncPacket.class, 22, Side.CLIENT);
 		
-		HANDLER.registerMessage(SwapArmorPacket.Handler.class, SwapArmorPacket.class, 24, Side.SERVER);
+		HANDLER.registerMessage(SwapArmorPacket.Handler.class, SwapArmorPacket.class, 23, Side.SERVER);
 		
-		HANDLER.registerMessage(AnimationTellServerPacket.Handler.class, AnimationTellServerPacket.class, 25, Side.SERVER);
-		HANDLER.registerMessage(OtherPlayerAnimationPacket.Handler.class, OtherPlayerAnimationPacket.class, 26, Side.CLIENT);
+		HANDLER.registerMessage(AnimationTellServerPacket.Handler.class, AnimationTellServerPacket.class, 24, Side.SERVER);
+		HANDLER.registerMessage(OtherPlayerAnimationPacket.Handler.class, OtherPlayerAnimationPacket.class, 25, Side.CLIENT);
 		
-		HANDLER.registerMessage(ArmorStandItemSyncPacket.Handler.class, ArmorStandItemSyncPacket.class, 27, Side.CLIENT);
+		HANDLER.registerMessage(ArmorStandItemSyncPacket.Handler.class, ArmorStandItemSyncPacket.class, 26, Side.CLIENT);
 		
 		/*HANDLER.registerMessage(ParticlePKT.Handler.class, ParticlePKT.class, 2, Side.CLIENT);DockItemSyncPacket
 		HANDLER.registerMessage(SwingItemPKT.Handler.class, SwingItemPKT.class, 3, Side.CLIENT);
