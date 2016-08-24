@@ -1,6 +1,8 @@
+
 package net.glider.src.network;
 
 import net.glider.src.network.packets.AnimationTellServerPacket;
+import net.glider.src.network.packets.ArmorStandItemSyncPacket;
 import net.glider.src.network.packets.BuildPacket;
 import net.glider.src.network.packets.BuildPointSyncPacket;
 import net.glider.src.network.packets.ClientGravityDataRecivePacket;
@@ -37,8 +39,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 
-public final class PacketHandler
-{
+public final class PacketHandler {
 	private static final int MAX_PKT_SIZE = 256;
 	private static final SimpleNetworkWrapper HANDLER = NetworkRegistry.INSTANCE.newSimpleChannel(GliderModInfo.ChannelName);
 	
@@ -49,7 +50,7 @@ public final class PacketHandler
 		HANDLER.registerMessage(OpenGuiPacket.Handler.class, OpenGuiPacket.class, 1, Side.CLIENT);
 		HANDLER.registerMessage(DeconstructPacket.Handler.class, DeconstructPacket.class, 2, Side.SERVER);
 		HANDLER.registerMessage(SetThirdPersonPacket.Handler.class, SetThirdPersonPacket.class, 3, Side.CLIENT);
-		HANDLER.registerMessage(InvScalePacket.Handler.class, InvScalePacket.class, 4, Side.CLIENT);	
+		HANDLER.registerMessage(InvScalePacket.Handler.class, InvScalePacket.class, 4, Side.CLIENT);
 		HANDLER.registerMessage(DockItemSyncPacket.Handler.class, DockItemSyncPacket.class, 5, Side.CLIENT);
 		HANDLER.registerMessage(DismountPacket.Handler.class, DismountPacket.class, 6, Side.SERVER);
 		HANDLER.registerMessage(SendUUIDPacket.Handler.class, SendUUIDPacket.class, 7, Side.CLIENT);
@@ -80,7 +81,9 @@ public final class PacketHandler
 		
 		HANDLER.registerMessage(AnimationTellServerPacket.Handler.class, AnimationTellServerPacket.class, 25, Side.SERVER);
 		HANDLER.registerMessage(OtherPlayerAnimationPacket.Handler.class, OtherPlayerAnimationPacket.class, 26, Side.CLIENT);
-
+		
+		HANDLER.registerMessage(ArmorStandItemSyncPacket.Handler.class, ArmorStandItemSyncPacket.class, 27, Side.CLIENT);
+		
 		/*HANDLER.registerMessage(ParticlePKT.Handler.class, ParticlePKT.class, 2, Side.CLIENT);DockItemSyncPacket
 		HANDLER.registerMessage(SwingItemPKT.Handler.class, SwingItemPKT.class, 3, Side.CLIENT);
 		HANDLER.registerMessage(StepHeightPKT.Handler.class, StepHeightPKT.class, 4, Side.CLIENT);
@@ -97,15 +100,15 @@ public final class PacketHandler
 		HANDLER.registerMessage(UpdateGemModePKT.Handler.class, UpdateGemModePKT.class, 16, Side.SERVER);
 		HANDLER.registerMessage(SyncPedestalPKT.Handler.class, SyncPedestalPKT.class, 17, Side.CLIENT);*/
 	}
-
+	
 	public static Packet getMCPacket(IMessage message)
 	{
 		return HANDLER.getPacketFrom(message);
 	}
-
+	
 	/**
 	 * Sends a packet to the server.<br>
-	 * Must be called Client side. 
+	 * Must be called Client side.
 	 */
 	public static void sendToServer(IMessage msg)
 	{
@@ -123,7 +126,7 @@ public final class PacketHandler
 	
 	/**
 	 * Send a packet to all players around a specific point.<br>
-	 * Must be called Server side. 
+	 * Must be called Server side.
 	 */
 	public static void sendToAllAround(IMessage msg, TargetPoint point)
 	{
@@ -132,7 +135,7 @@ public final class PacketHandler
 	
 	/**
 	 * Send a packet to a specific player.<br>
-	 * Must be called Server side. 
+	 * Must be called Server side.
 	 */
 	public static void sendTo(IMessage msg, EntityPlayerMP player)
 	{
@@ -144,7 +147,7 @@ public final class PacketHandler
 	
 	/**
 	 * Send a packet to all the players in the specified dimension.<br>
-	 *  Must be called Server side.
+	 * Must be called Server side.
 	 */
 	public static void sendToDimension(IMessage msg, int dimension)
 	{
