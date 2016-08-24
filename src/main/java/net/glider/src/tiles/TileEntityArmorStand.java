@@ -128,7 +128,7 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 						this.storage.extractEnergyGC((float) (EnergyConfigHandler.IC2_RATIO * charge), false);
 					}
 				}
-				//TODO add enderIO compactobility
+				//TODO add enderIO compactability
 			}
 		}
 	}
@@ -314,4 +314,9 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 		return null;
 	}
 	
+	@Override
+	public ItemStack getBatteryInSlot()
+	{
+		return null;
+	}
 }
