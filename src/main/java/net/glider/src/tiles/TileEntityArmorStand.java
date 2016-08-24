@@ -138,7 +138,6 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 						this.storage.extractEnergyGC((float) (EnergyConfigHandler.RF_RATIO * used), false);
 					}
 				}
-				//TODO add enderIO compactability
 			}
 		}
 	}
