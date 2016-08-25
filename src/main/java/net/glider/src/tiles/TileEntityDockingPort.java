@@ -29,8 +29,9 @@ import net.glider.src.network.PacketHandler;
 import net.glider.src.network.packets.DockItemSyncPacket;
 import net.glider.src.network.packets.InvScalePacket;
 import net.glider.src.network.packets.SendUUIDPacket;
-import net.glider.src.utils.GLoger;
+import net.glider.src.utils.ChatUtils;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -39,10 +40,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.IFluidContainerItem;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 
@@ -343,10 +347,32 @@ public class TileEntityDockingPort extends TileEntityAdvanced implements IInvent
 				{
 					if (ent instanceof EntityRocketFakeTiered)
 					{
-						GLoger.logInfo("Find writen entity from UUID");
+						//	GLoger.logInfo("Find writen entity from UUID");
 						rocket = (EntityRocketFakeTiered) ent;
 						if (rocket != null)
 							PacketHandler.sendToAllAround(new SendUUIDPacket(rocket.getUniqueID()), new TargetPoint(this.worldObj.provider.dimensionId, this.xCoord, this.yCoord, this.zCoord, 10));
+						if (this.getStackInSlot(this.getSizeInventory() - 2) != null)
+						{
+							boolean preFueled = false;
+							int type = this.getStackInSlot(this.getSizeInventory() - 2).getItemDamage();
+							// Checking type
+							if (type == IRocketType.EnumRocketType.PREFUELED.getIndex())
+							{
+								preFueled = true;
+							}
+							this.fuelTank = new FluidTank(rocket.getFuelTankCapacity() * ConfigManagerCore.rocketFuelFactor);
+							
+							if (preFueled)
+							{
+								this.fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, this.fuelTank.getCapacity()), true);
+							} else if (this.getStackInSlot(this.getSizeInventory() - 2).hasTagCompound())
+							{
+								NBTTagCompound tag = this.getStackInSlot(this.getSizeInventory() - 2).getTagCompound();
+								int fuel = tag.getInteger("RocketFuel");
+								this.fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, fuel), true);
+							}
+							rocket.fuelTank = fuelTank;
+						}
 					}
 				}
 			}
@@ -464,7 +490,26 @@ public class TileEntityDockingPort extends TileEntityAdvanced implements IInvent
 				}
 			}
 		}
-		
+		if (this.getStackInSlot(this.getSizeInventory() - 2) != null)
+		{
+			if (this.getStackInSlot(this.getSizeInventory() - 2).getItemDamage() > 4)
+			{
+				if (!worldObj.isRemote)
+				{
+					EntityItem item = new EntityItem(worldObj, xCoord, yCoord + 1, zCoord, this.getStackInSlot(this.getSizeInventory() - 2));
+					item.delayBeforeCanPickup = 0;
+					worldObj.spawnEntityInWorld(item);
+					
+					EntityPlayer player = worldObj.getClosestPlayer(xCoord, yCoord, zCoord, -1);
+					if (player != null)
+					{
+						player.addChatComponentMessage(ChatUtils.modifyColor(new ChatComponentText("This rocket isn't supported by docking port. Use landing pad instead!"), EnumChatFormatting.RED));
+					}
+				}
+				this.setInventorySlotContents(this.getSizeInventory() - 2, null);
+				
+			}
+		}
 		// start massive check for rocket item
 		if (this.getStackInSlot(this.getSizeInventory() - 2) != null)
 		{
@@ -630,14 +675,13 @@ public class TileEntityDockingPort extends TileEntityAdvanced implements IInvent
 			}
 		}
 		// tank fueling and draining code
-		//TODO add compacability with IC2, forestry, thermal foundation...
-		//FIXME filling more than capacity of rocket!
+		//TODO add compacability with IC2
 		if (!this.worldObj.isRemote && rocket != null)
 		{
 			// drain
-			this.checkFluidTankTransfer(this.chestContents.length - 1, this.fuelTank);
+			this.checkFluidTankTransfer(getStackInSlot(this.chestContents.length - 1));
 			
-			// fuel (code from fuel loader)
+			// fuel
 			ItemStack stack = getStackInSlot(this.chestContents.length - 4);
 			
 			if (stack != null)
@@ -647,54 +691,166 @@ public class TileEntityDockingPort extends TileEntityAdvanced implements IInvent
 					if (stack.getItem() == GCItems.fuelCanister)
 					{
 						int originalDamage = stack.getItemDamage();
-						int used = this.fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, ItemCanisterGeneric.EMPTY - originalDamage), true);
+						int used = fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, ItemCanisterGeneric.EMPTY - originalDamage), true);
 						if (originalDamage + used == ItemCanisterGeneric.EMPTY)
-							stack = new ItemStack(GCItems.oilCanister, 1, ItemCanisterGeneric.EMPTY);
+							setInventorySlotContents(this.chestContents.length - 4, new ItemStack(GCItems.oilCanister, 1, ItemCanisterGeneric.EMPTY));
 						else
-							stack = new ItemStack(GCItems.fuelCanister, 1, originalDamage + used);
+							setInventorySlotContents(this.chestContents.length - 4, new ItemStack(GCItems.fuelCanister, 1, originalDamage + used));
 					}
 				} else
 				{
 					final FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(stack);
-					
+					ItemStack is = stack;
 					if (liquid != null)
 					{
 						boolean isFuel = FluidUtil.testFuel(FluidRegistry.getFluidName(liquid));
-						
 						if (isFuel)
 						{
-							if (this.fuelTank.getFluid() == null || this.fuelTank.getFluid().amount + liquid.amount <= this.fuelTank.getCapacity())
+							if (fuelTank.getFluid() == null || fuelTank.getFluid().amount + liquid.amount <= fuelTank.getCapacity())
 							{
-								this.fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, liquid.amount), true);
-								
-								if (FluidContainerRegistry.isBucket(stack) && FluidContainerRegistry.isFilledContainer(stack))
+								fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, liquid.amount), true);
+								if (FluidContainerRegistry.isBucket(is) && FluidContainerRegistry.isFilledContainer(is))
 								{
-									final int amount = stack.stackSize;
+									final int amount = is.stackSize;
 									if (amount > 1)
-										this.fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, (amount - 1) * FluidContainerRegistry.BUCKET_VOLUME), true);
-									stack = new ItemStack(Items.bucket, amount);
+										fuelTank.fill(new FluidStack(GalacticraftCore.fluidFuel, (amount - 1) * FluidContainerRegistry.BUCKET_VOLUME), true);
+									is = new ItemStack(Items.bucket, amount);
+									setInventorySlotContents(this.chestContents.length - 4, is);
 								} else
 								{
-									stack.stackSize--;
-									
-									if (stack.stackSize == 0)
+									is.stackSize--;
+									if (is.stackSize == 0)
 									{
-										stack = null;
+										is = null;
+									}
+									setInventorySlotContents(this.chestContents.length - 4, is);
+								}
+							}
+						}
+					} else
+					{
+						if (stack.getItem() instanceof IFluidContainerItem)
+						{
+							IFluidContainerItem cont = (IFluidContainerItem) stack.getItem();
+							if (cont.getFluid(stack) != null)
+							{
+								boolean isFuel = FluidUtil.testFuel(FluidRegistry.getFluidName(cont.getFluid(stack)));
+								if (isFuel)
+								{
+									if (stack.stackSize == 1)
+									{
+										FluidStack st = cont.drain(stack, fuelTank.getFluidAmount() == fuelTank.getCapacity() ? 0 : fuelTank.getCapacity() - fuelTank.getFluidAmount() > 1000 ? 1000 : fuelTank.getCapacity() - fuelTank.getFluidAmount(), true);
+										if (st != null && st.amount > 0)
+										{
+											fuelTank.fill(st, true);
+										}
 									}
 								}
 							}
+							
 						}
 					}
 				}
 			}
-			// reloading item
-			this.setInventorySlotContents(this.chestContents.length - 4, stack);
 		}
 	}
 	
-	private void checkFluidTankTransfer(int slot, FluidTank tank)
+	private void checkFluidTankTransfer(ItemStack stack)
 	{
-		FluidUtil.tryFillContainerFuel(tank, this.chestContents, slot);
+		if (stack != null)
+		{
+			if (stack.getItem() instanceof ItemCanisterGeneric)
+			{
+				if (stack.getItem() == GCItems.fuelCanister)
+				{
+					int originalDamage = stack.getItemDamage();
+					FluidStack st = fuelTank.drain(1000 - (ItemCanisterGeneric.EMPTY - originalDamage), true);
+					if (st != null && st.amount > 0)
+					{
+						setInventorySlotContents(this.chestContents.length - 1, new ItemStack(GCItems.fuelCanister, 1, originalDamage - st.amount));
+					}
+				}
+			} else if (FluidUtil.isValidContainer(stack))
+			{
+				final FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(stack);
+				if (liquid != null && liquid.amount != FluidContainerRegistry.getContainerCapacity(stack))
+				{
+					boolean isFuel = FluidUtil.testFuel(FluidRegistry.getFluidName(liquid));
+					if (isFuel)
+					{
+						if (stack.stackSize == 1)
+						{
+							if (fuelTank.getFluidAmount() > 0)
+							{
+								int drain = FluidContainerRegistry.getContainerCapacity(stack) - liquid.amount;
+								FluidStack st = fuelTank.drain(drain, true);
+								if (st != null && st.amount > 0)
+								{
+									FluidContainerRegistry.fillFluidContainer(st, stack);
+									setInventorySlotContents(this.chestContents.length - 1, stack);
+								}
+							}
+						}
+					}
+				} else
+				{
+					if (stack.stackSize == 1)
+					{
+						if (fuelTank.getFluidAmount() > 0)
+						{
+							int drain = FluidContainerRegistry.getContainerCapacity(stack);
+							if (drain == 0 && FluidContainerRegistry.isBucket(stack))
+							{
+								drain = FluidContainerRegistry.BUCKET_VOLUME;
+							}
+							FluidStack st = fuelTank.drain(drain, !FluidContainerRegistry.isBucket(stack));
+							if (FluidContainerRegistry.isBucket(stack) && st != null && st.amount == 1000)
+							{
+								fuelTank.drain(drain, true);
+								setInventorySlotContents(this.chestContents.length - 1, new ItemStack(GCItems.bucketFuel));
+							} else if (st != null && st.amount > 0)
+							{
+								FluidContainerRegistry.fillFluidContainer(st, stack);
+								setInventorySlotContents(this.chestContents.length - 1, stack);
+							}
+						}
+					}
+				}
+			} else
+			{
+				if (stack.getItem() instanceof IFluidContainerItem)
+				{
+					IFluidContainerItem cont = (IFluidContainerItem) stack.getItem();
+					if (cont.getFluid(stack) != null)
+					{
+						boolean isFuel = FluidUtil.testFuel(FluidRegistry.getFluidName(cont.getFluid(stack)));
+						if (isFuel)
+						{
+							if (stack.stackSize == 1)
+							{
+								FluidStack st = fuelTank.drain(cont.getCapacity(stack) - cont.getFluid(stack).amount, true);
+								if (st != null && st.amount > 0)
+								{
+									cont.fill(stack, st, true);
+								}
+							}
+						}
+					} else
+					{
+						if (stack.stackSize == 1)
+						{
+							FluidStack st = fuelTank.drain(cont.getCapacity(stack), true);
+							if (st != null && st.amount > 0)
+							{
+								cont.fill(stack, st, true);
+							}
+						}
+					}
+					
+				}
+				
+			}
+		}
 	}
 	
 	@Override
