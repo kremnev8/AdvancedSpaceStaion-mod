@@ -1,3 +1,4 @@
+
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
@@ -782,7 +783,7 @@ public class BuildHandler {
 					{
 						Spos = new int[] { 0, 0, 0 };
 					}
-
+					
 					boolean Conect = false;
 					if (Matrix != null)
 					{
@@ -915,7 +916,7 @@ public class BuildHandler {
 								} else if (te.Object.getUnlocalizedName().equals("crossroad") || te.Object.getUnlocalizedName().equals("bighall"))
 								{
 									ForgeDirection[] Cdirs = str4.getDirs(te.Object.placementDir);
-									for (int i2 = 0; i2 < 3; i2++)
+									for (int i2 = 0; i2 < Cdirs.length; i2++)
 									{
 										ForgeDirection STdir = Cdirs[i2];
 										if (STdir.getOpposite() == dirs[i])
@@ -928,7 +929,7 @@ public class BuildHandler {
 								{
 									str10.setRotation(te.Object.placementRotation);
 									ForgeDirection[] dirs1 = str10.getDirs(te.Object.placementDir);
-									for (int j = 0; j < 2; j++)
+									for (int j = 0; j < dirs1.length; j++)
 									{
 										ForgeDirection STdir = dirs1[j];
 										if (STdir.getOpposite() == dirs[i])

@@ -1,3 +1,4 @@
+
 package net.glider.src.blocks;
 
 import java.util.Random;
@@ -26,75 +27,95 @@ public class BlockContainerMod extends BlockContainer {
 	public static BlockContainerMod BlockArticialGsource;
 	public static BlockContainerMod BlockArmorStand;
 	public static BlockFake BlockFake;
-
-	public static void init(){
-		DockingPoint = new BlockDockingPoint("DockingPoint");
-		BlockInfo = new BlockInfo("InfoBlock");
-		BlockRemoveInfo = new BlockRemoveInfo("RemoveInfoBlock");
-		BlockArticialGsource = new BlockArtificialGravitySource("ArtificialGsource");
+	
+	public static void init()
+	{
+		DockingPoint = new BlockDockingPoint("dockingPoint");
+		BlockInfo = new BlockInfo("infoBlock");
+		BlockRemoveInfo = new BlockRemoveInfo("removeInfoBlock");
+		BlockArticialGsource = new BlockArtificialGravitySource("artificialGsource");
 		API.hideItem(new ItemStack(BlockInfo));
 		API.hideItem(new ItemStack(BlockRemoveInfo));
-		BlockArmorStand = new BlockArmorStand("Armorstand");
-		BlockFake = new BlockFake("Blockfake");
+		BlockArmorStand = new BlockArmorStand("armorStand");
+		BlockFake = new BlockFake("blockfake");
 		API.hideItem(new ItemStack(BlockFake));
 	}
-	public BlockContainerMod(String uln) {
-		this(uln,Block.soundTypeStone, Material.rock, 0.5F, 10.0F);
+	
+	public BlockContainerMod(String uln)
+	{
+		this(uln, Block.soundTypeStone, Material.rock, 0.5F, 10.0F);
 	}
 	
-	public BlockContainerMod(String uln, Material material) {
-		this(uln,Block.soundTypeStone, material, 0.5F, 10.0F);
+	public BlockContainerMod(String uln, int i)
+	{
+		super(Material.rock);
+		this.name = uln;
+		this.setBlockName(uln);
+		this.setStepSound(Block.soundTypeMetal);
+		this.setResistance(10.0F);
+		this.setHardness(0.5F);
 	}
 	
-	public BlockContainerMod(String uln, Block.SoundType sound, Material material, float har, float res) {
+	public BlockContainerMod(String uln, Material material)
+	{
+		this(uln, Block.soundTypeStone, material, 0.5F, 10.0F);
+	}
+	
+	public BlockContainerMod(String uln, Block.SoundType sound, Material material, float har, float res)
+	{
 		super(material);
 		this.name = uln;
 		this.setBlockName(uln);
 		this.setStepSound(sound);
 		this.setResistance(res);
 		this.setHardness(har);
-     	this.setCreativeTab(CreativeTabs.tabDecorations);
-//		this.setBlockTextureName(GliderModInfo.ModTestures + ":" + uln);
+		this.setCreativeTab(CreativeTabs.tabDecorations);
+		//		this.setBlockTextureName(GliderModInfo.ModTestures + ":" + uln);
 		//GameRegistry.registerBlock(this, this.getItemBlockClass(), uln);
 	}
 	
-	
-	
-	public boolean getItem(EntityPlayer ep,int size)
+	public boolean getItem(EntityPlayer ep, int size)
 	{
-		if (ep.getCurrentEquippedItem().stackSize >= size) {
-			if(!ep.capabilities.isCreativeMode)
+		if (ep.getCurrentEquippedItem().stackSize >= size)
+		{
+			if (!ep.capabilities.isCreativeMode)
 			{
-			ep.getCurrentEquippedItem().stackSize = ep.getCurrentEquippedItem().stackSize -size;
+				ep.getCurrentEquippedItem().stackSize = ep.getCurrentEquippedItem().stackSize - size;
 			}
 			ep.swingItem();
 			return true;
 		}
 		return false;
 	}
-
 	
-	public void onItemBlockCreation(ItemContainerBlockMod itemContainerBlockMod){}
+	public void onItemBlockCreation(ItemContainerBlockMod itemContainerBlockMod)
+	{}
 	
-	public Class<? extends ItemContainerBlockMod> getItemBlockClass(){
+	public Class<? extends ItemContainerBlockMod> getItemBlockClass()
+	{
 		return ItemContainerBlockMod.class;
 	}
 	
 	@Override
-	public String getLocalizedName(){
+	public String getLocalizedName()
+	{
 		return StatCollector.translateToLocal(getUnlocalizedName() + ".name");
 	}
-
-	public String getUnlocalizedName(ItemStack is){
-		return GliderModInfo.ModTestures + "." + name;
+	
+	public String getUnlocalizedName(ItemStack is)
+	{
+		return getUnlocalizedName();
 	}
 	
 	@Override
-	public String getUnlocalizedName(){
-		return "tile." + GliderModInfo.ModTestures +"." + name;
+	public String getUnlocalizedName()
+	{
+		return GliderModInfo.ModTestures + ":tile." + name;
 	}
+	
 	@Override
-	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+	{
 		return null;
 	}
 }

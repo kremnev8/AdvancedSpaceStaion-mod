@@ -1,7 +1,7 @@
+
 package net.glider.src.tiles;
 
 import ic2.api.item.ElectricItem;
-import ic2.api.item.IC2Items;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.IElectricItemManager;
 
@@ -18,11 +18,11 @@ import micdoodle8.mods.galacticraft.core.tile.IMultiBlock;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.miccore.Annotations.NetworkedField;
 import net.glider.src.blocks.BlockContainerMod;
-import net.glider.src.gui.ContainerArmorStand;
 import net.glider.src.items.ItemSpaceJetpack;
+import net.glider.src.network.PacketHandler;
+import net.glider.src.network.packets.ArmorStandItemSyncPacket;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,16 +31,17 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory implements IMultiBlock,IFuelable {
+public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory implements IMultiBlock, IFuelable {
 	
 	@NetworkedField(targetSide = Side.CLIENT)
 	public BlockVec3 mainBlockPosition;
-
+	
 	public ItemStack[] items = new ItemStack[4];
 	
 	@Override
@@ -53,35 +54,34 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 	
 	public TileEntityArmorStand()
 	{
-		this.storage.setCapacity(STANDARD_CAPACITY*8);
+		this.storage.setCapacity(STANDARD_CAPACITY * 8);
 	}
 	
 	@Override
 	public boolean onActivated(EntityPlayer player)
 	{
 		
-			ItemStack[] stand = this.items.clone();
-			ItemStack[] playerS = player.inventory.armorInventory.clone();
-			
-			if(stand != null)
-			{
-				player.inventory.setInventorySlotContents(39, stand[0]); 
-				player.inventory.setInventorySlotContents(38, stand[1]); 
-				player.inventory.setInventorySlotContents(37, stand[2]); 
-				player.inventory.setInventorySlotContents(36, stand[3]); 
-			}
-			if(playerS != null)
-			{
-				this.setInventorySlotContents(3, playerS[0]); 
-				this.setInventorySlotContents(2, playerS[1]); 
-				this.setInventorySlotContents(1, playerS[2]); 
-				this.setInventorySlotContents(0, playerS[3]); 
-			}
+		ItemStack[] stand = this.items.clone();
+		ItemStack[] playerS = player.inventory.armorInventory.clone();
 		
+		if (stand != null)
+		{
+			player.inventory.setInventorySlotContents(39, stand[0]);
+			player.inventory.setInventorySlotContents(38, stand[1]);
+			player.inventory.setInventorySlotContents(37, stand[2]);
+			player.inventory.setInventorySlotContents(36, stand[3]);
+		}
+		if (playerS != null)
+		{
+			this.setInventorySlotContents(3, playerS[0]);
+			this.setInventorySlotContents(2, playerS[1]);
+			this.setInventorySlotContents(1, playerS[2]);
+			this.setInventorySlotContents(0, playerS[3]);
+		}
 		
 		return true;
 	}
-
+	
 	@Override
 	public boolean canUpdate()
 	{
@@ -97,10 +97,15 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 			mainBlockPosition = new BlockVec3(this);
 		}
 		
+		if ((ticks % 300 == 0 || ticks <= 20) && !worldObj.isRemote)
+		{
+			PacketHandler.sendToDimension(new ArmorStandItemSyncPacket(items, xCoord, yCoord, zCoord), worldObj.provider.dimensionId);
+		}
+		
 		for (int i = 0; i < items.length; i++)
 		{
 			ItemStack item = items[i];
-			if(item != null)
+			if (item != null)
 			{
 				if (Loader.isModLoaded("OpenComputers"))
 				{
@@ -108,10 +113,13 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 					{
 						if (ItemCharge.canCharge(item))
 						{
-							Chargeable charg = (Chargeable) item.getItem();
-							ItemCharge.charge(item, 10);
-							double charged = charg.receiveEnergy(item, 10, false);
-							this.storage.extractEnergyGC((float)(EnergyConfigHandler.RF_RATIO*charged), false); 
+							if (this.hasEnoughEnergyToRun)
+							{
+								Chargeable charg = (Chargeable) item.getItem();
+								ItemCharge.charge(item, 10);
+								double charged = charg.receiveEnergy(item, 10, false);
+								this.storage.extractEnergyGC((float) (EnergyConfigHandler.RF_RATIO * charged), false);
+							}
 						}
 					}
 				}
@@ -120,11 +128,19 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 					if (item.getItem() instanceof IElectricItem)
 					{
 						IElectricItemManager manager = ElectricItem.manager;
-						double charge = manager.charge(item, storage.getEnergyStoredGC()*EnergyConfigHandler.TO_IC2_RATIO, 4, false, false);
-						this.storage.extractEnergyGC((float)(EnergyConfigHandler.IC2_RATIO*charge), false); 
+						double charge = manager.charge(item, storage.getEnergyStoredGC() * EnergyConfigHandler.TO_IC2_RATIO, 4, false, false);
+						this.storage.extractEnergyGC((float) (EnergyConfigHandler.IC2_RATIO * charge), false);
 					}
 				}
-				//TODO add enderIO compactobility
+				if (Loader.isModLoaded("CoFHCore"))
+				{
+					if (item.getItem() instanceof IEnergyContainerItem)
+					{
+						IEnergyContainerItem cont = (IEnergyContainerItem) item.getItem();
+						int used = cont.receiveEnergy(item, 500, false);
+						this.storage.extractEnergyGC((float) (EnergyConfigHandler.RF_RATIO * used), false);
+					}
+				}
 			}
 		}
 	}
@@ -200,7 +216,7 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 		super.writeToNBT(par1NBTTagCompound);
 		this.writeStandardItemsToNBT(par1NBTTagCompound);
 	}
-
+	
 	@Override
 	public String getInventoryName()
 	{
@@ -241,7 +257,7 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 	{
 		return EnumSet.allOf(ForgeDirection.class);
 	}
-
+	
 	@Override
 	public void slowDischarge()
 	{
@@ -256,11 +272,11 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 		}
 		return null;
 	}
-
+	
 	@Override
 	public int addFuel(FluidStack fluid, boolean doFill)
 	{
-		if (items.length >=2)
+		if (items.length >= 2)
 		{
 			ItemStack armor = items[1];
 			if (armor != null)
@@ -280,7 +296,7 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 					if (!doFill)
 					{
 						return amount;
-					}else
+					} else
 					{
 						if (armor.hasTagCompound())
 						{
@@ -288,7 +304,7 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 							{
 								armor.stackTagCompound.setTag("fuelTank", tank.writeToNBT(new NBTTagCompound()));
 							}
-						}else
+						} else
 						{
 							armor.stackTagCompound = new NBTTagCompound();
 							if (tank.getFluid() != null)
@@ -303,11 +319,16 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 		}
 		return 0;
 	}
-
+	
 	@Override
 	public FluidStack removeFuel(int amount)
 	{
 		return null;
 	}
 	
+	@Override
+	public ItemStack getBatteryInSlot()
+	{
+		return null;
+	}
 }

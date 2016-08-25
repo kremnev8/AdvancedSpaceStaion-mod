@@ -9,13 +9,13 @@ import net.minecraft.item.ItemStack;
 
 public class SlotArmor extends Slot {
 	int type;
-
-	public SlotArmor(IInventory iInventory, int i, int j, int k, int type)
+	
+	public SlotArmor(IInventory iInventory, int i, int x, int y, int type)
 	{
-		super(iInventory, i, j, k);
+		super(iInventory, i, x, y);
 		this.type = type;
 	}
-
+	
 	public boolean isItemValid(ItemStack stack)
 	{
 		if (stack == null)
@@ -35,7 +35,7 @@ public class SlotArmor extends Slot {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public int getSlotStackLimit()
 	{

@@ -10,22 +10,24 @@ import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class OtherPlayerAnimationPacket implements IMessage {
 	private String name;
 	private String Plname;
 	private boolean act;
-
+	
 	public OtherPlayerAnimationPacket()
 	{}
-
+	
 	public OtherPlayerAnimationPacket(String name, String plName, boolean action)
 	{
 		this.name = name;
 		this.Plname = plName;
 		this.act = action;
 	}
-
+	
 	@Override
 	public void toBytes(ByteBuf buf)
 	{
@@ -33,7 +35,7 @@ public class OtherPlayerAnimationPacket implements IMessage {
 		ByteBufUtils.writeUTF8String(buf, Plname);
 		buf.writeBoolean(act);
 	}
-
+	
 	@Override
 	public void fromBytes(ByteBuf buf)
 	{
@@ -41,8 +43,9 @@ public class OtherPlayerAnimationPacket implements IMessage {
 		Plname = ByteBufUtils.readUTF8String(buf);
 		act = buf.readBoolean();
 	}
-
+	
 	public static class Handler implements IMessageHandler<OtherPlayerAnimationPacket, IMessage> {
+		@SideOnly(Side.CLIENT)
 		@Override
 		public IMessage onMessage(OtherPlayerAnimationPacket pkt, MessageContext ctx)
 		{
@@ -67,9 +70,9 @@ public class OtherPlayerAnimationPacket implements IMessage {
 					}
 				}
 			}
-
+			
 			return null;
 		}
-
+		
 	}
 }

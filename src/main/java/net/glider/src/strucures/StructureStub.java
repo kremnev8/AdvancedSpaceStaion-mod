@@ -1,3 +1,4 @@
+
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
@@ -11,15 +12,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class StructureStub extends Structure {
-
+	
 	private boolean hiddenS;
-
+	
 	public StructureStub(boolean hidden)
 	{
 		super(hidden);
 		this.hiddenS = hidden;
 	}
-
+	
 	@Override
 	public Structure copy()
 	{
@@ -27,7 +28,7 @@ public class StructureStub extends Structure {
 		Nstr.Configure(placementPos, placementRotation, placementDir);
 		return Nstr;
 	}
-
+	
 	@Override
 	public void deconstruct(World world, ForgeDirection dir, int x, int y, int z)
 	{
@@ -77,13 +78,13 @@ public class StructureStub extends Structure {
 		} else if (dir == ForgeDirection.EAST)
 		{
 			Block block5 = Blocks.air;
-
+			
 			Block block6 = Blocks.air;
-
+			
 			Block block8 = Blocks.air;
-
+			
 			Block block9 = Blocks.air;
-
+			
 			world.setBlock(x + 0, y + -2, z + -2, block5, 6, 2);
 			world.setBlock(x + 0, y + -2, z + -1, block6, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 0, block6, 4, 2);
@@ -121,7 +122,7 @@ public class StructureStub extends Structure {
 			world.setBlock(x + 1, y + 2, z + -1, block5, 1, 2);
 			world.setBlock(x + 1, y + 2, z + 0, block5, 1, 2);
 			world.setBlock(x + 1, y + 2, z + 1, block5, 1, 2);
-
+			
 		} else if (dir == ForgeDirection.SOUTH)
 		{
 			Block block2 = Blocks.air;
@@ -209,19 +210,16 @@ public class StructureStub extends Structure {
 			world.setBlock(x + 2, y + 1, z + 0, block2, 4, 2);
 			world.setBlock(x + 2, y + 2, z + 0, block1, 1, 2);
 		}
-
+		
 	}
-
+	
 	@Override
 	public void Build(World world, ForgeDirection dir, int x, int y, int z)
 	{
-		// GLoger.logInfo("Start Building");
-		// GLoger.logInfo("Forge direction: "+dir.name());
-		// GLoger.logInfo(x+" "+y+" "+z);
 		if (dir == ForgeDirection.WEST)
 		{// WEST
 			Block Bblock = GCBlocks.basicBlock;
-
+			
 			Block SHalf = GCBlocks.slabGCHalf;
 			Block Stairs = GCBlocks.tinStairs1;
 			world.setBlock(x - 1, y - 2, z - 1, Stairs, 4, 2);
@@ -231,7 +229,7 @@ public class StructureStub extends Structure {
 			world.setBlock(x - 1, y - 1, z + 0, Bblock, 4, 2);
 			world.setBlock(x - 1, y - 1, z + 1, Bblock, 4, 2);
 			world.setBlock(x - 1, y + 0, z - 1, Bblock, 4, 2);
-
+			
 			BuildHandler.buildBuildPoint(world, x - 1, y, z, 1);
 			world.setBlock(x - 1, y + 0, z + 1, Bblock, 4, 2);
 			world.setBlock(x - 1, y + 1, z - 1, Bblock, 4, 2);
@@ -265,11 +263,11 @@ public class StructureStub extends Structure {
 		} else if (dir == ForgeDirection.EAST)
 		{
 			Block block5 = GCBlocks.tinStairs1;
-
+			
 			Block block6 = GCBlocks.basicBlock;
-
+			
 			Block block9 = GCBlocks.slabGCHalf;
-
+			
 			world.setBlock(x + 0, y + -2, z + -2, block5, 6, 2);
 			world.setBlock(x + 0, y + -2, z + -1, block6, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 0, block6, 4, 2);
@@ -307,7 +305,7 @@ public class StructureStub extends Structure {
 			world.setBlock(x + 1, y + 2, z + -1, block5, 1, 2);
 			world.setBlock(x + 1, y + 2, z + 0, block5, 1, 2);
 			world.setBlock(x + 1, y + 2, z + 1, block5, 1, 2);
-
+			
 		} else if (dir == ForgeDirection.SOUTH)
 		{
 			Block block2 = GCBlocks.tinStairs1;
@@ -393,14 +391,13 @@ public class StructureStub extends Structure {
 			world.setBlock(x + 2, y + 1, z + 0, block2, 4, 2);
 			world.setBlock(x + 2, y + 2, z + 0, block1, 1, 2);
 		}
-
+		
 	}
-
+	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
-	{
-	}
-
+	{}
+	
 	@Override
 	public boolean Check(World world, ForgeDirection dir, int x, int y, int z, int meta)
 	{
@@ -409,30 +406,30 @@ public class StructureStub extends Structure {
 		else
 			return false;
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		return "_Stub";
 	}
-
+	
 	@Override
 	public boolean isHidden()
 	{
 		return hiddenS;
 	}
-
+	
 	@Override
 	public String getUnlocalizedName()
 	{
 		return "stub";
 	}
-
+	
 	@Override
 	public List<OreDictItemStack> getRequiredItems()
 	{
 		List<OreDictItemStack> items = new ArrayList();
 		return items;
 	}
-
+	
 }

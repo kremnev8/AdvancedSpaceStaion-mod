@@ -1,6 +1,7 @@
 /bin
 /eclipse
-/libs
+/libs/other
+/libs/temp
 /src/main/resources/assets/computronics
 /src/main/resources/assets/galacticraftasteroids
 /src/main/resources/assets/galacticraftcore

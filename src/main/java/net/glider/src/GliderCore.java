@@ -1,3 +1,4 @@
+
 package net.glider.src;
 
 import java.util.HashMap;
@@ -27,10 +28,8 @@ import net.glider.src.tiles.TileEntityGravitySource;
 import net.glider.src.tiles.TileEntityInfo;
 import net.glider.src.tiles.TileEntityRemoveInfo;
 import net.glider.src.utils.Config;
-import net.glider.src.utils.GLoger;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
@@ -44,39 +43,34 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = GliderModInfo.MOD_ID, name = GliderModInfo.MOD_NAME, version = GliderModInfo.Version, acceptedMinecraftVersions = "1.7.10", dependencies = 
-				"required-after:OpenComputers@[1.5,);" 
-			  + "required-after:GalacticraftCore@[3.0,);" 
-			  + "required-after:GalacticraftMars@[3.0,);" 
-			  + "required-after:RenderPlayerAPI;")
+@Mod(modid = GliderModInfo.MOD_ID, name = GliderModInfo.MOD_NAME, version = GliderModInfo.Version, acceptedMinecraftVersions = "1.7.10", dependencies = "required-after:OpenComputers@[1.5,);" + "required-after:GalacticraftCore@[3.0,);" + "required-after:GalacticraftMars@[3.0,);" + "required-after:RenderPlayerAPI;")
 //-Dfml.coreMods.load=net.glider.src.handlers.hooks.GliderHookLoader
-
+//TODO compile mod and give it to morfodrom guys to massive test.
 public class GliderCore {
 	
 	//TODO before compile make total cleanup
 	//TODO Find all client-classes calls on server(and back i think)
-
+	
 	@Instance(GliderModInfo.MOD_ID)
 	public static GliderCore instance;
-
+	
 	@SidedProxy(clientSide = "net.glider.src.ClientProxy", serverSide = "net.glider.src.CommonProxy")
 	public static CommonProxy proxy;
-
+	
 	public static Satellite satelliteAdvancedSpaceStation;
-
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		proxy.PreInit(event);
 		PacketHandler.register();
-		//TODO fix domain and naming problem!
 		Config.init("Glider");
 		BlockMod.init();
 		BlockContainerMod.init();
 		ItemMod.init();
 		EntityMod.init(Side.SERVER);
 	}
-
+	
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
@@ -95,31 +89,30 @@ public class GliderCore {
 		GameRegistry.registerTileEntity(TileEntityArmorStand.class, "ArmorStand");
 		// EntityList.addMapping(EntityIndustrialCreeper.class,
 		// "IndustrialCreeper", 100);
-
-//		GameRegistry.addSmelting(ItemMod.DebugTool, new ItemStack(ItemMod.fuelloader, 1, 0), 0); 
 		
-		GLoger.logInfo("*****START REGISTERING ASS*****");
+		//		GameRegistry.addSmelting(ItemMod.DebugTool, new ItemStack(ItemMod.fuelloader, 1, 0), 0); 
+		
 		satelliteAdvancedSpaceStation = (Satellite) new Satellite("advSpaceStation.mars").setParentBody(MarsModule.planetMars).setRelativeSize(0.2667F).setRelativeDistanceFromCenter(new CelestialBody.ScalableDistance(10F, 10F)).setRelativeOrbitTime(1 / 0.055F);
 		satelliteAdvancedSpaceStation.setDimensionInfo(40, 41, WorldProviderOrbitModif.class).setTierRequired(1);
 		satelliteAdvancedSpaceStation.setBodyIcon(new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/celestialbodies/spaceStation.png"));
-
+		
 		GalaxyRegistry.registerSatellite(satelliteAdvancedSpaceStation);
 		GalacticraftRegistry.registerProvider(40, WorldProviderOrbitModif.class, false, 0);
 		GalacticraftRegistry.registerProvider(41, WorldProviderOrbitModif.class, true, 0);
 		GalacticraftRegistry.registerTeleportType(WorldProviderOrbitModif.class, new TeleportTypeSpaceStation());
-
+		
 		final HashMap<Object, Integer> inputMap = new HashMap<Object, Integer>();
 		inputMap.put("ingotTin", 32);
 		inputMap.put(RecipeManagerGC.aluminumIngots, 16);
 		inputMap.put("waferAdvanced", 1);
 		inputMap.put(Items.iron_ingot, 24);
 		GalacticraftRegistry.registerSpaceStation(new SpaceStationType(40, MarsModule.planetMars.getDimensionID(), new SpaceStationRecipe(inputMap)));
-
+		
 		MinecraftForge.EVENT_BUS.register(new Events());
 		MinecraftForge.EVENT_BUS.register(new ItemsToolTips());
-
+		
 	}
-
+	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
