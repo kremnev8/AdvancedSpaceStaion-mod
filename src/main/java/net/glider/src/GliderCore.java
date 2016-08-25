@@ -64,7 +64,6 @@ public class GliderCore {
 	{
 		proxy.PreInit(event);
 		PacketHandler.register();
-		//TODO fix domain and naming problem!
 		Config.init("Glider");
 		BlockMod.init();
 		BlockContainerMod.init();
