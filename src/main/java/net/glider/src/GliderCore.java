@@ -28,7 +28,6 @@ import net.glider.src.tiles.TileEntityGravitySource;
 import net.glider.src.tiles.TileEntityInfo;
 import net.glider.src.tiles.TileEntityRemoveInfo;
 import net.glider.src.utils.Config;
-import net.glider.src.utils.GLoger;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
@@ -94,7 +93,6 @@ public class GliderCore {
 		
 		//		GameRegistry.addSmelting(ItemMod.DebugTool, new ItemStack(ItemMod.fuelloader, 1, 0), 0); 
 		
-		GLoger.logInfo("*****START REGISTERING ASS*****");
 		satelliteAdvancedSpaceStation = (Satellite) new Satellite("advSpaceStation.mars").setParentBody(MarsModule.planetMars).setRelativeSize(0.2667F).setRelativeDistanceFromCenter(new CelestialBody.ScalableDistance(10F, 10F)).setRelativeOrbitTime(1 / 0.055F);
 		satelliteAdvancedSpaceStation.setDimensionInfo(40, 41, WorldProviderOrbitModif.class).setTierRequired(1);
 		satelliteAdvancedSpaceStation.setBodyIcon(new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/celestialbodies/spaceStation.png"));

@@ -113,10 +113,13 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 					{
 						if (ItemCharge.canCharge(item))
 						{
-							Chargeable charg = (Chargeable) item.getItem();
-							ItemCharge.charge(item, 10);
-							double charged = charg.receiveEnergy(item, 10, false);
-							this.storage.extractEnergyGC((float) (EnergyConfigHandler.RF_RATIO * charged), false);
+							if (this.hasEnoughEnergyToRun)
+							{
+								Chargeable charg = (Chargeable) item.getItem();
+								ItemCharge.charge(item, 10);
+								double charged = charg.receiveEnergy(item, 10, false);
+								this.storage.extractEnergyGC((float) (EnergyConfigHandler.RF_RATIO * charged), false);
+							}
 						}
 					}
 				}

@@ -8,7 +8,6 @@ import net.glider.src.dimensions.DockingPortSaveData;
 import net.glider.src.dimensions.WorldProviderOrbitModif;
 import net.glider.src.gui.GuiHandler;
 import net.glider.src.tiles.TileEntityDockingPort;
-import net.glider.src.utils.GLoger;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -65,7 +64,6 @@ public class BlockDockingPoint extends BlockContainerMod {
 				DockingPortSaveData savef = DockingPortSaveData.forWorld(world);
 				savef.DockingPorts.add(new int[] { x, y, z });
 				savef.markDirty();
-				GLoger.logInfo("Added a new value in dim data");
 			}
 		}
 	}
@@ -85,7 +83,7 @@ public class BlockDockingPoint extends BlockContainerMod {
 					{
 						savef.DockingPorts.remove(i);
 						savef.markDirty();
-						GLoger.logInfo("delited mine value in dim data");
+						
 					}
 				}
 			}

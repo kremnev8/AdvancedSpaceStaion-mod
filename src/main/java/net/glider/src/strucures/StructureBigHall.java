@@ -1,3 +1,4 @@
+
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
@@ -20,16 +21,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class StructureBigHall extends StructureRotatable {
-
+	
 	boolean hidden;
 	int rot;
-
+	
 	public StructureBigHall(boolean hidden)
 	{
 		super(hidden);
 		this.hidden = hidden;
 	}
-
+	
 	@Override
 	public Structure copy()
 	{
@@ -37,19 +38,19 @@ public class StructureBigHall extends StructureRotatable {
 		Nstr.Configure(placementPos, placementRotation, placementDir);
 		return Nstr;
 	}
-
+	
 	@Override
 	public void setRotation(int rot)
 	{
 		this.rot = rot;
 	}
-
+	
 	@Override
 	public int getRotation()
 	{
 		return rot;
 	}
-
+	
 	@Override
 	public boolean isPossible(ForgeDirection dir, int rot, int meta)
 	{
@@ -67,12 +68,12 @@ public class StructureBigHall extends StructureRotatable {
 			return true;
 		}
 		return false;
-
+		
 	}
-
+	
 	public ForgeDirection[] getDirs(ForgeDirection dir)
 	{
-
+		
 		if (rot == 1)
 		{
 			return new ForgeDirection[] { ForgeDirectionUtils.turnAgainstClockwise(dir), ForgeDirectionUtils.turnAgainstClockwise(dir), dir, dir, ForgeDirectionUtils.turnClockwise(dir), ForgeDirectionUtils.turnClockwise(dir), dir.getOpposite() };
@@ -80,10 +81,10 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			return new ForgeDirection[] { dir.getOpposite(), ForgeDirectionUtils.turnAgainstClockwise(dir), ForgeDirectionUtils.turnAgainstClockwise(dir), dir, dir, ForgeDirectionUtils.turnClockwise(dir), ForgeDirectionUtils.turnClockwise(dir) };
 		}
-
+		
 		return new ForgeDirection[] {};
 	}
-
+	
 	public List<int[]> getPos(ForgeDirection dir, ForgeDirection[] Ddirs, int x, int y, int z)
 	{
 		List<int[]> ret = new ArrayList<>();
@@ -125,17 +126,17 @@ public class StructureBigHall extends StructureRotatable {
 						Npos = ForgeDirectionUtils.IncreaseByDir(dir, Npos, 4);
 						Npos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), Npos, 14);
 					}
-
+					
 				}
 				ret.add(Npos);
-
+				
 			}
 			int[] Npos = { x, y, z };
 			Npos = ForgeDirectionUtils.IncreaseByDir(dir, Npos, 4);
 			Npos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), Npos, 9);
 			Npos = ForgeDirectionUtils.IncreaseByDir(dir.getOpposite(), Npos, 5);
 			ret.add(Npos);
-
+			
 		} else if (rot == 0)
 		{
 			int[] Npos = { x, y, z };
@@ -146,7 +147,7 @@ public class StructureBigHall extends StructureRotatable {
 			for (int i = 1; i < 7; i++)
 			{
 				Npos = new int[] { x, y, z };
-
+				
 				if (Ddirs[i] == ForgeDirectionUtils.turnAgainstClockwise(dir))
 				{
 					if (i == 1)
@@ -182,29 +183,29 @@ public class StructureBigHall extends StructureRotatable {
 						Npos = ForgeDirectionUtils.IncreaseByDir(dir, Npos, 4);
 						Npos = ForgeDirectionUtils.IncreaseByDir(Ddirs[i], Npos, 5);
 					}
-
+					
 				}
 				ret.add(Npos);
-
+				
 			}
 		}
 		return ret;
 	}
-
+	
 	public void BuildInfoPoints(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (dir == ForgeDirection.WEST)
 		{
 			if (rot == 0)
 			{
-
+				
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x - 4, y - 3, z + 0, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x - 13, y - 3, z + 0, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, ForgeDirectionUtils.turnAgainstClockwise(dir), getUnlocalizedName(), x - 4, y - 3, z + 9, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x - 13, y - 3, z + 9, rot, x, y, z);
 			} else
 			{
-
+				
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x - 4, y - 3, z + 0, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x - 13, y - 3, z + 0, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, ForgeDirectionUtils.turnClockwise(dir), getUnlocalizedName(), x - 4, y - 3, z - 9, rot, x, y, z);
@@ -214,15 +215,15 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			if (rot == 0)
 			{
-
+				
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 0, y - 3, z + 4, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, ForgeDirectionUtils.turnAgainstClockwise(dir), getUnlocalizedName(), x + 9, y - 3, z + 4, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 0, y - 3, z + 13, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 9, y - 3, z + 13, rot, x, y, z);
-
+				
 			} else
 			{
-
+				
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 0, y - 3, z + 4, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, ForgeDirectionUtils.turnClockwise(dir), getUnlocalizedName(), x - 9, y - 3, z + 4, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 0, y - 3, z + 13, rot, x, y, z);
@@ -232,19 +233,19 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			if (rot == 0)
 			{
-
+				
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 4, y - 3, z + 0, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 13, y - 3, z + 0, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, ForgeDirectionUtils.turnAgainstClockwise(dir), getUnlocalizedName(), x + 4, y - 3, z - 9, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 13, y - 3, z - 9, rot, x, y, z);
 			} else
 			{
-
+				
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 4, y - 3, z + 0, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 13, y - 3, z + 0, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, ForgeDirectionUtils.turnClockwise(dir), getUnlocalizedName(), x + 4, y - 3, z + 9, rot, x, y, z);
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 13, y - 3, z + 9, rot, x, y, z);
-
+				
 			}
 		} else if (dir == ForgeDirection.NORTH)
 		{
@@ -262,11 +263,11 @@ public class StructureBigHall extends StructureRotatable {
 				BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 9, y - 3, z - 13, rot, x, y, z);
 			}
 		}
-
+		
 		if (dir != ForgeDirection.UP && dir != ForgeDirection.DOWN && dir != ForgeDirection.UNKNOWN)
 		{
 			List<int[]> pos = getInfoPointsPos(world, dir, x, y, z);
-
+			
 			int[] curpos = new int[] { x, y, z };
 			curpos = ForgeDirectionUtils.IncreaseByDir(dir, curpos, 8);
 			if (this.rot == 0)
@@ -281,11 +282,11 @@ public class StructureBigHall extends StructureRotatable {
 				world.setBlock(curpos[0], curpos[1], curpos[2], BlockContainerMod.BlockRemoveInfo, BuildHandler.str2.getMetaFromDir(ForgeDirectionUtils.turnClockwise(dir, 2)), 2);
 				TileEntityRemoveInfo te = (TileEntityRemoveInfo) world.getTileEntity(curpos[0], curpos[1], curpos[2]);
 				te.poses.addAll(pos);
-
+				
 			}
 		}
 	}
-
+	
 	public void DestroyInfoPoints(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (dir == ForgeDirection.WEST)
@@ -298,7 +299,7 @@ public class StructureBigHall extends StructureRotatable {
 				world.setBlock(x - 13, y - 3, z + 9, Blocks.air);
 			} else
 			{
-
+				
 				world.setBlock(x - 4, y - 3, z + 0, Blocks.air);
 				world.setBlock(x - 13, y - 3, z + 0, Blocks.air);
 				world.setBlock(x - 4, y - 3, z - 9, Blocks.air);
@@ -308,15 +309,15 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			if (rot == 0)
 			{
-
+				
 				world.setBlock(x + 0, y - 3, z + 4, Blocks.air);
 				world.setBlock(x + 9, y - 3, z + 4, Blocks.air);
 				world.setBlock(x + 0, y - 3, z + 13, Blocks.air);
 				world.setBlock(x + 9, y - 3, z + 13, Blocks.air);
-
+				
 			} else
 			{
-
+				
 				world.setBlock(x + 0, y - 3, z + 4, Blocks.air);
 				world.setBlock(x - 9, y - 3, z + 4, Blocks.air);
 				world.setBlock(x + 0, y - 3, z + 13, Blocks.air);
@@ -326,19 +327,19 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			if (rot == 0)
 			{
-
+				
 				world.setBlock(x + 4, y - 3, z + 0, Blocks.air);
 				world.setBlock(x + 13, y - 3, z + 0, Blocks.air);
 				world.setBlock(x + 4, y - 3, z - 9, Blocks.air);
 				world.setBlock(x + 13, y - 3, z - 9, Blocks.air);
 			} else
 			{
-
+				
 				world.setBlock(x + 4, y - 3, z + 0, Blocks.air);
 				world.setBlock(x + 13, y - 3, z + 0, Blocks.air);
 				world.setBlock(x + 4, y - 3, z + 9, Blocks.air);
 				world.setBlock(x + 13, y - 3, z + 9, Blocks.air);
-
+				
 			}
 		} else if (dir == ForgeDirection.NORTH)
 		{
@@ -356,7 +357,7 @@ public class StructureBigHall extends StructureRotatable {
 				world.setBlock(x + 9, y - 3, z - 13, Blocks.air);
 			}
 		}
-
+		
 		if (dir != ForgeDirection.UP && dir != ForgeDirection.DOWN && dir != ForgeDirection.UNKNOWN)
 		{
 			int[] curpos = new int[] { x, y, z };
@@ -365,33 +366,33 @@ public class StructureBigHall extends StructureRotatable {
 			{
 				curpos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), curpos, 2);
 				world.setBlock(curpos[0], curpos[1], curpos[2], Blocks.air, 0, 2);
-
+				
 			} else if (this.rot == 1)
 			{
 				curpos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnAgainstClockwise(dir), curpos, 2);
 				world.setBlock(curpos[0], curpos[1], curpos[2], Blocks.air, 0, 2);
-
+				
 			}
 		}
 	}
-
+	
 	public List<int[]> getInfoPointsPos(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		List Points = new ArrayList<int[]>();
-
+		
 		if (dir == ForgeDirection.WEST)
 		{
 			if (rot == 0)
 			{
-
+				
 				Points.add(new int[] { x - 4, y - 3, z + 0 });
 				Points.add(new int[] { x - 13, y - 3, z + 0 });
 				Points.add(new int[] { x - 4, y - 3, z + 9 });
 				Points.add(new int[] { x - 13, y - 3, z + 9 });
-
+				
 			} else
 			{
-
+				
 				Points.add(new int[] { x - 4, y - 3, z + 0 });
 				Points.add(new int[] { x - 13, y - 3, z + 0 });
 				Points.add(new int[] { x - 4, y - 3, z - 9 });
@@ -401,15 +402,15 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			if (rot == 0)
 			{
-
+				
 				Points.add(new int[] { x + 0, y - 3, z + 4 });
 				Points.add(new int[] { x + 9, y - 3, z + 4 });
 				Points.add(new int[] { x + 0, y - 3, z + 13 });
 				Points.add(new int[] { x + 9, y - 3, z + 13 });
-
+				
 			} else
 			{
-
+				
 				Points.add(new int[] { x + 0, y - 3, z + 4 });
 				Points.add(new int[] { x - 9, y - 3, z + 4 });
 				Points.add(new int[] { x + 0, y - 3, z + 13 });
@@ -419,19 +420,19 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			if (rot == 0)
 			{
-
+				
 				Points.add(new int[] { x + 4, y - 3, z + 0 });
 				Points.add(new int[] { x + 13, y - 3, z + 0 });
 				Points.add(new int[] { x + 4, y - 3, z - 9 });
 				Points.add(new int[] { x + 13, y - 3, z - 9 });
 			} else
 			{
-
+				
 				Points.add(new int[] { x + 4, y - 3, z + 0 });
 				Points.add(new int[] { x + 13, y - 3, z + 0 });
 				Points.add(new int[] { x + 4, y - 3, z + 9 });
 				Points.add(new int[] { x + 13, y - 3, z + 9 });
-
+				
 			}
 		} else if (dir == ForgeDirection.NORTH)
 		{
@@ -449,10 +450,10 @@ public class StructureBigHall extends StructureRotatable {
 				Points.add(new int[] { x + 9, y - 3, z - 13 });
 			}
 		}
-
+		
 		return Points;
 	}
-
+	
 	@Override
 	public void deconstruct(World world, ForgeDirection dir, int x, int y, int z)
 	{
@@ -470,9 +471,9 @@ public class StructureBigHall extends StructureRotatable {
 			DeconstructNorth(world, dir, x, y, z);
 		}
 		DestroyInfoPoints(world, dir, x, y, z);
-
+		
 	}
-
+	
 	private void DeconstructWest(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (rot == 0)
@@ -1282,9 +1283,9 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 2, z + 9, block2, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 10, block2, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 11, block1, 3, 2);
-
+			
 			BuildInfoPoints(world, dir, x, y, z);
-
+			
 		} else if (rot == 1)
 		{
 			Block block1 = Blocks.air;
@@ -2092,10 +2093,10 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 2, z + 0, block2, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 1, block2, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 2, block1, 3, 2);
-
+			
 		}
 	}
-
+	
 	private void DeconstructEast(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (rot == 0)
@@ -2905,7 +2906,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 17, y + 2, z + 0, block2, 4, 2);
 			world.setBlock(x + 17, y + 2, z + 1, block2, 4, 2);
 			world.setBlock(x + 17, y + 2, z + 2, block1, 3, 2);
-
+			
 		} else if (rot == 1)
 		{
 			Block block1 = Blocks.air;
@@ -3713,10 +3714,10 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 17, y + 2, z + 9, block2, 4, 2);
 			world.setBlock(x + 17, y + 2, z + 10, block2, 4, 2);
 			world.setBlock(x + 17, y + 2, z + 11, block1, 3, 2);
-
+			
 		}
 	}
-
+	
 	private void DeconstructSouth(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (rot == 0)
@@ -4526,7 +4527,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 13, y + 2, z + 13, block2, 4, 2);
 			world.setBlock(x + 13, y + 2, z + 14, block2, 4, 2);
 			world.setBlock(x + 13, y + 2, z + 15, block1, 3, 2);
-
+			
 		} else if (rot == 1)
 		{
 			Block block1 = Blocks.air;
@@ -5334,10 +5335,10 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 4, y + 2, z + 13, block2, 4, 2);
 			world.setBlock(x + 4, y + 2, z + 14, block2, 4, 2);
 			world.setBlock(x + 4, y + 2, z + 15, block1, 3, 2);
-
+			
 		}
 	}
-
+	
 	private void DeconstructNorth(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (rot == 0)
@@ -6147,7 +6148,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 4, y + 2, z - 4, block2, 4, 2);
 			world.setBlock(x + 4, y + 2, z - 3, block2, 4, 2);
 			world.setBlock(x + 4, y + 2, z - 2, block1, 3, 2);
-
+			
 		} else if (rot == 1)
 		{
 			Block block1 = Blocks.air;
@@ -6955,14 +6956,14 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 13, y + 2, z - 4, block2, 4, 2);
 			world.setBlock(x + 13, y + 2, z - 3, block2, 4, 2);
 			world.setBlock(x + 13, y + 2, z - 2, block1, 3, 2);
-
+			
 		}
 	}
-
+	
 	@Override
 	public void Build(World world, ForgeDirection dir, int x, int y, int z)
 	{
-
+		
 		if (dir == ForgeDirection.WEST)
 		{
 			BuildWest(world, dir, x, y, z);
@@ -6977,7 +6978,7 @@ public class StructureBigHall extends StructureRotatable {
 			BuildNorth(world, dir, x, y, z);
 		}
 	}
-
+	
 	private void BuildWest(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (rot == 0)
@@ -7786,9 +7787,9 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 2, z + 9, block2, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 10, block2, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 11, block1, 3, 2);
-
+			
 			BuildInfoPoints(world, dir, x, y, z);
-
+			
 		} else if (rot == 1)
 		{
 			Block block1 = GCBlocks.tinStairs1;
@@ -8014,7 +8015,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x - 13, y + 3, z - 12, block1, 2, 2);
 			world.setBlock(x - 13, y + 3, z - 11, block2, 4, 2);
 			world.setBlock(x - 13, y + 3, z - 10, block2, 4, 2);
-
+			
 			BuildHandler.buildBuildPoint(world, x - 13, y + 3, z - 9, 5);
 			world.setBlock(x - 13, y + 3, z - 8, block2, 4, 2);
 			world.setBlock(x - 13, y + 3, z - 7, block2, 4, 2);
@@ -8599,10 +8600,10 @@ public class StructureBigHall extends StructureRotatable {
 			BuildInfoPoints(world, dir, x, y, z);
 		}
 	}
-
+	
 	private void BuildEast(World world, ForgeDirection dir, int x, int y, int z)
 	{
-
+		
 		if (rot == 0)
 		{
 			Block block1 = GCBlocks.tinStairs1;
@@ -8828,7 +8829,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 4, y + 3, z - 12, block1, 2, 2);
 			world.setBlock(x + 4, y + 3, z - 11, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z - 10, block2, 4, 2);
-
+			
 			BuildHandler.buildBuildPoint(world, x + 4, y + 3, z - 9, 5);
 			world.setBlock(x + 4, y + 3, z - 8, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z - 7, block2, 4, 2);
@@ -9410,9 +9411,9 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 17, y + 2, z + 0, block2, 4, 2);
 			world.setBlock(x + 17, y + 2, z + 1, block2, 4, 2);
 			world.setBlock(x + 17, y + 2, z + 2, block1, 3, 2);
-
+			
 			BuildInfoPoints(world, dir, x, y, z);
-
+			
 		} else if (rot == 1)
 		{
 			Block block1 = GCBlocks.tinStairs1;
@@ -9638,8 +9639,8 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 4, y + 3, z - 3, block1, 2, 2);
 			world.setBlock(x + 4, y + 3, z - 2, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z - 1, block2, 4, 2);
-
-			BuildHandler.buildBuildPoint(world, x + 4, y + 3, z + 0, 3);
+			
+			BuildHandler.buildBuildPoint(world, x + 4, y + 3, z + 0, 5);
 			world.setBlock(x + 4, y + 3, z + 1, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z + 2, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z + 3, block2, 4, 2);
@@ -9648,7 +9649,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 4, y + 3, z + 6, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z + 7, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z + 8, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 4, y + 3, z + 9, 3);
+			BuildHandler.buildBuildPoint(world, x + 4, y + 3, z + 9, 5);
 			world.setBlock(x + 4, y + 3, z + 10, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z + 11, block2, 4, 2);
 			world.setBlock(x + 4, y + 3, z + 12, block1, 3, 2);
@@ -10015,7 +10016,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 13, y + 3, z - 3, block1, 2, 2);
 			world.setBlock(x + 13, y + 3, z - 2, block2, 4, 2);
 			world.setBlock(x + 13, y + 3, z - 1, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 13, y + 3, z + 0, 3);
+			BuildHandler.buildBuildPoint(world, x + 13, y + 3, z + 0, 5);
 			world.setBlock(x + 13, y + 3, z + 1, block2, 4, 2);
 			world.setBlock(x + 13, y + 3, z + 2, block2, 4, 2);
 			world.setBlock(x + 13, y + 3, z + 3, block2, 4, 2);
@@ -10024,7 +10025,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 13, y + 3, z + 6, block2, 4, 2);
 			world.setBlock(x + 13, y + 3, z + 7, block2, 4, 2);
 			world.setBlock(x + 13, y + 3, z + 8, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 13, y + 3, z + 9, 3);
+			BuildHandler.buildBuildPoint(world, x + 13, y + 3, z + 9, 5);
 			world.setBlock(x + 13, y + 3, z + 10, block2, 4, 2);
 			world.setBlock(x + 13, y + 3, z + 11, block2, 4, 2);
 			world.setBlock(x + 13, y + 3, z + 12, block1, 3, 2);
@@ -10220,11 +10221,11 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 17, y + 2, z + 9, block2, 4, 2);
 			world.setBlock(x + 17, y + 2, z + 10, block2, 4, 2);
 			world.setBlock(x + 17, y + 2, z + 11, block1, 3, 2);
-
+			
 			BuildInfoPoints(world, dir, x, y, z);
 		}
 	}
-
+	
 	private void BuildSouth(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (rot == 0)
@@ -10452,8 +10453,8 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 3, z + 1, block1, 2, 2);
 			world.setBlock(x + 0, y + 3, z + 2, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 3, block2, 4, 2);
-
-			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z + 4, 3);
+			
+			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z + 4, 5);
 			world.setBlock(x + 0, y + 3, z + 5, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 6, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 7, block2, 4, 2);
@@ -10462,7 +10463,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 3, z + 10, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 11, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 12, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z + 13, 3);
+			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z + 13, 5);
 			world.setBlock(x + 0, y + 3, z + 14, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 15, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 16, block1, 3, 2);
@@ -10829,7 +10830,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 9, y + 3, z + 1, block1, 2, 2);
 			world.setBlock(x + 9, y + 3, z + 2, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z + 3, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 9, y + 3, z + 4, 3);
+			BuildHandler.buildBuildPoint(world, x + 9, y + 3, z + 4, 5);
 			world.setBlock(x + 9, y + 3, z + 5, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z + 6, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z + 7, block2, 4, 2);
@@ -10838,7 +10839,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 9, y + 3, z + 10, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z + 11, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z + 12, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 9, y + 3, z + 13, 3);
+			BuildHandler.buildBuildPoint(world, x + 9, y + 3, z + 13, 5);
 			world.setBlock(x + 9, y + 3, z + 14, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z + 15, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z + 16, block1, 3, 2);
@@ -11034,9 +11035,9 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 13, y + 2, z + 13, block2, 4, 2);
 			world.setBlock(x + 13, y + 2, z + 14, block2, 4, 2);
 			world.setBlock(x + 13, y + 2, z + 15, block1, 3, 2);
-
+			
 			BuildInfoPoints(world, dir, x, y, z);
-
+			
 		} else if (rot == 1)
 		{
 			Block block1 = GCBlocks.tinStairs1;
@@ -11262,8 +11263,8 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x - 9, y + 3, z + 1, block1, 2, 2);
 			world.setBlock(x - 9, y + 3, z + 2, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z + 3, block2, 4, 2);
-
-			BuildHandler.buildBuildPoint(world, x - 9, y + 3, z + 4, 3);
+			
+			BuildHandler.buildBuildPoint(world, x - 9, y + 3, z + 4, 5);
 			world.setBlock(x - 9, y + 3, z + 5, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z + 6, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z + 7, block2, 4, 2);
@@ -11272,7 +11273,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x - 9, y + 3, z + 10, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z + 11, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z + 12, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x - 9, y + 3, z + 13, 3);
+			BuildHandler.buildBuildPoint(world, x - 9, y + 3, z + 13, 5);
 			world.setBlock(x - 9, y + 3, z + 14, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z + 15, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z + 16, block1, 3, 2);
@@ -11639,7 +11640,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 3, z + 1, block1, 2, 2);
 			world.setBlock(x + 0, y + 3, z + 2, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 3, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z + 4, 3);
+			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z + 4, 5);
 			world.setBlock(x + 0, y + 3, z + 5, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 6, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 7, block2, 4, 2);
@@ -11648,7 +11649,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 3, z + 10, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 11, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 12, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z + 13, 3);
+			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z + 13, 5);
 			world.setBlock(x + 0, y + 3, z + 14, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 15, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z + 16, block1, 3, 2);
@@ -11844,12 +11845,12 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 4, y + 2, z + 13, block2, 4, 2);
 			world.setBlock(x + 4, y + 2, z + 14, block2, 4, 2);
 			world.setBlock(x + 4, y + 2, z + 15, block1, 3, 2);
-
+			
 			BuildInfoPoints(world, dir, x, y, z);
-
+			
 		}
 	}
-
+	
 	private void BuildNorth(World world, ForgeDirection dir, int x, int y, int z)
 	{
 		if (rot == 0)
@@ -12077,8 +12078,8 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x - 9, y + 3, z - 16, block1, 2, 2);
 			world.setBlock(x - 9, y + 3, z - 15, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z - 14, block2, 4, 2);
-
-			BuildHandler.buildBuildPoint(world, x - 9, y + 3, z - 13, 3);
+			
+			BuildHandler.buildBuildPoint(world, x - 9, y + 3, z - 13, 5);
 			world.setBlock(x - 9, y + 3, z - 12, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z - 11, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z - 10, block2, 4, 2);
@@ -12087,7 +12088,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x - 9, y + 3, z - 7, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z - 6, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z - 5, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x - 9, y + 3, z - 4, 3);
+			BuildHandler.buildBuildPoint(world, x - 9, y + 3, z - 4, 5);
 			world.setBlock(x - 9, y + 3, z - 3, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z - 2, block2, 4, 2);
 			world.setBlock(x - 9, y + 3, z - 1, block1, 3, 2);
@@ -12454,7 +12455,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 3, z - 16, block1, 2, 2);
 			world.setBlock(x + 0, y + 3, z - 15, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 14, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z - 13, 3);
+			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z - 13, 5);
 			world.setBlock(x + 0, y + 3, z - 12, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 11, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 10, block2, 4, 2);
@@ -12463,7 +12464,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 3, z - 7, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 6, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 5, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z - 4, 3);
+			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z - 4, 5);
 			world.setBlock(x + 0, y + 3, z - 3, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 2, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 1, block1, 3, 2);
@@ -12659,9 +12660,9 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 4, y + 2, z - 4, block2, 4, 2);
 			world.setBlock(x + 4, y + 2, z - 3, block2, 4, 2);
 			world.setBlock(x + 4, y + 2, z - 2, block1, 3, 2);
-
+			
 			BuildInfoPoints(world, dir, x, y, z);
-
+			
 		} else if (rot == 1)
 		{
 			Block block1 = GCBlocks.tinStairs1;
@@ -12887,8 +12888,8 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 3, z - 16, block1, 2, 2);
 			world.setBlock(x + 0, y + 3, z - 15, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 14, block2, 4, 2);
-
-			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z - 13, 3);
+			
+			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z - 13, 5);
 			world.setBlock(x + 0, y + 3, z - 12, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 11, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 10, block2, 4, 2);
@@ -12897,7 +12898,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 0, y + 3, z - 7, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 6, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 5, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z - 4, 3);
+			BuildHandler.buildBuildPoint(world, x + 0, y + 3, z - 4, 5);
 			world.setBlock(x + 0, y + 3, z - 3, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 2, block2, 4, 2);
 			world.setBlock(x + 0, y + 3, z - 1, block1, 3, 2);
@@ -13264,7 +13265,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 9, y + 3, z - 16, block1, 2, 2);
 			world.setBlock(x + 9, y + 3, z - 15, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z - 14, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 9, y + 3, z - 13, 3);
+			BuildHandler.buildBuildPoint(world, x + 9, y + 3, z - 13, 5);
 			world.setBlock(x + 9, y + 3, z - 12, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z - 11, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z - 10, block2, 4, 2);
@@ -13273,7 +13274,7 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 9, y + 3, z - 7, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z - 6, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z - 5, block2, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 9, y + 3, z - 4, 3);
+			BuildHandler.buildBuildPoint(world, x + 9, y + 3, z - 4, 5);
 			world.setBlock(x + 9, y + 3, z - 3, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z - 2, block2, 4, 2);
 			world.setBlock(x + 9, y + 3, z - 1, block1, 3, 2);
@@ -13469,11 +13470,11 @@ public class StructureBigHall extends StructureRotatable {
 			world.setBlock(x + 13, y + 2, z - 4, block2, 4, 2);
 			world.setBlock(x + 13, y + 2, z - 3, block2, 4, 2);
 			world.setBlock(x + 13, y + 2, z - 2, block1, 3, 2);
-
+			
 			BuildInfoPoints(world, dir, x, y, z);
 		}
 	}
-
+	
 	@Override
 	public boolean Check(World world, ForgeDirection dir, int x, int y, int z, int meta)
 	{
@@ -13481,34 +13482,36 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			return false;
 		}
-		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) return true;
-		else return false;
+		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
+			return true;
+		else
+			return false;
 	}
-
+	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
-	{
-
+	{	
+		
 	}
-
+	
 	@Override
 	public boolean isHidden()
 	{
 		return hidden;
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		return StatCollector.translateToLocal("builder.bighall.name");
 	}
-
+	
 	@Override
 	public String getUnlocalizedName()
 	{
 		return "bighall";
 	}
-
+	
 	@Override
 	public List<OreDictItemStack> getRequiredItems()
 	{
@@ -13524,8 +13527,8 @@ public class StructureBigHall extends StructureRotatable {
 		items.add(new OreDictItemStack(new ItemStack(ItemMod.ironScaffold, 64, ItemMod.scaffold_meta)));
 		items.add(new OreDictItemStack(new ItemStack(ItemMod.ironScaffold, 64, ItemMod.scaffold_meta)));
 		items.add(new OreDictItemStack(new ItemStack(ItemMod.ironScaffold, 16, ItemMod.scaffold_meta)));
-
+		
 		return items;
 	}
-
+	
 }

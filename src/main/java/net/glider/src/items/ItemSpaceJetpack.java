@@ -12,7 +12,6 @@ import net.glider.src.entity.ExtendedPlayer;
 import net.glider.src.network.PacketHandler;
 import net.glider.src.network.packets.JetpackUseFuelPacket;
 import net.glider.src.network.packets.SyncPressedKeysPacket;
-import net.glider.src.utils.GLoger;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
@@ -134,7 +133,6 @@ public class ItemSpaceJetpack extends ItemArmorMod {
 			} else
 			{
 				PacketHandler.sendToServer(new SyncPressedKeysPacket(activated));
-				GLoger.logInfo("packet+1");
 				ticks_from_sent = 5;
 			}
 			this.needSave = false;

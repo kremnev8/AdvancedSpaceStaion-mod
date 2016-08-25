@@ -1,3 +1,4 @@
+
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
@@ -15,16 +16,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class StructureSolarPanel extends StructureRotatable {
-
+	
 	private boolean hidden;
 	private int rot;
-
+	
 	public StructureSolarPanel(boolean hidden)
 	{
 		super(hidden);
 		this.hidden = hidden;
 	}
-
+	
 	@Override
 	public Structure copy()
 	{
@@ -32,19 +33,19 @@ public class StructureSolarPanel extends StructureRotatable {
 		Nstr.Configure(placementPos, placementRotation, placementDir);
 		return Nstr;
 	}
-
+	
 	@Override
 	public void setRotation(int rot)
 	{
 		this.rot = rot;
 	}
-
+	
 	@Override
 	public int getRotation()
 	{
 		return rot;
 	}
-
+	
 	@Override
 	public boolean isPossible(ForgeDirection dir, int rot, int meta)
 	{
@@ -55,9 +56,9 @@ public class StructureSolarPanel extends StructureRotatable {
 		}
 		return false;
 	}
-
+	
 	int ret = 4;
-
+	
 	@Override
 	public void deconstruct(World world, ForgeDirection dir, int x, int y, int z)
 	{
@@ -69,7 +70,7 @@ public class StructureSolarPanel extends StructureRotatable {
 			world.setBlock(x, y, z + 1, GCBlocks.basicBlock, 4, 2);
 		BuildHandler.buildBuildPoint(world, x, y, z, ret);
 	}
-
+	
 	@Override
 	public void Build(World world, ForgeDirection dir, int x, int y, int z)
 	{
@@ -97,11 +98,11 @@ public class StructureSolarPanel extends StructureRotatable {
 			tile.onCreate(new BlockVec3(x, y, z));
 		}
 	}
-
+	
 	@Override
 	public boolean Check(World world, ForgeDirection dir, int x, int y, int z, int meta)
 	{
-		if (meta != 2 && meta != 4 && meta != 5 && meta != -1)
+		if (meta != 2 && meta != 4 && meta != 5 && meta != 0 && meta != -1)
 		{
 			return false;
 		}
@@ -111,31 +112,31 @@ public class StructureSolarPanel extends StructureRotatable {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
-	{
-
+	{	
+		
 	}
-
+	
 	@Override
 	public boolean isHidden()
 	{
 		return hidden;
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		return StatCollector.translateToLocal("builder.solarpanel.rot" + rot + ("_short")) + StatCollector.translateToLocal("builder.solarpanel.name");
 	}
-
+	
 	@Override
 	public String getUnlocalizedName()
 	{
 		return "solarpanel";
 	}
-
+	
 	@Override
 	public List<OreDictItemStack> getRequiredItems()
 	{
@@ -151,7 +152,7 @@ public class StructureSolarPanel extends StructureRotatable {
 		}
 		return items;
 	}
-
+	
 	@Override
 	public StructureData getStructureData()
 	{
@@ -159,5 +160,5 @@ public class StructureSolarPanel extends StructureRotatable {
 		data.specialFunc = "generator";
 		return data;
 	}
-
+	
 }
