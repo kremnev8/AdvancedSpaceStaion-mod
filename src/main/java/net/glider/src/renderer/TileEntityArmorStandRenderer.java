@@ -38,10 +38,6 @@ import cofh.thermaldynamics.duct.item.TileItemDuct;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import crazypants.enderio.conduit.BlockConduitBundle;
-import crazypants.enderio.conduit.TileConduitBundle;
-import crazypants.enderio.conduit.item.ItemConduit;
-import crazypants.enderio.conduit.power.PowerConduit;
 
 @SideOnly(Side.CLIENT)
 public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
@@ -426,14 +422,15 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 					model.render("fuel", l + 3 > 3 ? (l - 4) + 3 : l + 3);
 				}
 			}
-			if (Loader.isModLoaded("EnderIO") && bl instanceof BlockConduitBundle)
-			{
-				TileConduitBundle te2 = (TileConduitBundle) world.getTileEntity(te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0));
-				if (te2 != null && te2.hasType(PowerConduit.class) || te2.hasType(ItemConduit.class))
-				{
-					model.render("wire", l + 3 > 3 ? (l - 4) + 3 : l + 3);
-				}
-			}
+			//TODO disable due i not found immibis microblocks api.
+			//	if (Loader.isModLoaded("EnderIO") && bl instanceof BlockConduitBundle)
+			//	{
+			//		TileConduitBundle te2 = (TileConduitBundle) world.getTileEntity(te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0));
+			//		if (te2 != null && te2.hasType(PowerConduit.class) || te2.hasType(ItemConduit.class))
+			//		{
+			//			model.render("wire", l + 3 > 3 ? (l - 4) + 3 : l + 3);
+			//		}
+			//	}
 		}
 		
 		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
