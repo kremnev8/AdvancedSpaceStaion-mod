@@ -1,19 +1,29 @@
 ﻿
-FTBTweaks:Builder.item=Строитель
-FTBTweaks:ironScaffold.item=Железные леса
-FTBTweaks:dockingComponent.item=Компонент стыковочного шлюза
-FTBTweaks:brokenTin.item=Поврежеденная оловянная пластина
-FTBTweaks:brokenSteel.item=Поврежеденная стальная пластина
-FTBTweaks:brokenAluminum.item=Поврежеденная алюминиевая пластина
-FTBTweaks:debugTool.item=Дебаг тул
-FTBTweaks:Jetpack.item=Космический джетпак
-FTBTweaks:Fuelloader.item=Портативный заправщик топлива
+AdvancedSSMod:item.Builder.name=Строитель
+AdvancedSSMod:item.ironScaffold.name=Железные леса
+AdvancedSSMod:item.dockingComponent.name=Компонент стыковочного шлюза
+AdvancedSSMod:item.brokenTin.name=Поврежеденная оловянная пластина
+AdvancedSSMod:item.brokenSteel.name=Поврежеденная стальная пластина
+AdvancedSSMod:item.brokenAluminum.name=Поврежеденная алюминиевая пластина
+AdvancedSSMod:item.debugTool.name=Дебаг тул
+AdvancedSSMod:item.Jetpack.name=Космический джетпак
 
-glider:block.BuildPoint.name=Точка строительства
-glider.DockingPoint=Стыковочный шлюз
-glider.InfoBlock=Info Block
-glider.RemoveInfoBlock=Бортовой журнал
-glider.ArtificialGsource=Источник искусственной гравитаций
+AdvancedSSMod:block.buildPoint=Точка строительства
+AdvancedSSMod:tile.dockingPoint=Стыковочный шлюз
+AdvancedSSMod:tile.infoBlock=Info Block
+AdvancedSSMod:tile.removeInfoBlock=Бортовой журнал
+AdvancedSSMod:tile.artificialGsource=Источник искусственной гравитаций
+AdvancedSSMod:tile.armorStand=Стойка для брони
+
+AdvancedSSMod:descr_shift.Builder.name=Строитель позволяет строить разные модули на космических станциях
+AdvancedSSMod:descr_shift.brokenTin.name=Она не выглядит пригодной для использования...
+AdvancedSSMod:descr_shift.brokenSteel.name=Она не выглядит пригодной для использования...
+AdvancedSSMod:descr_shift.brokenAluminum.name=Она не выглядит пригодной для использования...
+AdvancedSSMod:descr_shift.Jetpack.name=Космический джетпак - это продвинутое устройство с помощью которого можно свободно перемешаться в условиях микрогравитации
+
+AdvancedSSMod:descr_shift.dockingPoint.name=Стыковочный шлюз предназначен для пристыковки кораблей на космическую станцию. обычно его используют вместе одноименным модулем
+AdvancedSSMod:descr_shift.artificialGsource.name=Данное устройство позволяет создать на космической станций искусственную гравитацию
+AdvancedSSMod:descr_shift.armorStand.name=Данная стойка может заряжать броню а так заправлять некоторые устройства
 
 builder.hall.name=Зал
 builder.corner.name=Угол

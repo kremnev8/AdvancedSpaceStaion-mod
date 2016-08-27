@@ -5,6 +5,7 @@ import java.util.Random;
 
 import net.glider.src.items.ItemContainerBlockMod;
 import net.glider.src.utils.GliderModInfo;
+import net.glider.src.utils.IDescrObject;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -16,10 +17,11 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import codechicken.nei.api.API;
 
-public class BlockContainerMod extends BlockContainer {
+public class BlockContainerMod extends BlockContainer implements IDescrObject {
 	
 	Random r = new Random();
 	private String name;
+	public boolean showDescr;
 	
 	public static BlockContainerMod DockingPoint;
 	public static BlockContainerMod BlockInfo;
@@ -110,12 +112,35 @@ public class BlockContainerMod extends BlockContainer {
 	@Override
 	public String getUnlocalizedName()
 	{
-		return GliderModInfo.ModTestures + ":tile." + name;
+		return GliderModInfo.MOD_ID + ":tile." + name;
 	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
 	{
 		return null;
+	}
+	
+	@Override
+	public String getDescription(int meta)
+	{
+		return "";
+	}
+	
+	@Override
+	public String getShiftDescription(int meta)
+	{
+		return StatCollector.translateToLocal(GliderModInfo.MOD_ID + ":descr_shift." + name + ".name");
+	}
+	
+	@Override
+	public boolean showDescription(int meta)
+	{
+		return showDescr;
+	}
+	
+	public void setShowDescr(boolean showDescr)
+	{
+		this.showDescr = showDescr;
 	}
 }

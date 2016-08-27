@@ -45,11 +45,13 @@ import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = GliderModInfo.MOD_ID, name = GliderModInfo.MOD_NAME, version = GliderModInfo.Version, acceptedMinecraftVersions = "1.7.10", dependencies = "required-after:OpenComputers@[1.5,);" + "required-after:GalacticraftCore@[3.0,);" + "required-after:GalacticraftMars@[3.0,);" + "required-after:RenderPlayerAPI;")
 //-Dfml.coreMods.load=net.glider.src.handlers.hooks.GliderHookLoader
-//TODO compile mod and give it to morfodrom guys to massive test.
 public class GliderCore {
 	
 	//TODO before compile make total cleanup
 	//TODO Find all client-classes calls on server(and back i think)
+	//
+	//
+	//
 	
 	@Instance(GliderModInfo.MOD_ID)
 	public static GliderCore instance;

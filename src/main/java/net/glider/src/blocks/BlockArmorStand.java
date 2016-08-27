@@ -6,7 +6,6 @@ import java.util.Random;
 
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
-import micdoodle8.mods.galacticraft.core.items.ItemBlockDesc;
 import micdoodle8.mods.galacticraft.core.tile.IMultiBlock;
 import micdoodle8.mods.galacticraft.core.util.EnumColor;
 import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
@@ -30,12 +29,13 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockArmorStand extends BlockContainerMod implements ItemBlockDesc.IBlockShiftDesc {
+public class BlockArmorStand extends BlockContainerMod {
 	
 	public BlockArmorStand(String uln)
 	{
 		super(uln);
 		this.setStepSound(soundTypeMetal);
+		this.setShowDescr(true);
 		GameRegistry.registerBlock(this, this.getItemBlockClass(), uln);
 	}
 	
@@ -351,15 +351,4 @@ public class BlockArmorStand extends BlockContainerMod implements ItemBlockDesc.
 		return null;
 	}
 	
-	@Override
-	public String getShiftDescription(int meta)
-	{
-		return "ShiftDescr";
-	}
-	
-	@Override
-	public boolean showDescription(int meta)
-	{
-		return true;
-	}
 }

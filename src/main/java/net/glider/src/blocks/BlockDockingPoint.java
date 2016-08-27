@@ -38,6 +38,7 @@ public class BlockDockingPoint extends BlockContainerMod {
 		this.name = uln;
 		this.setCreativeTab(CreativeTabs.tabRedstone);
 		GameRegistry.registerBlock(this, this.getItemBlockClass(), uln);
+		this.setShowDescr(true);
 	}
 	
 	@Override

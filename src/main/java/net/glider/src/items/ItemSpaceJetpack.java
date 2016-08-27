@@ -59,6 +59,7 @@ public class ItemSpaceJetpack extends ItemArmorMod {
 		activated = false;
 		this.setNoRepair();
 		this.setMaxDamage(0);
+		this.setShowDescr(true);
 	}
 	
 	@SideOnly(Side.CLIENT)
