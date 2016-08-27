@@ -15,7 +15,9 @@ import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.OxygenUtil;
 import net.glider.src.ClientProxy;
 import net.glider.src.dimensions.DockingPortSaveData;
+import net.glider.src.dimensions.SkyProviderOrbitEarth;
 import net.glider.src.dimensions.SkyProviderOrbitModif;
+import net.glider.src.dimensions.WorldProviderOrbitEarth;
 import net.glider.src.dimensions.WorldProviderOrbitModif;
 import net.glider.src.entity.EntityRocketFakeTiered;
 import net.glider.src.items.ItemMod;
@@ -342,7 +344,20 @@ public class Events {
 		
 		if (world != null)
 		{
-			if (world.provider instanceof WorldProviderOrbitModif)
+			if (world.provider instanceof WorldProviderOrbitEarth)
+			{
+				if (world.provider.getSkyRenderer() == null)
+				{
+					world.provider.setSkyRenderer(new SkyProviderOrbitEarth(new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/celestialbodies/earth.png"), true, true));
+					((SkyProviderOrbitEarth) world.provider.getSkyRenderer()).spinDeltaPerTick = ((WorldProviderOrbitEarth) world.provider).getSpinRate();
+					GCPlayerStatsClient.get(player).inFreefallFirstCheck = false;
+				}
+				
+				if (world.provider.getCloudRenderer() == null)
+				{
+					world.provider.setCloudRenderer(new CloudRenderer());
+				}
+			} else if (world.provider instanceof WorldProviderOrbitModif)
 			{
 				if (world.provider.getSkyRenderer() == null)
 				{

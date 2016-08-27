@@ -11,8 +11,10 @@ import micdoodle8.mods.galacticraft.api.recipe.SpaceStationRecipe;
 import micdoodle8.mods.galacticraft.api.world.SpaceStationType;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.dimension.TeleportTypeSpaceStation;
-import micdoodle8.mods.galacticraft.core.recipe.RecipeManagerGC;
+import micdoodle8.mods.galacticraft.core.items.GCItems;
+import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.planets.mars.MarsModule;
+import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
 import net.glider.src.blocks.BlockContainerMod;
 import net.glider.src.blocks.BlockMod;
 import net.glider.src.dimensions.WorldProviderOrbitModif;
@@ -20,6 +22,7 @@ import net.glider.src.entity.EntityMod;
 import net.glider.src.gui.GuiHandler;
 import net.glider.src.handlers.Events;
 import net.glider.src.handlers.ItemsToolTips;
+import net.glider.src.handlers.hooks.Hooks;
 import net.glider.src.items.ItemMod;
 import net.glider.src.network.PacketHandler;
 import net.glider.src.tiles.TileEntityArmorStand;
@@ -30,6 +33,7 @@ import net.glider.src.tiles.TileEntityRemoveInfo;
 import net.glider.src.utils.Config;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
@@ -89,8 +93,6 @@ public class GliderCore {
 		GameRegistry.registerTileEntity(TileEntityDockingPort.class, "DockingPort");
 		GameRegistry.registerTileEntity(TileEntityGravitySource.class, "GravitySource");
 		GameRegistry.registerTileEntity(TileEntityArmorStand.class, "ArmorStand");
-		// EntityList.addMapping(EntityIndustrialCreeper.class,
-		// "IndustrialCreeper", 100);
 		
 		//		GameRegistry.addSmelting(ItemMod.DebugTool, new ItemStack(ItemMod.fuelloader, 1, 0), 0); 
 		
@@ -104,12 +106,15 @@ public class GliderCore {
 		GalacticraftRegistry.registerTeleportType(WorldProviderOrbitModif.class, new TeleportTypeSpaceStation());
 		
 		final HashMap<Object, Integer> inputMap = new HashMap<Object, Integer>();
-		inputMap.put("ingotTin", 32);
-		inputMap.put(RecipeManagerGC.aluminumIngots, 16);
-		inputMap.put("waferAdvanced", 1);
-		inputMap.put(Items.iron_ingot, 24);
+		inputMap.put(new ItemStack(GCItems.basicItem, 1, 7), 64);
+		inputMap.put(new ItemStack(Items.glowstone_dust), 8);
+		inputMap.put(new ItemStack(GCItems.basicItem, 1, 13), 5);
+		inputMap.put(new ItemStack(ItemMod.ironScaffold, 1, ItemMod.scaffold_meta), 48);
+		inputMap.put(new ItemStack(MarsItems.marsItemBasic, 1, 2), 8);
+		Hooks.ignoreThis = true;
+		GalacticraftRegistry.registerSpaceStation(new SpaceStationType(ConfigManagerCore.idDimensionOverworldOrbit, ConfigManagerCore.idDimensionOverworld, new SpaceStationRecipe(inputMap)));
+		Hooks.ignoreThis = false;
 		GalacticraftRegistry.registerSpaceStation(new SpaceStationType(40, MarsModule.planetMars.getDimensionID(), new SpaceStationRecipe(inputMap)));
-		
 		MinecraftForge.EVENT_BUS.register(new Events());
 		MinecraftForge.EVENT_BUS.register(new ItemsToolTips());
 		
