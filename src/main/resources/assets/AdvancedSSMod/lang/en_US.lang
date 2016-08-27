@@ -1,18 +1,29 @@
-FTBTweaks:Builder.item=Builder
-FTBTweaks:ironScaffold.item=Iron Scaffold
-FTBTweaks:dockingComponent.item=Docking Port Component
-FTBTweaks:brokenTin.item=Broken Tin Plate
-FTBTweaks:brokenSteel.item=Broken Steel Plate
-FTBTweaks:brokenAluminum.item=Broken Aluminum Plate
-FTBTweaks:debugTool.item=Debug Tool
-FTBTweaks:Jetpack.item=Space Jetpack
-FTBTweaks:Fuelloader.item=Portable fuel loader
 
-glider:block.BuildPoint.name=Build Point
-glider.DockingPoint=Docking Port
-glider.InfoBlock=Info Block
-glider.RemoveInfoBlock=Logbook
-glider.ArtificialGsource=Artificial Gravity Source
+AdvancedSSMod:item.Builder.name=Builder
+AdvancedSSMod:item.ironScaffold.name=Iron Scaffold
+AdvancedSSMod:item.dockingComponent.name=Docking Port Component
+AdvancedSSMod:item.brokenTin.name=Broken Tin Plate
+AdvancedSSMod:item.brokenSteel.name=Broken Steel Plate
+AdvancedSSMod:item.brokenAluminum.name=Broken Aluminum Plate
+AdvancedSSMod:item.debugTool.name=Debug Tool
+AdvancedSSMod:item.Jetpack.name=Space Jetpack
+
+AdvancedSSMod:block.buildPoint=Build Point
+AdvancedSSMod:tile.dockingPoint=Docking Port
+AdvancedSSMod:tile.infoBlock=Info Block
+AdvancedSSMod:tile.removeInfoBlock=Logbook
+AdvancedSSMod:tile.artificialGsource=Artificial Gravity Source
+AdvancedSSMod:tile.armorStand=Armor Stand
+
+AdvancedSSMod:descr_shift.Builder.name=Builder allows you to build space station modules
+AdvancedSSMod:descr_shift.brokenTin.name=it not seems applicable...
+AdvancedSSMod:descr_shift.brokenSteel.name=it not seems applicable...
+AdvancedSSMod:descr_shift.brokenAluminum.name=it not seems applicable...
+AdvancedSSMod:descr_shift.Jetpack.name=Space jetpack is a complex device intended to fly free within microgravity environment
+
+AdvancedSSMod:descr_shift.dockingPoint.name=Docking port used to dock spaceships to space staion. usually it used with Docking port module
+AdvancedSSMod:descr_shift.artificialGsource.name=this device allows to create artificial gravity on space staion
+AdvancedSSMod:descr_shift.armorStand.name=This armor stand can charge armor and fuel some devices
 
 builder.hall.name=Hall
 builder.corner.name=Corner

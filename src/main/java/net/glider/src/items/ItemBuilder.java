@@ -1,5 +1,5 @@
-package net.glider.src.items;
 
+package net.glider.src.items;
 
 import net.glider.src.GliderCore;
 import net.glider.src.blocks.BlockContainerMod;
@@ -28,13 +28,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemBuilder extends ItemMod {
-
-	public ItemBuilder(String uln) {
+	
+	public ItemBuilder(String uln)
+	{
 		super(uln);
 		this.setCreativeTab(CreativeTabs.tabTools);
+		this.setShowDescr(true);
 	}
-	
-	
 	
 	@SideOnly(Side.CLIENT)
 	@Override
@@ -42,29 +42,29 @@ public class ItemBuilder extends ItemMod {
 	{
 		if (world.isRemote)
 		{
-		MovingObjectPosition mop = getMovingObjectPositionFromPlayer((World)Minecraft.getMinecraft().theWorld, player, false);
-		if (mop != null) 
-		{
-		int x = mop.blockX;
-		int y = mop.blockY;
-		int z = mop.blockZ;
+			MovingObjectPosition mop = getMovingObjectPositionFromPlayer((World) Minecraft.getMinecraft().theWorld, player, false);
+			if (mop != null)
+			{
+				int x = mop.blockX;
+				int y = mop.blockY;
+				int z = mop.blockZ;
 				if (world.getBlock(x, y, z) == BlockMod.BuildpPoint)
-        {
-        player.motionX = 0;
-        player.motionY = 0;
-        player.motionZ = 0;
-	    player.openGui(GliderCore.instance, GuiHandler.BUILDERGUI, world, x, y, z);
-        PacketHandler.sendToServer(new OpenGuiOnServerPacket(GuiHandler.BUILDERGUI, x, y, z));
-        }else if (world.getBlock(x,y,z) == BlockContainerMod.BlockRemoveInfo)
-        {
-        player.motionX = 0;
-        player.motionY = 0;
-        player.motionZ = 0;
-        //PacketHandler.sendToServer(new OpenGuiPacket(x, y, z));
-    	player.openGui(GliderCore.instance, GuiHandler.REMOVERGUI, world, x, y, z);
-        PacketHandler.sendToServer(new OpenGuiOnServerPacket(GuiHandler.REMOVERGUI, x, y, z));
-        }
-		}
+				{
+					player.motionX = 0;
+					player.motionY = 0;
+					player.motionZ = 0;
+					player.openGui(GliderCore.instance, GuiHandler.BUILDERGUI, world, x, y, z);
+					PacketHandler.sendToServer(new OpenGuiOnServerPacket(GuiHandler.BUILDERGUI, x, y, z));
+				} else if (world.getBlock(x, y, z) == BlockContainerMod.BlockRemoveInfo)
+				{
+					player.motionX = 0;
+					player.motionY = 0;
+					player.motionZ = 0;
+					//PacketHandler.sendToServer(new OpenGuiPacket(x, y, z));
+					player.openGui(GliderCore.instance, GuiHandler.REMOVERGUI, world, x, y, z);
+					PacketHandler.sendToServer(new OpenGuiOnServerPacket(GuiHandler.REMOVERGUI, x, y, z));
+				}
+			}
 		}
 		
 		return stack;
@@ -94,7 +94,7 @@ public class ItemBuilder extends ItemMod {
 								if (te2.adjacentChestXNeg != null || te2.adjacentChestXPos != null || te2.adjacentChestZNeg != null || te2.adjacentChestZPos != null)
 								{
 									TileEntityChest ajte = te2.adjacentChestXNeg != null ? te2.adjacentChestXNeg : te2.adjacentChestXPos != null ? te2.adjacentChestXPos : te2.adjacentChestZNeg != null ? te2.adjacentChestZNeg : te2.adjacentChestZPos != null ? te2.adjacentChestZPos : null;
-
+									
 									int[] spos = new int[] { ajte.xCoord, ajte.yCoord, ajte.zCoord };
 									for (int i2 = 0; i2 < list.tagCount(); i2++)
 									{
@@ -110,14 +110,14 @@ public class ItemBuilder extends ItemMod {
 										int[] strpos = list.func_150306_c(i);
 										if (strpos.length > 2 && strpos[0] == pos[0] && strpos[1] == pos[1] && strpos[2] == pos[2])
 										{
-
+											
 											list.removeTag(i);
 											player.addChatComponentMessage(new ChatComponentText("deleted chest with pos: " + x + " " + y + " " + z));
 											delete = true;
 											break;
 										}
 									}
-
+									
 								} else
 								{
 									for (int i = 0; i < list.tagCount(); i++)
@@ -125,7 +125,7 @@ public class ItemBuilder extends ItemMod {
 										int[] strpos = list.func_150306_c(i);
 										if (strpos.length > 2 && strpos[0] == pos[0] && strpos[1] == pos[1] && strpos[2] == pos[2])
 										{
-
+											
 											list.removeTag(i);
 											player.addChatComponentMessage(new ChatComponentText("deleted chest with pos: " + x + " " + y + " " + z));
 											delete = true;
@@ -140,7 +140,7 @@ public class ItemBuilder extends ItemMod {
 									int[] strpos = list.func_150306_c(i);
 									if (strpos.length > 2 && strpos[0] == pos[0] && strpos[1] == pos[1] && strpos[2] == pos[2])
 									{
-
+										
 										list.removeTag(i);
 										player.addChatComponentMessage(new ChatComponentText("deleted chest with pos: " + x + " " + y + " " + z));
 										delete = true;
@@ -169,12 +169,12 @@ public class ItemBuilder extends ItemMod {
 									list.appendTag(new NBTTagIntArray(pos));
 									player.addChatComponentMessage(new ChatComponentText("added new chest with pos: " + x + " " + y + " " + z));
 								}
-							}else if (!delete)
+							} else if (!delete)
 							{
-								player.addChatComponentMessage(ChatUtils.modifyColor(new ChatComponentText("You're reached max chest marks count!"),EnumChatFormatting.RED));
+								player.addChatComponentMessage(ChatUtils.modifyColor(new ChatComponentText("You're reached max chest marks count!"), EnumChatFormatting.RED));
 							}
 							tag.setTag("chests", list);
-
+							
 						} else
 						{
 							if (te instanceof TileEntityChest)
@@ -201,7 +201,7 @@ public class ItemBuilder extends ItemMod {
 					} else
 					{
 						NBTTagList list = new NBTTagList();
-
+						
 						if (te instanceof TileEntityChest)
 						{
 							TileEntityChest te2 = (TileEntityChest) te;
@@ -251,14 +251,15 @@ public class ItemBuilder extends ItemMod {
 				}
 			}
 		}
-
+		
 		return false;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerIcons(IIconRegister registry) {
-		itemIcon = registry.registerIcon(GliderModInfo.ModTestures +":" + "Builder");
+	public void registerIcons(IIconRegister registry)
+	{
+		itemIcon = registry.registerIcon(GliderModInfo.ModTestures + ":" + "Builder");
 	}
-
+	
 }

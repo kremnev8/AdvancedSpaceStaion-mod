@@ -3,6 +3,7 @@ package net.glider.src.items;
 
 import ic2.api.item.IC2Items;
 import net.glider.src.utils.GliderModInfo;
+import net.glider.src.utils.IDescrObject;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,9 +14,11 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ItemMod extends Item {
+public class ItemMod extends Item implements IDescrObject {
 	
 	protected final String name;
+	
+	public boolean showDescr;
 	
 	public static ItemMod Builder;
 	public static ItemDebugTool DebugTool;
@@ -90,5 +93,28 @@ public class ItemMod extends Item {
 	public String getItemStackDisplayName(ItemStack is)
 	{
 		return StatCollector.translateToLocal(GliderModInfo.MOD_ID + ":item." + name + ".name");
+	}
+	
+	@Override
+	public String getDescription(int meta)
+	{
+		return "";
+	}
+	
+	@Override
+	public String getShiftDescription(int meta)
+	{
+		return StatCollector.translateToLocal(GliderModInfo.MOD_ID + ":descr_shift." + name + ".name");
+	}
+	
+	@Override
+	public boolean showDescription(int meta)
+	{
+		return showDescr;
+	}
+	
+	public void setShowDescr(boolean showDescr)
+	{
+		this.showDescr = showDescr;
 	}
 }

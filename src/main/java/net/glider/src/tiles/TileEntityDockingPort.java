@@ -674,8 +674,6 @@ public class TileEntityDockingPort extends TileEntityAdvanced implements IInvent
 				this.lidAngle = 0.0F;
 			}
 		}
-		// tank fueling and draining code
-		//TODO add compacability with IC2
 		if (!this.worldObj.isRemote && rocket != null)
 		{
 			// drain

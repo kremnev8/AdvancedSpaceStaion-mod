@@ -1,10 +1,9 @@
 
 package net.glider.src.blocks;
 
-import java.util.Random;
-
 import net.glider.src.items.ItemBlockMod;
 import net.glider.src.utils.GliderModInfo;
+import net.glider.src.utils.IDescrObject;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -13,10 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class BlockMod extends Block {
+public class BlockMod extends Block implements IDescrObject {
 	
-	Random r = new Random();
 	private String name;
+	public boolean showDescr = false;
 	
 	public static BlockMod BuildpPoint;
 	
@@ -100,6 +99,29 @@ public class BlockMod extends Block {
 	@Override
 	public String getUnlocalizedName()
 	{
-		return GliderModInfo.ModTestures + ":block." + name;
+		return GliderModInfo.MOD_ID + ":block." + name;
+	}
+	
+	@Override
+	public String getDescription(int meta)
+	{
+		return "";
+	}
+	
+	@Override
+	public String getShiftDescription(int meta)
+	{
+		return StatCollector.translateToLocal(GliderModInfo.MOD_ID + ":descr_shift." + name + ".name");
+	}
+	
+	@Override
+	public boolean showDescription(int meta)
+	{
+		return showDescr;
+	}
+	
+	public void setShowDescr(boolean showDescr)
+	{
+		this.showDescr = showDescr;
 	}
 }
