@@ -49,6 +49,9 @@ public class GliderCore {
 	
 	//TODO before compile make total cleanup
 	//TODO Find all client-classes calls on server(and back i think)
+	//
+	//
+	//
 	
 	@Instance(GliderModInfo.MOD_ID)
 	public static GliderCore instance;
