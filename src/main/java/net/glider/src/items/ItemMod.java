@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -31,6 +32,22 @@ public class ItemMod extends Item implements IDescrObject {
 	public static ItemMod brokenSteel;
 	public static ItemMod brokenAluminum;
 	
+	public static ItemMod schematicjetpack;
+	
+	public static ItemMod smallEngine;
+	public static ItemMod OD_engines_set;
+	
+	public static ItemMod emptyIdea;
+	public static ItemMod filledIdea;
+	
+	public static ItemMod rotatingRing;
+	
+	public static ItemMod motor;
+	public static ItemMod coil;
+	
+	public static Item ingSteel;
+	public static int ingSteelMeta;
+	
 	public static void init()
 	{
 		
@@ -44,12 +61,33 @@ public class ItemMod extends Item implements IDescrObject {
 		} else
 		{
 			ironScaffold = new ItemMod("ironScaffold");
+			motor = new ItemMod("AltMotor");
+			coil = new ItemMod("AltCoil");
 		}
 		dockingPortComp = new ItemMod("dockingComponent");
 		
 		brokenTin = new ItemBrokenPlate("brokenTin", 0);
 		brokenSteel = new ItemBrokenPlate("brokenSteel", 1);
 		brokenAluminum = new ItemBrokenPlate("brokenAluminum", 2);
+		
+		schematicjetpack = new ItemSchematic("schematicJetpack");
+		smallEngine = new ItemMod("smallEngine");
+		OD_engines_set = new ItemMod("Omni-Dir_Engine_Set");
+		
+		emptyIdea = new ItemMod("emptyIdea");
+		filledIdea = new ItemMod("filledIdea");
+		
+		rotatingRing = new ItemMod("AGMotorMap");
+		if (OreDictionary.doesOreNameExist("ingotSteel"))
+		{
+			ItemStack stack = OreDictionary.getOres("ingotSteel").get(0);
+			ingSteel = stack.getItem();
+			ingSteelMeta = stack.getItemDamage();
+		} else
+		{
+			ingSteel = new ItemMod("steelIngot");
+			OreDictionary.registerOre("ingotSteel", ingSteel);
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)

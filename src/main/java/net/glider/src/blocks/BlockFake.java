@@ -1,5 +1,5 @@
-package net.glider.src.blocks;
 
+package net.glider.src.blocks;
 
 import java.util.Random;
 
@@ -26,9 +26,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BlockFake extends BlockContainerMod implements IPartialSealableBlock, ITileEntityProvider {
 	
 	private IIcon[] fakeIcons;
-	
-	// Meta values:
-	// 0 : armor stand
 	
 	public BlockFake(String uln)
 	{
@@ -102,7 +99,6 @@ public class BlockFake extends BlockContainerMod implements IPartialSealableBloc
 		super.breakBlock(world, x, y, z, par5, par6);
 	}
 	
-
 	@Override
 	public boolean onBlockActivated(World par1World, int x, int y, int z, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
 	{
@@ -148,7 +144,7 @@ public class BlockFake extends BlockContainerMod implements IPartialSealableBloc
 			if (mainBlockPosition != null)
 			{
 				Block mainBlockID = world.getBlock(mainBlockPosition.x, mainBlockPosition.y, mainBlockPosition.z);
-	
+				
 				if (Blocks.air != mainBlockID)
 				{
 					return mainBlockID.getPickBlock(target, world, mainBlockPosition.x, mainBlockPosition.y, mainBlockPosition.z);

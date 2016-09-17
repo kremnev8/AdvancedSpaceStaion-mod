@@ -3,18 +3,15 @@ package net.glider.src.renderer.animations;
 
 import java.util.HashMap;
 
-import org.apache.http.impl.client.AIMDBackoffManager;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import net.glider.src.MCACommonLibrary.IMCAnimatedEntity;
 import net.glider.src.MCACommonLibrary.animation.AnimationHandler;
 import net.glider.src.MCACommonLibrary.animation.Channel;
 import net.glider.src.entity.ExtendedPlayer;
-import net.glider.src.items.ItemSpaceJetpack;
 import net.glider.src.network.PacketHandler;
 import net.glider.src.network.packets.AnimationTellServerPacket;
 import net.minecraft.client.Minecraft;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 public class AnimationHandlerJetpack extends AnimationHandler {
 	/** Map with all the animations. */

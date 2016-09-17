@@ -1,6 +1,6 @@
+
 package net.glider.src.entity.choreo;
 
-import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -11,13 +11,10 @@ public abstract class ChoreoScene {
 	
 	public boolean choreoStarted = false;
 	
-//	private HashMap<String, ChoreoScene> registeredChoreo =new HashMap();
-	
 	public ChoreoScene(Entity actingEntity)
 	{
 		this.entity = actingEntity;
 	}
-
 	
 	public void StartChoreo()
 	{
@@ -36,5 +33,5 @@ public abstract class ChoreoScene {
 	public abstract void UpdateChoreoEntity();
 	
 	public abstract String GetChoreoName();
-
+	
 }

@@ -32,6 +32,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -41,6 +42,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
@@ -50,7 +52,6 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -58,6 +59,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Events {
 	
 	//SERVER  
+	@SubscribeEvent
+	public void onCraft(PlayerEvent.ItemCraftedEvent event)
+	{
+		if (event.crafting.getItem() == ItemMod.schematicjetpack)
+		{
+			if (event.player != null && !(event.player instanceof FakePlayer) && !event.player.worldObj.isRemote)
+			{
+				EntityItem item = new EntityItem(event.player.worldObj, event.player.posX, event.player.posY, event.player.posZ, new ItemStack(ItemMod.filledIdea));
+				item.delayBeforeCanPickup = 0;
+				event.player.worldObj.spawnEntityInWorld(item);
+			}
+		}
+	}
 	
 	@SubscribeEvent
 	public void cancelSuffucationInRocket(GCCoreOxygenSuffocationEvent.Pre event)
@@ -74,31 +88,6 @@ public class Events {
 			}
 		}
 	}
-	
-	@SubscribeEvent
-	public void fixRespawnError(TickEvent.PlayerTickEvent event)
-	{
-		// GLoger.logInfo(event.player.worldObj.provider.dimensionId+"");
-	}
-	
-	/*	if (event.player != null)
-		{
-			World world = event.player.worldObj;
-			if (world != null)
-			{
-				if (world.provider instanceof WorldProviderOrbitModif)
-				{
-					DockingPortSaveData savef = DockingPortSaveData.forWorld(world);
-
-					if (savef.DockingPorts.size() > 0)
-					{
-						event.player.setPositionAndUpdate(savef.DockingPorts.get(0)[0] + 0.5D, savef.DockingPorts.get(0)[1] + 1, savef.DockingPorts.get(0)[2] + 0.5D);
-					}
-				}
-			}
-
-		}
-	}*/
 	
 	@SubscribeEvent
 	public void onPlayerTeleportDim(PlayerEvent.PlayerChangedDimensionEvent event)
@@ -235,10 +224,6 @@ public class Events {
 		{
 			return;
 		}
-		/*	if (mc.gameSettings.showDebugInfo)
-			{
-				return;
-			}*/
 		if (!OxygenUtil.shouldDisplayTankGui(mc.currentScreen))
 		{
 			return;
@@ -265,7 +250,6 @@ public class Events {
 			}
 			drawTexturedModalRect(xPos + 1, yPos + 1 + 44 - fuelLevel, 19, 45 - fuelLevel, 44, fuelLevel);
 			
-			// drawTexturedModalRect(xPos+1, yPos+1+4, 19, 1, 17, 40);
 		}
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
 		
@@ -306,17 +290,6 @@ public class Events {
 				{
 					keys.add(5);
 				}
-				
-				/*
-				String forw = (keys.contains(0) ? "Forward " : "");
-				String back = (keys.contains(1) ? "Backward " : "");
-				String left = (keys.contains(2) ? "Left " : "");
-				String right = (keys.contains(3) ? "Right " : "");
-				String space = (keys.contains(4) ? "Space " : "");
-				String shift = (keys.contains(5) ? "Shift " : "");
-
-				Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText("Current keys: " + forw + back + left + right + shift + space));
-				*/
 				
 				if (mc.thePlayer.getCurrentArmor(2).getItem() == ItemMod.spaceJetpack)
 				{
@@ -380,9 +353,6 @@ public class Events {
 		
 		if (player != null && player.ridingEntity != null && player.ridingEntity instanceof EntityRocketFakeTiered && KeyHandlerClient.spaceKey.getIsKeyPressed() && !ClientProxy.lastSpacebarDown && player.worldObj.provider instanceof WorldProviderOrbit)
 		{
-			// GalacticraftCore.packetPipeline.sendToServer(new
-			// PacketSimple(EnumSimplePacket.S_IGNITE_ROCKET, new Object[] {
-			// }));
 			PacketHandler.sendToServer(new LaunchRocketPacket());
 			ClientProxy.lastSpacebarDown = true;
 		}
@@ -407,9 +377,6 @@ public class Events {
 			GL11.glRotatef(anglePitch, 0.0F, 0.0F, 1.0F);
 			GL11.glTranslatef(0, entity.getRotateOffset() + 1.6200000047683716F, 0);
 		}
-		
-		// Gravity - freefall - jetpack changes in player model orientation can
-		// go here
 	}
 	
 	@SideOnly(Side.CLIENT)

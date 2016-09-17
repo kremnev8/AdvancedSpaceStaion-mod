@@ -7,6 +7,15 @@ AdvancedSSMod:item.brokenSteel.name=Поврежеденная стальная 
 AdvancedSSMod:item.brokenAluminum.name=Поврежеденная алюминиевая пластина
 AdvancedSSMod:item.debugTool.name=Дебаг тул
 AdvancedSSMod:item.Jetpack.name=Космический джетпак
+AdvancedSSMod:item.schematicJetpack.name=Схема для верстака NASA
+AdvancedSSMod:item.smallEngine.name=Маленький двигатель
+AdvancedSSMod:item.Omni-Dir_Engine_Set.name=Всенаправлнный набор двигателей
+AdvancedSSMod:item.emptyIdea.name=Замысел
+AdvancedSSMod:item.filledIdea.name=Наброски
+AdvancedSSMod:item.AGMotorMap.name=Гравитационное кольцо
+AdvancedSSMod:item.steelIngot.name=Стальной слиток
+AdvancedSSMod:item.AltMotor.name=Мотор
+AdvancedSSMod:item.AltCoil.name=Катушка
 
 AdvancedSSMod:block.buildPoint=Точка строительства
 AdvancedSSMod:tile.dockingPoint=Стыковочный шлюз
@@ -24,6 +33,11 @@ AdvancedSSMod:descr_shift.Jetpack.name=Космический джетпак - �
 AdvancedSSMod:descr_shift.dockingPoint.name=Стыковочный шлюз предназначен для пристыковки кораблей на космическую станцию. обычно его используют вместе одноименным модулем
 AdvancedSSMod:descr_shift.artificialGsource.name=Данное устройство позволяет создать на космической станций искусственную гравитацию
 AdvancedSSMod:descr_shift.armorStand.name=Данная стойка может заряжать броню а так заправлять некоторые устройства
+
+schematic.jetpack.name=Джетпак
+gui.rocket.warning.nopad.name=У меня нету взлетной площадки! Если я нажму запуск снова,пути назад не будет.
+choreo.messages.undock.name=Ракета начинает отстыковку!
+choreo.messages.burn.name=Ракета начинает 10 секундный маневр для изменения орбиты!
 
 builder.hall.name=Зал
 builder.corner.name=Угол

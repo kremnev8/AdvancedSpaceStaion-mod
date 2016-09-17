@@ -1,20 +1,18 @@
+
 package net.glider.src.gui;
 
 import net.glider.src.items.ItemMod;
-import net.glider.src.utils.GliderModInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
-import net.minecraft.util.ResourceLocation;
 
-public class SlotGhost extends Slot
-{
+public class SlotGhost extends Slot {
 	boolean state = false;
 	
-	public SlotGhost(IInventory inv, int slotIndex, int xPos, int yPost) 
+	public SlotGhost(IInventory inv, int slotIndex, int xPos, int yPost)
 	{
 		super(inv, slotIndex, xPos, yPost);
 		this.slotNumber = slotIndex;
@@ -37,7 +35,7 @@ public class SlotGhost extends Slot
 		
 		return false;
 	}
-
+	
 	@Override
 	public boolean canTakeStack(EntityPlayer player)
 	{
@@ -45,7 +43,7 @@ public class SlotGhost extends Slot
 	}
 	
 	@Override
-	public int getSlotStackLimit() 
+	public int getSlotStackLimit()
 	{
 		return 64;
 	}
@@ -56,7 +54,7 @@ public class SlotGhost extends Slot
 		if (state)
 		{
 			return ItemMod.getBuilderIcons(1);
-		}else 
+		} else
 		{
 			return ItemMod.getBuilderIcons(0);
 		}

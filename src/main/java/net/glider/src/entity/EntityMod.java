@@ -27,16 +27,11 @@ public class EntityMod {
 	@SideOnly(Side.CLIENT)
 	private static void registerEntityRenderer()
 	{
-		//		RenderingRegistry.registerEntityRenderingHandler(EntityIndustrialCreeper.class, new RenderIndustrialCreeper());
-		//		RenderingRegistry.registerEntityRenderingHandler(EntityAIMarker.class, new RenderAIMarker());
 		RenderingRegistry.registerEntityRenderingHandler(EntityRocketFakeTiered.class, new RenderEntityRocketFakeTiered());
 	}
 	
 	private static void registerEntity()
 	{
-		///		registerEntity(EntityIndustrialCreeper.class, "IndustrialCreeper", true, 0x0004FF, 0xFF00E1);
-		//		registerEntity(EntityAIMarker.class, "EntityAIMarker", false, 0x0004FF, 0xFF00E1);
-		
 		registerEntity(EntityRocketFakeTiered.class, "EntiyRocketFakeTiered");
 	}
 	

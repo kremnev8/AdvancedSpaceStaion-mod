@@ -1,86 +1,72 @@
-package net.glider.src.entity;
 
+package net.glider.src.entity;
 
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import net.glider.src.entity.EntityRocketFakeTiered.EnumEngineState;
-import net.glider.src.entity.EntityRocketFakeTiered.EnumLaunchPhase;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
-public class SoundUpdateRocketFake extends MovingSound
-{
-	//private final SoundHandler soundHandler;
-	//private final ISound theSound;
-	
+public class SoundUpdateRocketFake extends MovingSound {
 	private final EntityPlayerSP thePlayer;
 	private final EntityRocketFakeTiered theRocket;
 	private boolean soundStopped;
 	private boolean ignition = false;
-
+	
 	public SoundUpdateRocketFake(EntityPlayerSP par1EntityPlayerSP, EntityRocketFakeTiered par2Entity)
 	{
-        super(new ResourceLocation(GalacticraftCore.TEXTURE_PREFIX + "shuttle.shuttle"));
+		super(new ResourceLocation(GalacticraftCore.TEXTURE_PREFIX + "shuttle.shuttle"));
 		this.theRocket = par2Entity;
 		this.thePlayer = par1EntityPlayerSP;
-        this.field_147666_i = ISound.AttenuationType.NONE;
-        this.volume = 0.00001F;  //If it's zero it won't start playing
-        this.field_147663_c = 0.0F;  //pitch
-        this.repeat = true;
-        this.field_147665_h = 0;  //repeat delay
-        this.updateSoundLocation(par2Entity);
+		this.field_147666_i = ISound.AttenuationType.NONE;
+		this.volume = 0.00001F; //If it's zero it won't start playing
+		this.field_147663_c = 0.0F; //pitch
+		this.repeat = true;
+		this.field_147665_h = 0; //repeat delay
+		this.updateSoundLocation(par2Entity);
 	}
-
+	
 	/**
 	 * Updates the JList with a new model.
 	 */
 	@Override
 	public void update()
 	{
-        if (!this.theRocket.isDead)
-        {	
-        	if (this.theRocket.engineState == EnumEngineState.IGNITED.ordinal())
+		if (!this.theRocket.isDead)
+		{
+			if (this.theRocket.engineState == EnumEngineState.IGNITED.ordinal())
 			{
 				if (!ignition)
 				{
 					this.field_147663_c = 0.0F;
 					ignition = true;
 				}
-
+				
+			} else
+				this.field_147663_c = 1.0F;
+			
+			if (this.theRocket.engineState == EnumEngineState.IGNITED.ordinal())
+			{
+				if (this.theRocket.posY > 1000)
+				{
+					this.volume = 0F;
+					//	if (!this.theRocket.landing) this.donePlaying = true;
+				} else if (this.theRocket.posX > 200)
+				{
+					this.volume = (1000F - (float) this.theRocket.posX) * 0.001F;
+				} else
+					this.volume = 1.0F;
 			}
-        	else
-        		this.field_147663_c = 1.0F;
-        	
-        	if (this.theRocket.engineState == EnumEngineState.IGNITED.ordinal())
-        	{
-//    			float var10 = MathHelper.clamp_float((float) this.minecartSpeed, 0.0F, 4.0F) / 4.0F;
-//    			this.minecartRideSoundVolume = 0.0F + var10 * 0.75F;
-//    			var10 = MathHelper.clamp_float(var10 * 2.0F, 0.0F, 1.0F);
-//    			this.minecartMoveSoundVolume = 0.0F + var10 * 6.7F;
-
-    			if (this.theRocket.posY > 1000)
-    			{
-    				this.volume = 0F;
-    			//	if (!this.theRocket.landing) this.donePlaying = true;
-    			}
-    			else if (this.theRocket.posX > 200)
-    			{
-    				this.volume = (1000F - (float) this.theRocket.posX) * 0.001F;
-    			}
-    			else
-    				this.volume = 1.0F;
-    		}
-
-   			this.updateSoundLocation(this.theRocket);
-        }
-        else
-        {
-            this.donePlaying = true;
-        }
-	} 
-		
+			
+			this.updateSoundLocation(this.theRocket);
+		} else
+		{
+			this.donePlaying = true;
+		}
+	}
+	
 	public void stopRocketSound()
 	{
 		this.donePlaying = true;

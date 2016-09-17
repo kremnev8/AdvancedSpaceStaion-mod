@@ -1,19 +1,11 @@
 package net.glider.src.renderer.models;
 
-import java.util.List;
-
-import micdoodle8.mods.galacticraft.api.item.IHoldableItem;
-import micdoodle8.mods.galacticraft.api.prefab.entity.EntityTieredRocket;
-import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import net.glider.src.entity.ExtendedPlayer;
 import net.glider.src.items.ItemMod;
-import net.glider.src.items.ItemSpaceJetpack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
 import api.player.model.ModelPlayerAPI;
 import api.player.model.ModelPlayerBase;
 

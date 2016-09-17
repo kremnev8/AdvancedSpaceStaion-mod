@@ -7,8 +7,10 @@ import net.glider.src.entity.EntityMod;
 import net.glider.src.gui.GuiBuilder;
 import net.glider.src.handlers.Events;
 import net.glider.src.handlers.KeyHandlerClient;
+import net.glider.src.items.ItemMod;
 import net.glider.src.renderer.ItemRenderArmorStand;
 import net.glider.src.renderer.ItemRenderInfo;
+import net.glider.src.renderer.ItemRenderJetpack;
 import net.glider.src.renderer.ItemRenderRemoveInfo;
 import net.glider.src.renderer.RendererPlayer;
 import net.glider.src.renderer.TileEntityArmorStandRenderer;
@@ -37,60 +39,58 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 
 public class ClientProxy extends CommonProxy {
-
+	
 	public static boolean lastSpacebarDown;
 	public static ModelBiped model;
-
+	
 	@Override
 	public void PreInit(FMLPreInitializationEvent event)
 	{
 		super.PreInit(event);
-
+		
 	}
-
+	
 	@Override
 	public void init(FMLInitializationEvent event)
 	{
 		super.init(event);
 		model = new ModelJetpack();
-
+		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityRemoveInfo.class, new TileEntityRemoveInfoRenderer());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockContainerMod.BlockRemoveInfo), new ItemRenderRemoveInfo());
-
+		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInfo.class, new TileEntityInfoRenderer());
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockContainerMod.BlockInfo), new ItemRenderInfo());
-
+		
 		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(BlockContainerMod.BlockArmorStand), new ItemRenderArmorStand());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityArmorStand.class, new TileEntityArmorStandRenderer());
-
+		
+		MinecraftForgeClient.registerItemRenderer(ItemMod.spaceJetpack, new ItemRenderJetpack());
+		
 		FMLCommonHandler.instance().bus().register(new Events());
 		FMLCommonHandler.instance().bus().register(new KeyHandlerClient());
-
+		
 		RenderPlayerAPI.register(GliderModInfo.MOD_ID, RendererPlayer.class);
 		ModelPlayerAPI.register(GliderModInfo.MOD_ID, GliderModelPlayerBase.class);
-
+		
 		ClientRegistry.registerKeyBinding(KeyHandlerClient.TestAnim);
-		// RenderPlayerAPI.register(Constants.MOD_ID_CORE,
-		// RenderPlayerBaseGC.class);
-
-		// RenderingRegistry.registerEntityRenderingHandler(EntityIndustrialCreeper.class,
-		// new RenderIndustrialCreeper());
+		
 		EntityMod.init(Side.CLIENT);
 		GuiBuilder.init();
 	}
-
+	
 	@Override
 	public void PostInit(FMLPostInitializationEvent event)
 	{
 		super.PostInit(event);
 	}
-
+	
 	@Override
 	public void spawnParticle(String particleID, Vector3 position, Vector3 motion, Object[] otherInfo)
 	{
 		EffectHandler.spawnParticle(particleID, position, motion, otherInfo);
 	}
-
+	
 	// In your client proxy:
 	@Override
 	public EntityPlayer getPlayerEntity(MessageContext ctx)
@@ -98,7 +98,7 @@ public class ClientProxy extends CommonProxy {
 		// Note that if you simply return 'Minecraft.getMinecraft().thePlayer',
 		// your packets will not work because you will be getting a client
 		// player even when you are on the server! Sounds absurd, but it's true.
-
+		
 		// Solution is to double-check side before returning the player:
 		return (ctx.side.isClient() ? Minecraft.getMinecraft().thePlayer : super.getPlayerEntity(ctx));
 	}

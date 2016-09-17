@@ -55,6 +55,7 @@ public class TileEntityArmorStand extends TileBaseElectricBlockWithInventory imp
 	public TileEntityArmorStand()
 	{
 		this.storage.setCapacity(STANDARD_CAPACITY * 8);
+		storage.setMaxExtract(500F);
 	}
 	
 	@Override

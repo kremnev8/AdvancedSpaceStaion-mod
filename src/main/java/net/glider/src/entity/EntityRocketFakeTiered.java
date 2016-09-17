@@ -89,7 +89,6 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		this.launchPhase = EnumLaunchPhase.DOCKED.ordinal();
 		this.preventEntitySpawning = true;
 		this.ignoreFrustumCheck = true;
-		//   this.renderDistanceWeight = 5.0D;
 		this.yOffset = 2.2F;
 	}
 	
@@ -184,8 +183,6 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 	@Override
 	public boolean interactFirst(EntityPlayer player)
 	{
-		
-		//	GLoger.logInfo("Tier"+this.getTier());
 		if (this.launchPhase == EnumLaunchPhase.LAUNCHED.ordinal())
 		{
 			return false;
@@ -212,7 +209,6 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 			if (!this.worldObj.isRemote)
 			{
 				PacketHandler.sendTo(new RocketControlsPacket(), (EntityPlayerMP) player);
-				//    GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_DISPLAY_ROCKET_CONTROLS, new Object[] { }), (EntityPlayerMP) player);
 				GCPlayerStats stats = GCPlayerStats.get((EntityPlayerMP) player);
 				stats.chatCooldown = 0;
 				player.mountEntity(this);
@@ -319,15 +315,6 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 			double z1 = 2 * Math.sin(this.rotationYaw * Math.PI / 180.0D) * Math.sin(this.rotationPitch * Math.PI / 180.0D);
 			double y1 = 2 * Math.cos((this.rotationPitch - 180) * Math.PI / 180.0D);
 			
-			/*       if (this.landing && this.targetVec != null)
-			/       {
-			           double modifier = this.posY - this.targetVec.y;
-			           modifier = Math.max(modifier, 1.0);
-			           x1 *= modifier / 60.0D;
-			           y1 *= modifier / 60.0D;
-			           z1 *= modifier / 60.0D;
-			       }*/
-			
 			final double y = this.prevPosY + (this.posY - this.prevPosY) + y1 - 2.3;
 			
 			final double x2 = this.posX + x1;
@@ -342,18 +329,9 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 - 0.1 + this.rand.nextDouble() / 10, y + 0.5D, z2 + 0.1 - this.rand.nextDouble() / 10), motionVec, new Object[] { riddenByEntity });
 				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 - 0.1 + this.rand.nextDouble() / 10, y + 0.5D, z2 - 0.1 + this.rand.nextDouble() / 10), motionVec, new Object[] { riddenByEntity });
 				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 + 0.1 - this.rand.nextDouble() / 10, y + 0.5D, z2 - 0.1 + this.rand.nextDouble() / 10), motionVec, new Object[] { riddenByEntity });
-				//      GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2, y, z2), motionVec, new Object[] { riddenByEntity });
-				//      GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 + 0.4, y, z2), motionVec, new Object[] { riddenByEntity });
-				////      GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 - 0.4, y, z2), motionVec, new Object[] { riddenByEntity });
-				//     GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2, y, z2 + 0.4D), motionVec, new Object[] { riddenByEntity });
-				//     GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2, y, z2 - 0.4D), motionVec, new Object[] { riddenByEntity });
 				
 			}
 			
-			//        	GliderCore.proxy.spawnParticle("whiteSmokeTiny", new Vector3(x2+0.1, y, z2+0.1), new Vector3(0,0,0),null);
-			//	GliderCore.proxy.spawnParticle("whiteSmokeTiny", new Vector3(x2-0.1, y, z2-0.1), new Vector3(0,0,0),null);
-			//	GliderCore.proxy.spawnParticle("whiteSmokeTiny", new Vector3(x2+0.1, y, z2-0.1), new Vector3(0,0,0),null);
-			//	GliderCore.proxy.spawnParticle("whiteSmokeTiny", new Vector3(x2-0.1, y, z2+0.1), new Vector3(0,0,0),null);
 		}
 	}
 	
@@ -545,9 +523,7 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		
 		if (this.riddenByEntity != null && launchPhase != EnumLaunchPhase.DOCKED.ordinal())
 		{
-			//	this.riddenByEntity.rotationPitch = this.rotationPitch;
 			EntityPlayer player = (EntityPlayer) this.riddenByEntity;
-			//	player.
 		}
 		if (this.worldObj.isRemote)
 		{
@@ -582,9 +558,6 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		if (!this.worldObj.isRemote && (this.ticks % 100 == 0 || this.ticks < 5))
 		{
 			GalacticraftCore.packetPipeline.sendToDimension(new PacketDynamic(this), this.worldObj.provider.dimensionId);
-			// PacketDispatcher.sendPacketToAllInDimension(GCCorePacketManager.getPacket(GalacticraftCore.CHANNELENTITIES,
-			// this, this.getNetworkedData(new ArrayList())),
-			// this.worldObj.provider.dimensionId);
 		}
 	}
 	

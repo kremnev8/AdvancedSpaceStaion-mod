@@ -4,8 +4,10 @@ package net.glider.src.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.glider.src.GliderCore;
 import net.glider.src.dimensions.DockingPortSaveData;
 import net.glider.src.dimensions.WorldProviderOrbitModif;
+import net.glider.src.gui.GuiHandler;
 import net.glider.src.network.PacketHandler;
 import net.glider.src.network.packets.ClientGravityDataRecivePacket;
 import net.glider.src.tiles.TileEntityGravitySource;
@@ -24,8 +26,9 @@ public class BlockArtificialGravitySource extends BlockContainerMod {
 	
 	private static String name;
 	
-	@SideOnly(Side.CLIENT)
-	IIcon iconBuffer;
+	IIcon top;
+	IIcon side;
+	IIcon bottom;
 	
 	public BlockArtificialGravitySource(String uln)
 	{
@@ -39,7 +42,8 @@ public class BlockArtificialGravitySource extends BlockContainerMod {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float lx, float ly, float lz)
 	{
-		return false;
+		player.openGui(GliderCore.instance, GuiHandler.GRAVITYSOURCEGUI, world, x, y, z);
+		return true;
 	}
 	
 	@Override
@@ -68,7 +72,6 @@ public class BlockArtificialGravitySource extends BlockContainerMod {
 				}
 				
 				PacketHandler.sendToDimension(new ClientGravityDataRecivePacket(gforces), world.provider.dimensionId);
-				//GLoger.logInfo("Added a new value in dim data");
 			}
 		}
 	}
@@ -103,27 +106,26 @@ public class BlockArtificialGravitySource extends BlockContainerMod {
 						}
 						
 						PacketHandler.sendToDimension(new ClientGravityDataRecivePacket(gforces), world.provider.dimensionId);
-						//	GLoger.logInfo("delited mine value in dim data");
 					}
 				}
 			}
 		}
 	}
 	
-	//TODO add tileentity and gui
-	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerBlockIcons(IIconRegister iconRegister)
+	public void registerBlockIcons(IIconRegister par1IconRegister)
 	{
-		this.iconBuffer = iconRegister.registerIcon(GliderModInfo.ModTestures + ":empty");
+		top = par1IconRegister.registerIcon(GliderModInfo.ModTestures + ":artificialGSmap1");
+		side = par1IconRegister.registerIcon(GliderModInfo.ModTestures + ":artificialGSmap2");
+		bottom = par1IconRegister.registerIcon(GliderModInfo.ModTestures + ":machine");
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public IIcon getIcon(int side, int meta)
+	public IIcon getIcon(int Bside, int meta)
 	{
-		return iconBuffer;
+		return Bside == 1 ? top : (Bside == 0 ? bottom : (Bside == 2 ? side : (Bside == 5 ? side : (Bside == 3 ? side : (Bside == 4 ? side : side)))));
 	}
 	
 	@Override

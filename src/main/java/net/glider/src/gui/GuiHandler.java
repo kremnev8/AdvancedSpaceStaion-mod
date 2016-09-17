@@ -3,6 +3,7 @@ package net.glider.src.gui;
 
 import net.glider.src.tiles.TileEntityArmorStand;
 import net.glider.src.tiles.TileEntityDockingPort;
+import net.glider.src.tiles.TileEntityGravitySource;
 import net.glider.src.tiles.TileEntityRemoveInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -16,6 +17,7 @@ public class GuiHandler implements IGuiHandler {
 	public static final int DOCKINGPORTGUI = 2;
 	public static final int FUELLOADERGUI = 3;
 	public static final int ARMORSTANDGUI = 4;
+	public static final int GRAVITYSOURCEGUI = 5;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -37,6 +39,11 @@ public class GuiHandler implements IGuiHandler {
 			if (te != null)
 			{
 				return new ContainerArmorStand(player, (TileEntityArmorStand) te);
+			}
+		case GRAVITYSOURCEGUI:
+			if (te != null)
+			{
+				return new ContainerArtificialGSource(player.inventory, (TileEntityGravitySource) te);
 			}
 		}
 		
@@ -63,6 +70,11 @@ public class GuiHandler implements IGuiHandler {
 			if (te != null)
 			{
 				return new GuiArmorStand(player, (TileEntityArmorStand) te);
+			}
+		case GRAVITYSOURCEGUI:
+			if (te != null)
+			{
+				return new GuiArtificialGSource(player.inventory, (TileEntityGravitySource) te);
 			}
 		}
 		

@@ -76,24 +76,6 @@ public class DockingPortSaveData extends WorldSavedData {
 		nbt.setTag("GRAVITYSOURCES", nbtlist);
 	}
 	
-	/*  @SubscribeEvent
-	  public void onUnload(WorldEvent.Unload event)
-	  {
-	  	if (event.world.provider instanceof WorldProviderOrbitModif)
-	  	{
-	  		this.markDirty();
-	  	}
-	  }
-	  
-	  @SubscribeEvent
-	  public void onSave(WorldEvent.Save event)
-	  {
-	  	if (event.world.provider instanceof WorldProviderOrbitModif)
-	  	{
-	  		this.markDirty();
-	  	}
-	  }*/
-	
 	public static DockingPortSaveData forWorld(World world)
 	{
 		// Retrieves the MyWorldData instance for the given world, creating it if necessary
