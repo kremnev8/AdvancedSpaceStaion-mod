@@ -2,9 +2,6 @@ package net.glider.src.utils;
 
 import java.io.File;
 
-import org.apache.logging.log4j.Level;
-
-import cpw.mods.fml.common.FMLLog;
 import net.minecraftforge.common.config.Configuration;
 
 public class Config {

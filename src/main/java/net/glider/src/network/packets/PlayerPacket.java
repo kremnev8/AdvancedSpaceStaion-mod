@@ -1,10 +1,11 @@
 
 package net.glider.src.network.packets;
 
+import io.netty.buffer.ByteBuf;
+
 import java.util.HashMap;
 import java.util.Set;
 
-import io.netty.buffer.ByteBuf;
 import net.glider.src.entity.ExtendedPlayer;
 import net.glider.src.utils.GLoger;
 import net.minecraft.client.Minecraft;

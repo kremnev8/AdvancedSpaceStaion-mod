@@ -1,14 +1,13 @@
 package net.glider.src.renderer;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+
+import org.lwjgl.opengl.GL11;
 
 public class ItemRenderBeeScaner implements IItemRenderer {
 

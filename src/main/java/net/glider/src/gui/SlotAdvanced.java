@@ -18,11 +18,7 @@ public class SlotAdvanced extends Slot {
 	 */
 	public boolean isItemValid(ItemStack is)
 	{
-		//	if (FluidUtil.isValidContainer(is))
-		//	{
 		return true;
-		//	}
-		//	return false;
 	}
 	
 	public int getSlotStackLimit()

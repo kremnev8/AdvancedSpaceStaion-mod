@@ -1,8 +1,5 @@
 package net.glider.src.renderer.fx;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.client.fx.EntityFXEntityOxygen;
 import micdoodle8.mods.galacticraft.core.client.fx.EntityFXLaunchFlame;
@@ -13,6 +10,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.particle.EntitySmokeFX;
 import net.minecraft.entity.EntityLivingBase;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class EffectHandler

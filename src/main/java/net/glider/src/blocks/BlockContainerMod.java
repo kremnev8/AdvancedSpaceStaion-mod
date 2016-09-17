@@ -15,7 +15,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import codechicken.nei.api.API;
 
 public class BlockContainerMod extends BlockContainer implements IDescrObject {
 	
@@ -36,11 +35,9 @@ public class BlockContainerMod extends BlockContainer implements IDescrObject {
 		BlockInfo = new BlockInfo("infoBlock");
 		BlockRemoveInfo = new BlockRemoveInfo("removeInfoBlock");
 		BlockArticialGsource = new BlockArtificialGravitySource("artificialGsource");
-		API.hideItem(new ItemStack(BlockInfo));
-		API.hideItem(new ItemStack(BlockRemoveInfo));
 		BlockArmorStand = new BlockArmorStand("armorStand");
 		BlockFake = new BlockFake("blockfake");
-		API.hideItem(new ItemStack(BlockFake));
+		
 	}
 	
 	public BlockContainerMod(String uln)
@@ -72,8 +69,6 @@ public class BlockContainerMod extends BlockContainer implements IDescrObject {
 		this.setResistance(res);
 		this.setHardness(har);
 		this.setCreativeTab(CreativeTabs.tabDecorations);
-		//		this.setBlockTextureName(GliderModInfo.ModTestures + ":" + uln);
-		//GameRegistry.registerBlock(this, this.getItemBlockClass(), uln);
 	}
 	
 	public boolean getItem(EntityPlayer ep, int size)

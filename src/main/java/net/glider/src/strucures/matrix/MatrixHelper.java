@@ -4,11 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.glider.src.blocks.BlockContainerMod;
-import net.glider.src.blocks.BlockMod;
-import net.glider.src.strucures.Structure;
-import net.glider.src.utils.GLoger;
-import net.minecraft.client.Minecraft;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 

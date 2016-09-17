@@ -79,12 +79,6 @@ public class BlockMod extends Block implements IDescrObject {
 		return ItemBlockMod.class;
 	}
 	
-	//  @SideOnly(Side.CLIENT)
-	// public void registerBlockIcons(IIconRegister p_149651_1_)
-	//  {
-	//     this.blockIcon = p_149651_1_.registerIcon(GliderModInfo.ModTestures+":"+getUnlocalizedName());
-	// }
-	
 	@Override
 	public String getLocalizedName()
 	{

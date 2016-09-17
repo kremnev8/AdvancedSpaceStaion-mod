@@ -1,12 +1,8 @@
 package net.glider.src.tiles;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import cpw.mods.fml.common.network.ByteBufUtils;
 import net.glider.src.strucures.Structure;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

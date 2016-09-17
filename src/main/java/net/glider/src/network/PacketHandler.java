@@ -20,6 +20,7 @@ import net.glider.src.network.packets.OpenGuiOnServerPacket;
 import net.glider.src.network.packets.OpenGuiPacket;
 import net.glider.src.network.packets.OpenRocketFuelGuiPacket;
 import net.glider.src.network.packets.OtherPlayerAnimationPacket;
+import net.glider.src.network.packets.PlayerChatMessagePacket;
 import net.glider.src.network.packets.RocketControlsPacket;
 import net.glider.src.network.packets.SendUUIDPacket;
 import net.glider.src.network.packets.SetThirdPersonPacket;
@@ -44,7 +45,6 @@ public final class PacketHandler {
 	
 	public static void register()
 	{
-		//TODO make cleanup in packets import, in perfect everywhere
 		HANDLER.registerMessage(BuildPacket.Handler.class, BuildPacket.class, 0, Side.SERVER);
 		HANDLER.registerMessage(OpenGuiPacket.Handler.class, OpenGuiPacket.class, 1, Side.CLIENT);
 		HANDLER.registerMessage(DeconstructPacket.Handler.class, DeconstructPacket.class, 2, Side.SERVER);
@@ -81,22 +81,7 @@ public final class PacketHandler {
 		HANDLER.registerMessage(OtherPlayerAnimationPacket.Handler.class, OtherPlayerAnimationPacket.class, 25, Side.CLIENT);
 		
 		HANDLER.registerMessage(ArmorStandItemSyncPacket.Handler.class, ArmorStandItemSyncPacket.class, 26, Side.CLIENT);
-		
-		/*HANDLER.registerMessage(ParticlePKT.Handler.class, ParticlePKT.class, 2, Side.CLIENT);DockItemSyncPacket
-		HANDLER.registerMessage(SwingItemPKT.Handler.class, SwingItemPKT.class, 3, Side.CLIENT);
-		HANDLER.registerMessage(StepHeightPKT.Handler.class, StepHeightPKT.class, 4, Side.CLIENT);
-		HANDLER.registerMessage(SetFlyPKT.Handler.class, SetFlyPKT.class, 5, Side.CLIENT);
-		HANDLER.registerMessage(KnowledgeSyncPKT.Handler.class, KnowledgeSyncPKT.class, 6, Side.CLIENT);
-		HANDLER.registerMessage(CondenserSyncPKT.Handler.class, CondenserSyncPKT.class, 8, Side.CLIENT);
-		HANDLER.registerMessage(CollectorSyncPKT.Handler.class, CollectorSyncPKT.class, 9, Side.CLIENT);
-		HANDLER.registerMessage(RelaySyncPKT.Handler.class, RelaySyncPKT.class, 10, Side.CLIENT);
-		HANDLER.registerMessage(CheckUpdatePKT.Handler.class, CheckUpdatePKT.class, 11, Side.CLIENT);
-		HANDLER.registerMessage(SyncBagDataPKT.Handler.class, SyncBagDataPKT.class, 12, Side.CLIENT);
-
-		HANDLER.registerMessage(KnowledgeClearPKT.Handler.class, KnowledgeClearPKT.class, 14, Side.CLIENT);
-		HANDLER.registerMessage(OrientationSyncPKT.Handler.class, OrientationSyncPKT.class, 15, Side.CLIENT);
-		HANDLER.registerMessage(UpdateGemModePKT.Handler.class, UpdateGemModePKT.class, 16, Side.SERVER);
-		HANDLER.registerMessage(SyncPedestalPKT.Handler.class, SyncPedestalPKT.class, 17, Side.CLIENT);*/
+		HANDLER.registerMessage(PlayerChatMessagePacket.Handler.class, PlayerChatMessagePacket.class, 27, Side.CLIENT);
 	}
 	
 	public static Packet getMCPacket(IMessage message)

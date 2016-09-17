@@ -1,22 +1,17 @@
 package net.glider.src.renderer;
 
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import java.util.Calendar;
-
 import net.glider.src.renderer.models.ModelNotepad;
 import net.glider.src.tiles.TileEntityRemoveInfo;
 import net.glider.src.utils.GliderModInfo;
-import net.minecraft.block.Block;
-import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 
 @SideOnly(Side.CLIENT)

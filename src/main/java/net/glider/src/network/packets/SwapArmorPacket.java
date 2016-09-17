@@ -2,15 +2,8 @@
 package net.glider.src.network.packets;
 
 import io.netty.buffer.ByteBuf;
-
-import java.util.List;
-import java.util.UUID;
-
-import net.glider.src.entity.EntityRocketFakeTiered;
 import net.glider.src.gui.ContainerArmorStand;
 import net.glider.src.tiles.TileEntityArmorStand;
-import net.glider.src.utils.GLoger;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;

@@ -7,11 +7,12 @@ import java.util.Random;
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.tile.IMultiBlock;
-import micdoodle8.mods.galacticraft.core.util.EnumColor;
-import micdoodle8.mods.galacticraft.core.util.GCCoreUtil;
 import net.glider.src.GliderCore;
 import net.glider.src.gui.GuiHandler;
 import net.glider.src.tiles.TileEntityArmorStand;
+import net.glider.src.utils.ChatUtils;
+import net.glider.src.utils.LocalizedChatComponent;
+import net.glider.src.utils.LocalizedString;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,8 +23,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -129,7 +130,7 @@ public class BlockArmorStand extends BlockContainerMod {
 			{
 				if (!world.isRemote)
 				{
-					((EntityPlayer) entityLiving).addChatMessage(new ChatComponentText(EnumColor.RED + GCCoreUtil.translate("gui.warning.noroom")));
+					ChatUtils.SendChatMessageOnClient(((EntityPlayer) entityLiving), new LocalizedChatComponent(new LocalizedString("gui.warning.noroom", EnumChatFormatting.RED)));
 				}
 				
 				world.setBlockToAir(x, y, z);
