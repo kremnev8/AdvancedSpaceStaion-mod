@@ -49,6 +49,7 @@ public class ClientProxy extends CommonProxy {
 		super.PreInit(event);
 		
 	}
+			
 	
 	@Override
 	public void init(FMLInitializationEvent event)
