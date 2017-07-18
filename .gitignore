@@ -10,3 +10,5 @@
 /src/main/resources/assets/projecte
 .gradle
 .settings
+.project
+.classpath
