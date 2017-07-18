@@ -15,7 +15,7 @@ Standalone source installation
 ==============================
 
 To install this source code for development purposes, extract this zip file.
-It ships with a demonstration mod. Run 'gradlew setupDevWorkspace' to create
+It ships with a demonstration mod. Run 'gradlew setupDecompWorkspace eclipse' to create
 a gradle environment primed with FML. Run 'gradlew eclipse' or 'gradlew idea' to
 create an IDE workspace of your choice.
 Refer to ForgeGradle for more information about the gradle environment
