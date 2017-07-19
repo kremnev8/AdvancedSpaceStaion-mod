@@ -1,9 +1,7 @@
-
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import net.glider.src.items.ItemMod;
@@ -44,11 +42,9 @@ public class StructureWindow extends StructureRotatable {
 		{
 			if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST)
 			{
-				if (dir == ForgeDirection.EAST)
-					x = x + 1;
-				if (dir == ForgeDirection.WEST)
-					x = x - 1;
-				//w orld.setBlock(x+0, y+-3, z+-3, block1,5,2);
+				if (dir == ForgeDirection.EAST) x = x + 1;
+				if (dir == ForgeDirection.WEST) x = x - 1;
+				// w orld.setBlock(x+0, y+-3, z+-3, block1,5,2);
 				Block block2 = Blocks.air;
 				world.setBlock(x + 0, y + -2, z + -2, block2, 6, 2);
 				Block block3 = Blocks.air;
@@ -77,15 +73,13 @@ public class StructureWindow extends StructureRotatable {
 				world.setBlock(x + 0, y + 2, z + 0, block3, 4, 2);
 				world.setBlock(x + 0, y + 2, z + 1, block3, 4, 2);
 				world.setBlock(x + 0, y + 2, z + 2, block2, 3, 2);
-				//	world.setBlock(x+0, y+3, z+3, block1,14,2);
+				// world.setBlock(x+0, y+3, z+3, block1,14,2);
 				
 			} else if (dir == ForgeDirection.SOUTH || dir == ForgeDirection.NORTH)
 			{
-				if (dir == ForgeDirection.NORTH)
-					z = z - 1;
-				if (dir == ForgeDirection.SOUTH)
-					z = z + 1;
-				//	world.setBlock(x+-3, y+-3, z+0, block1,5,2);
+				if (dir == ForgeDirection.NORTH) z = z - 1;
+				if (dir == ForgeDirection.SOUTH) z = z + 1;
+				// world.setBlock(x+-3, y+-3, z+0, block1,5,2);
 				Block block2 = Blocks.air;
 				world.setBlock(x + -2, y + -2, z + 0, block2, 4, 2);
 				Block block3 = Blocks.air;
@@ -114,7 +108,7 @@ public class StructureWindow extends StructureRotatable {
 				world.setBlock(x + 2, y + 0, z + 0, block3, 4, 2);
 				world.setBlock(x + 2, y + 1, z + 0, block3, 4, 2);
 				world.setBlock(x + 2, y + 2, z + 0, block2, 1, 2);
-				//	world.setBlock(x+3, y+3, z+0, block1,14,2);
+				// world.setBlock(x+3, y+3, z+0, block1,14,2);
 				
 			}
 		} else
@@ -322,10 +316,8 @@ public class StructureWindow extends StructureRotatable {
 		{
 			if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST)
 			{
-				if (dir == ForgeDirection.EAST)
-					x = x + 1;
-				if (dir == ForgeDirection.WEST)
-					x = x - 1;
+				if (dir == ForgeDirection.EAST) x = x + 1;
+				if (dir == ForgeDirection.WEST) x = x - 1;
 				Block block1 = GCBlocks.tinStairs1;
 				world.setBlock(x + 0, y - 2, z - 2, block1, 6, 2);
 				Block block2 = GCBlocks.basicBlock;
@@ -357,10 +349,8 @@ public class StructureWindow extends StructureRotatable {
 				
 			} else if (dir == ForgeDirection.SOUTH || dir == ForgeDirection.NORTH)
 			{
-				if (dir == ForgeDirection.NORTH)
-					z = z - 1;
-				if (dir == ForgeDirection.SOUTH)
-					z = z + 1;
+				if (dir == ForgeDirection.NORTH) z = z - 1;
+				if (dir == ForgeDirection.SOUTH) z = z + 1;
 				
 				Block block1 = GCBlocks.tinStairs1;
 				world.setBlock(x - 2, y - 2, z + 0, block1, 4, 2);
@@ -597,10 +587,8 @@ public class StructureWindow extends StructureRotatable {
 		{
 			return false;
 		}
-		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
-			return true;
-		else
-			return false;
+		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) return true;
+		else return false;
 	}
 	
 	@Override
@@ -760,10 +748,11 @@ public class StructureWindow extends StructureRotatable {
 	{
 		return rot;
 	}
+	
 	/**
-	 * 0 - everything, 1 - everything excluding pierce, 2 - only add
-	 * structures, 3 - only window(only rot == 0), 4 - solar panels, 5 -
-	 * greenhouse, 6 - pierce
+	 * 0 - everything, 1 - everything excluding pierce, 2 - only add structures,
+	 * 3 - only window(only rot == 0), 4 - solar panels, 5 - greenhouse, 6 -
+	 * pierce
 	 */
 	@Override
 	public boolean isPossible(ForgeDirection dir, int rot, int meta)
@@ -778,8 +767,7 @@ public class StructureWindow extends StructureRotatable {
 		if ((rot == 0 || rot == 1) && (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH))
 		{
 			return true;
-		} else
-			return false;
+		} else return false;
 	}
 	
 	@Override

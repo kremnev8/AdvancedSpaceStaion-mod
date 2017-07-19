@@ -98,14 +98,8 @@ remover.no_linked_tile.name=No linked TileEntityInfo block found!
 
 #haschilds_tip is complex. do not translate separately
 #you need to traslate whole sentence and then split it by lenth
-remover.haschilds_tip0.name=This structure have
-remover.haschilds_tip1.name=child structures.
-remover.haschilds_tip2.name=Before it can be
-remover.haschilds_tip3.name=removed, you need to
-remover.haschilds_tip4.name=remove all his child
-remover.haschilds_tip5.name=structures 
-#num of lines. if you use less or more
-remover.haschilds_tip.num_lines=6
+remover.haschilds_tip.name=This structure have child structures. Before it can be removed, you need to remove all its child structures 
+
 
 ForgeDirs.DOWN.name=Down
 ForgeDirs.UP.name=Up

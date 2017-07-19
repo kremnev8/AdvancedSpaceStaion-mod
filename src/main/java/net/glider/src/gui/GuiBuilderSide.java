@@ -3,7 +3,6 @@ package net.glider.src.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.glider.src.strucures.BuildHandler;
 import net.glider.src.strucures.Structure;
 import net.glider.src.strucures.StructureData;
@@ -22,27 +21,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public class GuiBuilderSide extends GuiModule {
-
+	
 	public static final int Xsize = 85;
 	public static final int Ysize = 137;
 	public int x;
 	public int y;
-
+	
 	public boolean doDraw = false;
-
+	
 	private ResourceLocation texture = new ResourceLocation(GliderModInfo.ModTestures, "textures/gui/Builder_side.png");
-
+	
 	public ItemStack[] shownItems = new ItemStack[9];
 	public List<Slot> slots = new ArrayList();
 	public Slot theSlot;
 	boolean init = false;
 	private GuiButton selectedButton;
-
+	
 	public static List<ItemStack> foundItems = new ArrayList();
 	public static boolean dataRecived;
 	private int lastBid = -1;
@@ -50,31 +48,31 @@ public class GuiBuilderSide extends GuiModule {
 	/** use after drawBackground */
 	public boolean currentPossible = false;
 	private int lastSliderV = -1;
-
+	
 	public GuiBuilderSide(GuiModular parent, Container container, boolean right, boolean bottom)
 	{
 		super(parent, container, right, bottom);
 		lastBid = -1;
 	}
-
+	
 	@Override
 	public void initGui()
 	{
 		super.initGui();
 		init = false;
-
+		
 	}
-
+	
 	@Override
 	public boolean handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
 	{
-
+		
 		if (mouseButton == 0)
 		{
 			for (int l = 0; l < this.buttonList.size(); ++l)
 			{
 				GuiButton guibutton = (GuiButton) this.buttonList.get(l);
-
+				
 				if (guibutton.mousePressed(this.mc, mouseX, mouseY))
 				{
 					this.selectedButton = guibutton;
@@ -83,7 +81,7 @@ public class GuiBuilderSide extends GuiModule {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public boolean handleMouseReleased(int mouseX, int mouseY, int state)
 	{
@@ -94,7 +92,7 @@ public class GuiBuilderSide extends GuiModule {
 		}
 		return false;
 	}
-
+	
 	public boolean haveContainerItem(OreDictItemStack is)
 	{
 		if (Minecraft.getMinecraft().thePlayer.capabilities.isCreativeMode)
@@ -123,16 +121,16 @@ public class GuiBuilderSide extends GuiModule {
 		}
 		return false;
 	}
-
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int mouseX, int mouseY)
 	{
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-
+		
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
+		
 		GuiBuilder build = (GuiBuilder) parent;
-
+		
 		x = build.cornerX + build.Xsize - 4;
 		y = build.cornerY + 15;
 		if (build.STRlastid != -1)
@@ -158,7 +156,7 @@ public class GuiBuilderSide extends GuiModule {
 				}
 				init = true;
 			}
-
+			
 			Structure str = ((Structure) build.Ast.get(build.STRlastid)).copy();
 			if (str instanceof StructureRotatable)
 			{
@@ -166,7 +164,7 @@ public class GuiBuilderSide extends GuiModule {
 			}
 			StructureData data = str.getStructureData();
 			GuiVerticalSlider slider = (GuiVerticalSlider) this.buttonList.get(0);
-
+			
 			if (data.requiredItems.size() > 0 && (lastBid != build.STRlastid || lastRot != build.rot || lastSliderV != slider.getValueInt()))
 			{
 				slider.maxValue = (Math.ceil((double) data.requiredItems.size() / 3) - 3);
@@ -183,8 +181,7 @@ public class GuiBuilderSide extends GuiModule {
 					{
 						shownItems[i] = data.requiredItemsExamp.get(j);
 						((SlotGhost) slots.get(i)).state = haveContainerItem(data.requiredItems.get(j));
-					} else
-						shownItems[i] = null;
+					} else shownItems[i] = null;
 				}
 				foundItems.clear();
 				for (int i = 0; i < backup.size(); i++)
@@ -224,22 +221,22 @@ public class GuiBuilderSide extends GuiModule {
 			{
 				shownItems = new ItemStack[9];
 			}
-
+			
 			// 9 77
-
+			
 			GL11.glPushMatrix();
-
+			
 			for (int i = 0; i < slots.size(); i++)
 			{
 				drawSlot(slots.get(i), mouseX, mouseY);
 			}
 			GL11.glPopMatrix();
-
+			
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			RenderHelper.disableStandardItemLighting();
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
-
+			
 			for (int k = 0; k < this.buttonList.size(); ++k)
 			{
 				((GuiButton) this.buttonList.get(k)).drawButton(this.mc, mouseX, mouseY);
@@ -247,7 +244,7 @@ public class GuiBuilderSide extends GuiModule {
 			RenderHelper.enableGUIStandardItemLighting();
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-
+			
 		} else
 		{
 			this.doDraw = false;
@@ -255,7 +252,7 @@ public class GuiBuilderSide extends GuiModule {
 			this.ySize = 0;
 		}
 	}
-
+	
 	public void drawSlot(Slot slot, int mouseX, int mouseY)
 	{
 		int i = slot.xDisplayPosition;
@@ -268,7 +265,7 @@ public class GuiBuilderSide extends GuiModule {
 		if (itemstack != null)
 		{
 			IIcon iicon = slot.getBackgroundIconIndex();
-
+			
 			if (iicon != null)
 			{
 				GL11.glDisable(GL11.GL_LIGHTING);
@@ -293,7 +290,7 @@ public class GuiBuilderSide extends GuiModule {
 			GL11.glEnable(GL11.GL_LIGHTING);
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
 		}
-
+		
 		if (itemstack != null)
 		{
 			GL11.glDisable(GL11.GL_DEPTH_TEST);
@@ -302,23 +299,21 @@ public class GuiBuilderSide extends GuiModule {
 			drawItemStack(itemstack, i, j, s);
 		}
 	}
-
+	
 	public void drawItemStack(ItemStack p_146982_1_, int p_146982_2_, int p_146982_3_, String p_146982_4_)
 	{
 		GL11.glTranslatef(0.0F, 0.0F, 32.0F);
 		this.zLevel = 200.0F;
 		itemRender.zLevel = 200.0F;
 		FontRenderer font = null;
-		if (p_146982_1_ != null)
-			font = p_146982_1_.getItem().getFontRenderer(p_146982_1_);
-		if (font == null)
-			font = fontRendererObj;
+		if (p_146982_1_ != null) font = p_146982_1_.getItem().getFontRenderer(p_146982_1_);
+		if (font == null) font = fontRendererObj;
 		itemRender.renderItemAndEffectIntoGUI(font, this.mc.getTextureManager(), p_146982_1_, p_146982_2_, p_146982_3_);
 		itemRender.renderItemOverlayIntoGUI(font, this.mc.getTextureManager(), p_146982_1_, p_146982_2_, p_146982_3_, p_146982_4_);
 		this.zLevel = 0.0F;
 		itemRender.zLevel = 0.0F;
 	}
-
+	
 	public boolean isMouseOverSlot(Slot slot, int mX, int mY)
 	{
 		return mX >= slot.xDisplayPosition - 1 && mX < slot.xDisplayPosition + 16 + 1 && mY >= slot.yDisplayPosition - 1 && mY < slot.yDisplayPosition + 16 + 1;
@@ -332,7 +327,7 @@ public class GuiBuilderSide extends GuiModule {
 	// 5,
 	// 4210752,
 	// false);
-
+	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
@@ -340,16 +335,12 @@ public class GuiBuilderSide extends GuiModule {
 		{
 			
 			/*
-			 * @noForm Structure name :
-			 * hall
-			 * Connections : 1
-			 * Add connections : 2
-			 * Special fucntions : none
-			 * Required items :
+			 * @noForm Structure name : hall Connections : 1 Add connections : 2
+			 * Special fucntions : none Required items :
 			 * 
 			 * @formEn
 			 */
-
+			
 			GuiBuilder build = (GuiBuilder) parent;
 			Structure str = ((Structure) build.Ast.get(build.STRlastid)).copy();
 			if (str instanceof StructureRotatable)
@@ -361,12 +352,14 @@ public class GuiBuilderSide extends GuiModule {
 			{
 				data.specialFunc = StatCollector.translateToLocal("builder.side_info.special_func.none");
 			}
-
-			if (Minecraft.getMinecraft().gameSettings.forceUnicodeFont )
+			String name = data.name;
+			if (Minecraft.getMinecraft().gameSettings.forceUnicodeFont)
 			{
 				int dist = 8;
-			//	String name = BuildHandler.getLocolizedName(str.getUnlocalizedName(), build.rot, true);
-				String name = data.name;
+				// String name =
+				// BuildHandler.getLocolizedName(str.getUnlocalizedName(),
+				// build.rot, true);
+				
 				int width = fontRendererObj.getStringWidth(name);
 				if (width <= 80)
 				{
@@ -400,7 +393,7 @@ public class GuiBuilderSide extends GuiModule {
 			{
 				int dist = 9;
 				int base = 0;
-				String name = BuildHandler.getLocolizedName(str.getUnlocalizedName(), build.rot, true);
+				
 				if (fontRendererObj.getStringWidth(StatCollector.translateToLocal("builder.side_info.short.name") + ": " + name) <= 80)
 				{
 					simpleText(StatCollector.translateToLocal("builder.side_info.short.name") + ": " + name, 0, 5 + dist * base++);
@@ -447,10 +440,10 @@ public class GuiBuilderSide extends GuiModule {
 			}
 		}
 	}
-
+	
 	public void simpleText(String text, int x, int y)
 	{// StatCollector.translateToLocal("builder.name")
 		fontRendererObj.drawString(text, x, y, 4210752, false);
 	}
-
+	
 }

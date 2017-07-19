@@ -1,11 +1,8 @@
-
 package net.glider.src.network.packets;
 
 import io.netty.buffer.ByteBuf;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import net.glider.src.items.ItemMod;
 import net.glider.src.strucures.BuildHandler;
 import net.glider.src.strucures.DeconstructHandler;
@@ -40,7 +37,8 @@ public class BuildPacket implements IMessage {
 	private NBTTagList list = new NBTTagList();
 	
 	public BuildPacket()
-	{}
+	{
+	}
 	
 	public BuildPacket(ForgeDirection dir, String name, int x, int y, int z)
 	{
@@ -120,21 +118,22 @@ public class BuildPacket implements IMessage {
 			
 			if (pkt.dir.name() != ForgeDirection.UNKNOWN.name() && pkt.Fname != "")
 			{
-				//	GLoger.logInfo("Build Packet Sucsessfuly recived!");
+				// GLoger.logInfo("Build Packet Sucsessfuly recived!");
 				EntityPlayerMP player = ctx.getServerHandler().playerEntity;
-				if (player == null)
-					return null;
+				if (player == null) return null;
 				World world = player.worldObj;
 				boolean items = BuildHandler.CheckItems(world, pkt.Fname, pkt.list, player);
-				if (!items)
-					ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.failed.noitems", EnumChatFormatting.RED)));
+				if (!items) ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.failed.noitems", EnumChatFormatting.RED)));
 				else
 				{
 					boolean build = BuildHandler.HandleBuild(world, pkt.dir, pkt.Fname, pkt.x, pkt.y, pkt.z, pkt.rot, player);
-					if (!build)
-						ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.failed", EnumChatFormatting.RED)));
-					else
-						ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.successfully", EnumChatFormatting.GREEN)).appendSibling(new ChatComponentText(" ")).appendSibling(new LocalizedChatComponent(new StructureLocalizedString(Structure.FindStructure(pkt.Fname), EnumChatFormatting.GREEN)).appendSibling(new ChatComponentText("!"))));
+					if (!build) ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.failed", EnumChatFormatting.RED)));
+					else ChatUtils.SendChatMessageOnClient(
+							player,
+							new LocalizedChatComponent(new LocalizedString("builder.successfully", EnumChatFormatting.GREEN)).appendSibling(new ChatComponentText(" "))
+									.appendSibling(
+											new LocalizedChatComponent(new StructureLocalizedString(Structure.FindStructure(pkt.Fname), EnumChatFormatting.GREEN))
+													.appendSibling(new ChatComponentText("!"))));
 					
 					if (!build)
 					{

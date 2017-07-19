@@ -1,9 +1,7 @@
-
 package net.glider.src.dimensions;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.dimension.WorldProviderOrbit;
@@ -40,6 +38,7 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 	public static double pPrevMotionY;
 	private static double pPrevMotionZ;
 	
+	// TODO make plants die if there is no air.
 	@Override
 	public void setDimension(int var1)
 	{
@@ -195,16 +194,16 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 		return chunkcoordinates;
 	}
 	
-	//Overriding only in case the Galacticraft API is not up-to-date
-	//(with up-to-date API this makes zero difference)
+	// Overriding only in case the Galacticraft API is not up-to-date
+	// (with up-to-date API this makes zero difference)
 	@Override
 	public boolean canRespawnHere()
 	{
 		return true;
 	}
 	
-	//Overriding only in case the Galacticraft API is not up-to-date
-	//(with up-to-date API this makes zero difference)
+	// Overriding only in case the Galacticraft API is not up-to-date
+	// (with up-to-date API this makes zero difference)
 	@Override
 	public int getRespawnDimension(EntityPlayerMP player)
 	{
