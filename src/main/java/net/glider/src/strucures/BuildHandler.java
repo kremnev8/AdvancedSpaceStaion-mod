@@ -650,7 +650,7 @@ public class BuildHandler {
 				}
 				if (!Conect)
 				{
-					str1.Build(world, dir, Spos[0], Spos[1], Spos[2]);
+					str1.Build(world, dir, Spos[0], Spos[1], Spos[2], 0);
 					str2.ClearWay(world, dir, x, y, z);
 				} else
 				{

@@ -53,7 +53,7 @@ public class GuiArtificialGSource extends GuiContainerGC {
 		this.electricInfoRegion.parentWidth = this.width;
 		this.electricInfoRegion.parentHeight = this.height;
 		this.infoRegions.add(this.electricInfoRegion);
-		this.buttonList.add(slider = new GuiSlider(0, x + 13, y + 15, 150, 20, "Gravity add:", "", 0, 1.5, Gsource.SettedGA, true, true));
+		this.buttonList.add(slider = new GuiSlider(0, x + 13, y + 15, 150, 20, "Gravity add:", "", 0, 1.5, Math.floor(Gsource.SettedGA*10)/10, true, true));
 		this.buttonList.add(new GuiButton(1, x + 13, y + 38, 70, 20, "Reset"));
 	}
 	

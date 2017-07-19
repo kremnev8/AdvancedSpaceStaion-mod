@@ -11,6 +11,7 @@ import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -151,14 +152,8 @@ public class GuiButtonBuilder extends GuiButton {
 			int a;
 			if (Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode()) a = 5;
 			else a = 0;
-			if (fontrenderer.getStringWidth(this.displayString) > 40)
-			{
-				fontrenderer.drawString(this.displayString, this.xPosition + 3, this.yPosition + (this.height - 8) - 3 / 2, l, false);
-
-			} else
-			{
-				fontrenderer.drawString(this.displayString, this.xPosition + 20, this.yPosition + (this.height - 8) - 3 / 2, l, false);
-			}
+			fontrenderer.drawString(this.displayString, this.xPosition + 15 + (int) (width / 4.5D) - (fontrenderer.getStringWidth(this.displayString) / 2), this.yPosition + (this.height - 8) - 3 / 2, l, false);
+			//(int) (width / 4.5D) - (fontrenderer.getStringWidth(this.displayString)) / 2)
 			//  this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, l);
 		}
 	}

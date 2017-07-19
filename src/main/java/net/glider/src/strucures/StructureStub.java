@@ -216,6 +216,11 @@ public class StructureStub extends Structure {
 	@Override
 	public void Build(World world, ForgeDirection dir, int x, int y, int z)
 	{
+		Build(world, dir, x, y, z, 1);
+	}
+	
+	public void Build(World world, ForgeDirection dir, int x, int y, int z, int meta)
+	{
 		if (dir == ForgeDirection.WEST)
 		{// WEST
 			Block Bblock = GCBlocks.basicBlock;
@@ -230,7 +235,7 @@ public class StructureStub extends Structure {
 			world.setBlock(x - 1, y - 1, z + 1, Bblock, 4, 2);
 			world.setBlock(x - 1, y + 0, z - 1, Bblock, 4, 2);
 			
-			BuildHandler.buildBuildPoint(world, x - 1, y, z, 1);
+			BuildHandler.buildBuildPoint(world, x - 1, y, z, meta);
 			world.setBlock(x - 1, y + 0, z + 1, Bblock, 4, 2);
 			world.setBlock(x - 1, y + 1, z - 1, Bblock, 4, 2);
 			world.setBlock(x - 1, y + 1, z + 0, Bblock, 4, 2);
@@ -297,7 +302,7 @@ public class StructureStub extends Structure {
 			world.setBlock(x + 1, y + -1, z + 0, block6, 4, 2);
 			world.setBlock(x + 1, y + -1, z + 1, block6, 4, 2);
 			world.setBlock(x + 1, y + 0, z + -1, block6, 4, 2);
-			BuildHandler.buildBuildPoint(world, x + 1, y, z, 1);
+			BuildHandler.buildBuildPoint(world, x + 1, y, z, meta);
 			world.setBlock(x + 1, y + 0, z + 1, block6, 4, 2);
 			world.setBlock(x + 1, y + 1, z + -1, block6, 4, 2);
 			world.setBlock(x + 1, y + 1, z + 0, block6, 4, 2);
@@ -329,7 +334,7 @@ public class StructureStub extends Structure {
 			world.setBlock(x + 0, y + -2, z + 1, block2, 7, 2);
 			world.setBlock(x + 0, y + -1, z + 0, block4, 0, 2);
 			world.setBlock(x + 0, y + -1, z + 1, block3, 4, 2);
-			BuildHandler.buildBuildPoint(world, x, y, z + 1, 1);
+			BuildHandler.buildBuildPoint(world, x, y, z + 1, meta);
 			world.setBlock(x + 0, y + 1, z + 0, block4, 8, 2);
 			world.setBlock(x + 0, y + 1, z + 1, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 0, block3, 4, 2);
@@ -371,7 +376,7 @@ public class StructureStub extends Structure {
 			world.setBlock(x + 0, y + -2, z + 0, block2, 4, 2);
 			world.setBlock(x + 0, y + -1, z + -1, block2, 4, 2);
 			world.setBlock(x + 0, y + -1, z + 0, block3, 0, 2);
-			BuildHandler.buildBuildPoint(world, x, y, z - 1, 1);
+			BuildHandler.buildBuildPoint(world, x, y, z - 1, meta);
 			world.setBlock(x + 0, y + 1, z + -1, block2, 4, 2);
 			world.setBlock(x + 0, y + 1, z + 0, block3, 8, 2);
 			world.setBlock(x + 0, y + 2, z + -1, block1, 2, 2);

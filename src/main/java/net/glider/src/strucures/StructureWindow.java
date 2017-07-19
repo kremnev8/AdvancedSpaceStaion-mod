@@ -760,14 +760,18 @@ public class StructureWindow extends StructureRotatable {
 	{
 		return rot;
 	}
-	
+	/**
+	 * 0 - everything, 1 - everything excluding pierce, 2 - only add
+	 * structures, 3 - only window(only rot == 0), 4 - solar panels, 5 -
+	 * greenhouse, 6 - pierce
+	 */
 	@Override
 	public boolean isPossible(ForgeDirection dir, int rot, int meta)
 	{
 		if (meta == 3 && rot == 1)
 		{
 			return false;
-		} else if (meta != 3 && meta != 0 && rot == 0)
+		} else if (meta != 3 && meta != 0 && meta != 1 && rot == 0)
 		{
 			return false;
 		}

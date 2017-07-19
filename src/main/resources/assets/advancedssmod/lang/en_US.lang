@@ -78,13 +78,14 @@ builder.side_info.short.name=Name
 builder.side_info.short.connections=Connections
 builder.side_info.short.add_connections=Add connect.
 builder.side_info.short.special_func=Function
-builder.side_info.short.special_func.none=none
 builder.side_info.short.required=Required items
 
 builder.side_info.funcs.airlock.name=inline Airlock
 builder.side_info.funcs.cupola.name=Earth view
 builder.side_info.funcs.dockport.name=+1 Docking slot
 builder.side_info.funcs.greenhouse.name=Plants Growing
+builder.side_info.funcs.solar.name=Generator
+builder.side_info.funcs.pierce.name=Exit into space
 
 builder.deconstruct.failed=Deconstruction on server was failed!
 builder.deconstruct.successfully=Server successfully deconstructed selected structures

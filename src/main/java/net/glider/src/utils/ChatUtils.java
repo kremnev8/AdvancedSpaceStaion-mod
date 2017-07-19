@@ -9,7 +9,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 
 /**
- * Helper class for chat messages and formatting Notice: Please try to keep methods tidy and alphabetically ordered. Thanks!
+ * Helper class for chat messages and formatting 
  */
 public final class ChatUtils {
 	/**
@@ -26,6 +26,7 @@ public final class ChatUtils {
 	
 	public static void SendChatMessageOnClient(EntityPlayer player, IChatComponent comp)
 	{
-		PacketHandler.sendTo(new PlayerChatMessagePacket(comp), (EntityPlayerMP) player);
+	//	PacketHandler.sendTo(new PlayerChatMessagePacket(comp), (EntityPlayerMP) player);
+		player.addChatComponentMessage(comp);
 	}
 }
