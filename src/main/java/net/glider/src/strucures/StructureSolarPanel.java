@@ -1,9 +1,7 @@
-
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.blocks.BlockSolar;
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
@@ -51,8 +49,7 @@ public class StructureSolarPanel extends StructureRotatable {
 	{
 		if (dir == ForgeDirection.UP)
 		{
-			if (rot == 0 || rot == 1)
-				return true;
+			if (rot == 0 || rot == 1) return true;
 		}
 		return false;
 	}
@@ -66,8 +63,7 @@ public class StructureSolarPanel extends StructureRotatable {
 		if (world.getBlock(x, y, z + 1) == Blocks.glowstone)
 		{
 			world.setBlock(x - 1, y, z, GCBlocks.basicBlock, 4, 2);
-		} else
-			world.setBlock(x, y, z + 1, GCBlocks.basicBlock, 4, 2);
+		} else world.setBlock(x, y, z + 1, GCBlocks.basicBlock, 4, 2);
 		BuildHandler.buildBuildPoint(world, x, y, z, ret);
 	}
 	
@@ -81,8 +77,7 @@ public class StructureSolarPanel extends StructureRotatable {
 			{
 				((BlockSolar) world.getBlock(x, y, z)).onUseWrench(world, x, y, z, null, 0, x, y, z);
 				world.setBlock(x - 1, y, z, GCBlocks.sealableBlock, 15, 2);
-			} else
-				world.setBlock(x, y, z + 1, GCBlocks.sealableBlock, 15, 2);
+			} else world.setBlock(x, y, z + 1, GCBlocks.sealableBlock, 15, 2);
 			TileEntitySolar tile = (TileEntitySolar) world.getTileEntity(x, y, z);
 			tile.onCreate(new BlockVec3(x, y, z));
 		} else
@@ -92,8 +87,7 @@ public class StructureSolarPanel extends StructureRotatable {
 			{
 				((BlockSolar) world.getBlock(x, y, z)).onUseWrench(world, x, y, z, null, 0, x, y, z);
 				world.setBlock(x - 1, y, z, GCBlocks.sealableBlock, 15, 2);
-			} else
-				world.setBlock(x, y, z + 1, GCBlocks.sealableBlock, 15, 2);
+			} else world.setBlock(x, y, z + 1, GCBlocks.sealableBlock, 15, 2);
 			TileEntitySolar tile = (TileEntitySolar) world.getTileEntity(x, y, z);
 			tile.onCreate(new BlockVec3(x, y, z));
 		}
@@ -115,7 +109,7 @@ public class StructureSolarPanel extends StructureRotatable {
 	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
-	{	
+	{
 		
 	}
 	
@@ -158,7 +152,7 @@ public class StructureSolarPanel extends StructureRotatable {
 	{
 		StructureData data = super.getStructureData();
 		data.specialFunc = StatCollector.translateToLocal("builder.side_info.funcs.solar.name");
-		data.name = StatCollector.translateToLocal("builder.solarpanel.rot" + rot + ("_short")) + StatCollector.translateToLocal("builder.solarpanel.name");
+		data.name = StatCollector.translateToLocal("builder.solarpanel.rot" + rot) + StatCollector.translateToLocal("builder.solarpanel.name").toLowerCase();
 		return data;
 	}
 	

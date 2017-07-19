@@ -1,4 +1,3 @@
-
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
@@ -6,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import net.glider.src.blocks.BlockContainerMod;
 import net.glider.src.blocks.BlockMod;
 import net.glider.src.strucures.matrix.MatrixHelper;
@@ -253,8 +251,7 @@ public class BuildHandler {
 	public static boolean HandleBuild(World world, ForgeDirection dir, String FuncName, int x, int y, int z, int rot, EntityPlayerMP player)
 	{
 		
-		switch (FuncName)
-		{
+		switch (FuncName) {
 		case "stub":
 			
 			if (str1.Check(world, dir, x, y, z, -1))
@@ -273,11 +270,8 @@ public class BuildHandler {
 					Matrix.clear();
 					Matrix = MatrixHelper.findTotalMatrix(world, IPoint);
 					// if (Matrix == null) return false;
-					if (Matrix != null)
-						if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2]))
-							return false;
-				} else
-					Matrix = null;
+					if (Matrix != null) if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2])) return false;
+				} else Matrix = null;
 				
 				// no if's for each dir!
 				int[] Spos = new int[] { x, y, z };
@@ -313,7 +307,8 @@ public class BuildHandler {
 						te = (TileEntityInfo) world.getTileEntity(Ppos[0], Ppos[1], Ppos[2]);
 						if (te != null)
 						{
-							if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock")) && te.Object.placementDir.getOpposite() == dir)
+							if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock"))
+									&& te.Object.placementDir.getOpposite() == dir)
 							{
 								Conect = true;
 							} else if (te.Object.getUnlocalizedName().equals("corner") && str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == dir)
@@ -338,8 +333,7 @@ public class BuildHandler {
 								for (int i = 0; i < 2; i++)
 								{
 									ForgeDirection STdir = dirs[i];
-									if (STdir.getOpposite() == dir)
-										Conect = true;
+									if (STdir.getOpposite() == dir) Conect = true;
 								}
 							}
 						}
@@ -370,11 +364,8 @@ public class BuildHandler {
 					Matrix.clear();
 					Matrix = MatrixHelper.findTotalMatrix(world, IPoint);
 					// if (Matrix == null) return false;
-					if (Matrix != null)
-						if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2]))
-							return false;
-				} else
-					Matrix = null;
+					if (Matrix != null) if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2])) return false;
+				} else Matrix = null;
 				TileEntityInfo te = null;
 				if (IPoint != null)
 				{
@@ -413,7 +404,8 @@ public class BuildHandler {
 						te = (TileEntityInfo) world.getTileEntity(Ppos[0], Ppos[1], Ppos[2]);
 						if (te != null)
 						{
-							if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock")) && te.Object.placementDir.getOpposite() == Ndir)
+							if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock"))
+									&& te.Object.placementDir.getOpposite() == Ndir)
 							{
 								Conect = true;
 							} else if (te.Object.getUnlocalizedName().equals("corner") && str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == Ndir)
@@ -425,8 +417,7 @@ public class BuildHandler {
 								for (int i = 0; i < 3; i++)
 								{
 									ForgeDirection STdir = dirs[i];
-									if (STdir.getOpposite() == Ndir)
-										Conect = true;
+									if (STdir.getOpposite() == Ndir) Conect = true;
 								}
 							} else if (te.Object.getUnlocalizedName().equals("thall"))
 							{
@@ -435,8 +426,7 @@ public class BuildHandler {
 								for (int i = 0; i < 2; i++)
 								{
 									ForgeDirection STdir = dirs[i];
-									if (STdir.getOpposite() == Ndir)
-										Conect = true;
+									if (STdir.getOpposite() == Ndir) Conect = true;
 								}
 							}
 						}
@@ -475,12 +465,9 @@ public class BuildHandler {
 					Matrix = MatrixHelper.findTotalMatrix(world, IPoint);
 					if (dir != ForgeDirection.UNKNOWN)
 					{
-						if (Matrix != null)
-							if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2]))
-								return false;
+						if (Matrix != null) if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2])) return false;
 					}
-				} else
-					Matrix = null;
+				} else Matrix = null;
 				TileEntityInfo te = null;
 				if (IPoint != null && dir != ForgeDirection.UNKNOWN)
 				{
@@ -522,10 +509,12 @@ public class BuildHandler {
 								te = (TileEntityInfo) world.getTileEntity(Spos[0], Spos[1], Spos[2]);
 								if (te != null)
 								{
-									if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock")) && te.Object.placementDir.getOpposite() == Ndir)
+									if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock"))
+											&& te.Object.placementDir.getOpposite() == Ndir)
 									{
 										Conect = true;
-									} else if (te.Object.getUnlocalizedName().equals("corner") && str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == Ndir)
+									} else if (te.Object.getUnlocalizedName().equals("corner")
+											&& str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == Ndir)
 									{
 										Conect = true;
 									} else if (te.Object.getUnlocalizedName().equals("crossroad") || te.Object.getUnlocalizedName().equals("bighall"))
@@ -534,8 +523,7 @@ public class BuildHandler {
 										for (int i2 = 0; i2 < 3; i2++)
 										{
 											ForgeDirection STdir = dirs1[i2];
-											if (STdir.getOpposite() == Ndir)
-												Conect = true;
+											if (STdir.getOpposite() == Ndir) Conect = true;
 										}
 									} else if (te.Object.getUnlocalizedName().equals("thall"))
 									{
@@ -544,8 +532,7 @@ public class BuildHandler {
 										for (int i2 = 0; i2 < 2; i2++)
 										{
 											ForgeDirection STdir = dirs1[i2];
-											if (STdir.getOpposite() == Ndir)
-												Conect = true;
+											if (STdir.getOpposite() == Ndir) Conect = true;
 										}
 									}
 								}
@@ -577,11 +564,8 @@ public class BuildHandler {
 					Matrix.clear();
 					Matrix = MatrixHelper.findTotalMatrix(world, IPoint);
 					// if (Matrix == null) return false;
-					if (Matrix != null)
-						if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2]))
-							return false;
-				} else
-					Matrix = null;
+					if (Matrix != null) if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2])) return false;
+				} else Matrix = null;
 				TileEntityInfo te = null;
 				if (IPoint != null)
 				{
@@ -616,7 +600,8 @@ public class BuildHandler {
 						te = (TileEntityInfo) world.getTileEntity(Ppos[0], Ppos[1], Ppos[2]);
 						if (te != null)
 						{
-							if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock")) && te.Object.placementDir.getOpposite() == dir)
+							if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock"))
+									&& te.Object.placementDir.getOpposite() == dir)
 							{
 								Conect = true;
 							} else if (te.Object.getUnlocalizedName().equals("corner") && str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == dir)
@@ -641,8 +626,7 @@ public class BuildHandler {
 								for (int i = 0; i < 2; i++)
 								{
 									ForgeDirection STdir = dirs[i];
-									if (STdir.getOpposite() == dir)
-										Conect = true;
+									if (STdir.getOpposite() == dir) Conect = true;
 								}
 							}
 						}
@@ -676,8 +660,7 @@ public class BuildHandler {
 					}
 				}
 				str6.setRotation(rot);
-				if (rot == 1)
-					str2.ClearWay(world, dir, x, y, z);
+				if (rot == 1) str2.ClearWay(world, dir, x, y, z);
 				str6.Build(world, dir, x, y, z);
 				return true;
 			}
@@ -746,11 +729,8 @@ public class BuildHandler {
 					Matrix.clear();
 					Matrix = MatrixHelper.findTotalMatrix(world, IPoint);
 					// if (Matrix == null) return false;
-					if (Matrix != null)
-						if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2]))
-							return false;
-				} else
-					Matrix = null;
+					if (Matrix != null) if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2])) return false;
+				} else Matrix = null;
 				TileEntityInfo te = null;
 				if (IPoint != null)
 				{
@@ -792,10 +772,12 @@ public class BuildHandler {
 							te = (TileEntityInfo) world.getTileEntity(Spos[0], Spos[1], Spos[2]);
 							if (te != null)
 							{
-								if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock")) && te.Object.placementDir.getOpposite() == Ndir)
+								if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock"))
+										&& te.Object.placementDir.getOpposite() == Ndir)
 								{
 									Conect = true;
-								} else if (te.Object.getUnlocalizedName().equals("corner") && str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == Ndir)
+								} else if (te.Object.getUnlocalizedName().equals("corner")
+										&& str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == Ndir)
 								{
 									Conect = true;
 								} else if (te.Object.getUnlocalizedName().equals("crossroad") || te.Object.getUnlocalizedName().equals("bighall"))
@@ -804,8 +786,7 @@ public class BuildHandler {
 									for (int i2 = 0; i2 < 3; i2++)
 									{
 										ForgeDirection STdir = dirs1[i2];
-										if (STdir.getOpposite() == Ndir)
-											Conect = true;
+										if (STdir.getOpposite() == Ndir) Conect = true;
 									}
 								} else if (te.Object.getUnlocalizedName().equals("thall"))
 								{
@@ -814,8 +795,7 @@ public class BuildHandler {
 									for (int j = 0; j < 2; j++)
 									{
 										ForgeDirection STdir = dirs1[j];
-										if (STdir.getOpposite() == Ndir)
-											Conect = true;
+										if (STdir.getOpposite() == Ndir) Conect = true;
 									}
 								}
 							}
@@ -848,11 +828,25 @@ public class BuildHandler {
 					Matrix = MatrixHelper.findTotalMatrix(world, IPoint);
 					
 					if (Matrix != null)
-						if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2]))
-							return false;
+					{
+						if (!isAvailable(dir, Matrix, IPoint[0], IPoint[1], IPoint[2])) return false;
+						int[] FTPos = ForgeDirectionUtils.IncreaseByDir(dir, IPoint.clone(), 9);
+						if (!isAvailable(dir, Matrix, FTPos[0], FTPos[1], FTPos[2])) return false;
+						ForgeDirection Tdir;
+						if (rot == 0)
+						{
+							Tdir = ForgeDirectionUtils.turnAgainstClockwise(dir);
+						} else
+						{
+							Tdir = ForgeDirectionUtils.turnClockwise(dir);
+						}
+						int[] Tpos = ForgeDirectionUtils.IncreaseByDir(Tdir, IPoint.clone(), 9);
+						if (!isAvailable(dir, Matrix, Tpos[0], Tpos[1], Tpos[2])) return false;
+						ForgeDirectionUtils.IncreaseByDir(dir, Tpos, 9);
+						if (!isAvailable(dir, Matrix, FTPos[0], FTPos[1], FTPos[2])) return false;
+					}
 					
-				} else
-					Matrix = null;
+				} else Matrix = null;
 				TileEntityInfo te = null;
 				if (IPoint != null)
 				{
@@ -907,10 +901,12 @@ public class BuildHandler {
 							te = (TileEntityInfo) world.getTileEntity(Px, pos[1] - 3, Pz);
 							if (te != null)
 							{
-								if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock")) && te.Object.placementDir.getOpposite() == dirs[i])
+								if ((te.Object.getUnlocalizedName().equals("hall") || te.Object.getUnlocalizedName().equals("hallairlock"))
+										&& te.Object.placementDir.getOpposite() == dirs[i])
 								{
 									Conect = true;
-								} else if (te.Object.getUnlocalizedName().equals("corner") && str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == dirs[i])
+								} else if (te.Object.getUnlocalizedName().equals("corner")
+										&& str3.onTurn(te.Object.placementDir, te.Object.placementRotation).getOpposite() == dirs[i])
 								{
 									Conect = true;
 								} else if (te.Object.getUnlocalizedName().equals("crossroad") || te.Object.getUnlocalizedName().equals("bighall"))
@@ -932,8 +928,7 @@ public class BuildHandler {
 									for (int j = 0; j < dirs1.length; j++)
 									{
 										ForgeDirection STdir = dirs1[j];
-										if (STdir.getOpposite() == dirs[i])
-											Conect = true;
+										if (STdir.getOpposite() == dirs[i]) Conect = true;
 									}
 								}
 							}
@@ -996,7 +991,8 @@ public class BuildHandler {
 									{
 										for (int j = 0; j < te2.AddObjects.size(); j++)
 										{
-											if (te2.AddObjects.get(j).getUnlocalizedName() == Structure.SOLARPANELID || te2.AddObjects.get(j).getUnlocalizedName() == Structure.GREENHOUSE)
+											if (te2.AddObjects.get(j).getUnlocalizedName() == Structure.SOLARPANELID
+													|| te2.AddObjects.get(j).getUnlocalizedName() == Structure.GREENHOUSE)
 											{
 												return false;
 											}
@@ -1021,7 +1017,8 @@ public class BuildHandler {
 									{
 										for (int j = 0; j < te2.AddObjects.size(); j++)
 										{
-											if (te2.AddObjects.get(j).getUnlocalizedName() == Structure.SOLARPANELID || te2.AddObjects.get(j).getUnlocalizedName() == Structure.GREENHOUSE)
+											if (te2.AddObjects.get(j).getUnlocalizedName() == Structure.SOLARPANELID
+													|| te2.AddObjects.get(j).getUnlocalizedName() == Structure.GREENHOUSE)
 											{
 												return false;
 											}
@@ -1066,7 +1063,8 @@ public class BuildHandler {
 									{
 										for (int j = 0; j < te2.AddObjects.size(); j++)
 										{
-											if (te2.AddObjects.get(j).getUnlocalizedName() == Structure.SOLARPANELID || te2.AddObjects.get(j).getUnlocalizedName() == Structure.GREENHOUSE)
+											if (te2.AddObjects.get(j).getUnlocalizedName() == Structure.SOLARPANELID
+													|| te2.AddObjects.get(j).getUnlocalizedName() == Structure.GREENHOUSE)
 											{
 												return false;
 											}
@@ -1100,8 +1098,7 @@ public class BuildHandler {
 						te.configureTileEntity("ADD", Nstr);
 					}
 				}
-				if (rot == 1)
-					str2.ClearWay(world, dir, x, y, z);
+				if (rot == 1) str2.ClearWay(world, dir, x, y, z);
 				str13.Build(world, dir, x, y, z);
 				str2.ClearWay(world, dir, x, y, z);
 				return true;
@@ -1115,8 +1112,7 @@ public class BuildHandler {
 	{
 		Block info = BlockContainerMod.BlockInfo;
 		TileEntityInfo te;
-		switch (FuncName)
-		{
+		switch (FuncName) {
 		case "hall":
 			world.setBlock(x, y, z, info, 0, 2);
 			te = (TileEntityInfo) world.getTileEntity(x, y, z);
@@ -1160,8 +1156,7 @@ public class BuildHandler {
 	{
 		Block info = BlockContainerMod.BlockRemoveInfo;
 		TileEntityRemoveInfo te;
-		switch (FuncName)
-		{
+		switch (FuncName) {
 		case "hall":
 			world.setBlock(x, y, z, info, str2.getMetaFromDir(dir), 2);
 			te = (TileEntityRemoveInfo) world.getTileEntity(x, y, z);
@@ -1226,15 +1221,13 @@ public class BuildHandler {
 		if (MatrixHelper.FindPointInMatrix(M, new int[] { Px, y, Pz }) == null)
 		{
 			return true;
-		} else
-			return false;
+		} else return false;
 	}
 	
 	public static String getLocolizedName(String uln, int rot, boolean isShort)
 	{
 		
-		switch (uln)
-		{
+		switch (uln) {
 		case "stub":
 			return str1.getName();
 		case "hall":

@@ -97,13 +97,8 @@ remover.deconstruct_button.name=Разобрать
 remover.no_selected.name=Не выбрано ни одной структуры!
 remover.no_linked_tile.name=Не найден связанный TileEntityInfo блок!
 
-remover.haschilds_tip0.name=Эта структура имеет
-remover.haschilds_tip1.name=дочерние объекты.
-remover.haschilds_tip2.name=чтобы ее удалить, вам
-remover.haschilds_tip3.name=надо сначала удалить
-remover.haschilds_tip4.name=все её дочерние объекты
+remover.haschilds_tip.name=Эта структура имеет дочерние объекты. чтобы ее удалить, вам надо сначала удалить все её дочерние объекты
 
-remover.haschilds_tip.num_lines=5
 
 ForgeDirs.DOWN.name=Внизу(Down)
 ForgeDirs.UP.name=Ввреху(Up)

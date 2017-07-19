@@ -2,7 +2,6 @@ package net.glider.src.gui;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import net.glider.src.network.PacketHandler;
 import net.glider.src.network.packets.BuildPacket;
 import net.glider.src.strucures.Structure;
@@ -34,15 +33,14 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiBuilder extends GuiModular {
-
+	
 	private InventoryPlayer inventory;
-
+	
 	public static Map strucutures = new HashMap<Integer, Structure>();
-
+	
 	private ResourceLocation texture = new ResourceLocation(GliderModInfo.ModTestures, "textures/Builder.png");
 	public int Xsize = 224;
 	public int Ysize = 160;
@@ -57,16 +55,17 @@ public class GuiBuilder extends GuiModular {
 	public Map Ast = new HashMap<Integer, Structure>();
 	public GuiBuilderSide sideinv;
 	public int meta;
-
+	
 	private boolean nullMOP = false;
-
+	
 	protected MovingObjectPosition getMovingObjectPositionFromPlayer(World p_77621_1_, EntityPlayer p_77621_2_, boolean p_77621_3_)
 	{
 		float f = 1.0F;
 		float f1 = p_77621_2_.prevRotationPitch + (p_77621_2_.rotationPitch - p_77621_2_.prevRotationPitch) * f;
 		float f2 = p_77621_2_.prevRotationYaw + (p_77621_2_.rotationYaw - p_77621_2_.prevRotationYaw) * f;
 		double d0 = p_77621_2_.prevPosX + (p_77621_2_.posX - p_77621_2_.prevPosX) * (double) f;
-		double d1 = p_77621_2_.prevPosY + (p_77621_2_.posY - p_77621_2_.prevPosY) * (double) f + (double) (p_77621_1_.isRemote ? p_77621_2_.getEyeHeight() - p_77621_2_.getDefaultEyeHeight() : p_77621_2_.getEyeHeight()); // isRemote
+		double d1 = p_77621_2_.prevPosY + (p_77621_2_.posY - p_77621_2_.prevPosY) * (double) f
+				+ (double) (p_77621_1_.isRemote ? p_77621_2_.getEyeHeight() - p_77621_2_.getDefaultEyeHeight() : p_77621_2_.getEyeHeight()); // isRemote
 		// //
 		// differences
 		double d2 = p_77621_2_.prevPosZ + (p_77621_2_.posZ - p_77621_2_.prevPosZ) * (double) f;
@@ -85,22 +84,21 @@ public class GuiBuilder extends GuiModular {
 		Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
 		return p_77621_1_.func_147447_a(vec3, vec31, p_77621_3_, !p_77621_3_, false);
 	}
-
+	
 	public GuiBuilder(EntityPlayer player)
 	{
 		super(new ContainerBuilder(player.inventory));
 		try
 		{
 			MovingObjectPosition mop = getMovingObjectPositionFromPlayer((World) Minecraft.getMinecraft().theWorld, player, false);
-
-			if (mop == null)
-				nullMOP = true;
+			
+			if (mop == null) nullMOP = true;
 			else
 			{
 				Wx = mop.blockX;
 				Wy = mop.blockY;
 				Wz = mop.blockZ;
-
+				
 				meta = player.worldObj.getBlockMetadata(Wx, Wy, Wz);
 				Ndir = ForgeDirection.getOrientation(mop.sideHit).getOpposite();
 				if (Ndir == ForgeDirection.EAST)
@@ -118,24 +116,23 @@ public class GuiBuilder extends GuiModular {
 				}
 				inventory = player.inventory;
 			}
-		}
-		catch (Throwable error)
+		} catch (Throwable error)
 		{
 			GLoger.logWarn("An error ocured in GuiBuilder(constructor)");
 			error.printStackTrace();
 		}
-
+		
 		sideinv = new GuiBuilderSide(this, this.inventorySlots, true, false);
 		this.modules.add(sideinv);
-
+		
 	}
-
+	
 	/*
-	 * 0 - everything, 1 - everything excluding pierce, 2 - only add
-	 * structures, 3 - only window(only rot == 0), 4 - solar panels, 5 -
-	 * greenhouse, 6 - pierce
+	 * 0 - everything, 1 - everything excluding pierce, 2 - only add structures,
+	 * 3 - only window(only rot == 0), 4 - solar panels, 5 - greenhouse, 6 -
+	 * pierce
 	 */
-
+	
 	public static void init()
 	{
 		RegisterStructure(0, new StructureHall(false));
@@ -151,18 +148,18 @@ public class GuiBuilder extends GuiModular {
 		RegisterStructure(10, new StructureGreenHouse());
 		RegisterStructure(11, new StructurePierce());
 	}
-
+	
 	public static void RegisterStructure(int id, Structure strc)
 	{
 		strucutures.put(id, strc);
 	}
-
+	
 	public static void RegisterStructure(int id, StructureRotatable strc, int rot)
 	{
 		strc.setRotation(rot);
 		strucutures.put(id, strc);
 	}
-
+	
 	private int getLines(int size)
 	{
 		if (size < 3)
@@ -177,7 +174,7 @@ public class GuiBuilder extends GuiModular {
 		}
 		return 0;
 	}
-
+	
 	@Override
 	public void initGui()
 	{
@@ -186,17 +183,16 @@ public class GuiBuilder extends GuiModular {
 			AstG.clear();
 			Ast.clear();
 			boolean disp;
-
-			if (nullMOP)
-				Minecraft.getMinecraft().displayGuiScreen(null);
-
+			
+			if (nullMOP) Minecraft.getMinecraft().displayGuiScreen(null);
+			
 			if (!nullMOP)
 			{
 				int x = (width - Xsize - 40) / 2;
 				int y = (height - Ysize) / 2;
 				this.cornerX = x;
 				this.cornerY = y;
-
+				
 				for (int a = 0; a < strucutures.size(); a++)
 				{
 					World world = (World) Minecraft.getMinecraft().theWorld;
@@ -206,12 +202,12 @@ public class GuiBuilder extends GuiModular {
 						{
 							Ast.put(Ast.size(), ((Structure) strucutures.get(a)));
 						}
-
+						
 					}
 				}
 				int xm = 0;
 				int ym = 0;
-
+				
 				for (int i = 0; i < Ast.size(); i++)
 				{
 					ym = getLines(i);
@@ -219,7 +215,7 @@ public class GuiBuilder extends GuiModular {
 					// GLoger.logInfo(xm+" "+ym+" "+i);
 					buttonList.add(new GuiButtonBuilder(i, x + 12 + ((xm) * 68), y + 22 + (ym * 38), ((Structure) Ast.get(i)).getName()));
 					((GuiButtonBuilder) buttonList.get(i)).setDirection(Ndir);
-
+					
 					if (((Structure) Ast.get(i)) instanceof StructureRotatable)
 					{
 						((GuiButtonBuilder) buttonList.get(i)).setRotation(((StructureRotatable) Ast.get(i)).nextPossibleValue(-1, Ndir, meta));
@@ -232,31 +228,32 @@ public class GuiBuilder extends GuiModular {
 					buttonList.add(new GuiButton(Bid, x + 159, y + 135, 40, 20, StatCollector.translateToLocal("builder.build_button.name")));
 				} else
 				{
-					buttonList.add(new GuiButton(Bid, x + 159, y + 135, fontRendererObj.getStringWidth(StatCollector.translateToLocal("builder.build_button.name")) + 6, 20, StatCollector.translateToLocal("builder.build_button.name")));
+					buttonList.add(new GuiButton(Bid, x + 159, y + 135, fontRendererObj.getStringWidth(StatCollector.translateToLocal("builder.build_button.name")) + 6, 20,
+							StatCollector.translateToLocal("builder.build_button.name")));
 				}
-
+				
 				super.initGui();
 			}
-		}
-		catch (Throwable error)
+		} catch (Throwable error)
 		{
 			GLoger.logWarn("An error ocured in GuiBuilder(constructor)", error);
 		}
 	}
-
+	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
 		super.drawScreen(mouseX, mouseY, partialTicks);
-
-		if (mc.thePlayer.inventory.getItemStack() == null && sideinv.theSlot != null && sideinv.theSlot.slotNumber < sideinv.shownItems.length && sideinv.shownItems[sideinv.theSlot.slotNumber] != null)
+		
+		if (mc.thePlayer.inventory.getItemStack() == null && sideinv.theSlot != null && sideinv.theSlot.slotNumber < sideinv.shownItems.length
+				&& sideinv.shownItems[sideinv.theSlot.slotNumber] != null)
 		{
 			this.renderToolTip(sideinv.shownItems[sideinv.theSlot.slotNumber], mouseX, mouseY);
 			sideinv.theSlot = null;
 		}
-
+		
 	}
-
+	
 	@Override
 	protected void actionPerformed(GuiButton button)
 	{
@@ -270,21 +267,22 @@ public class GuiBuilder extends GuiModular {
 					if (sideinv.currentPossible)
 					{
 						rot = ((GuiButtonBuilder) buttonList.get(STRlastid)).rot;
-						PacketHandler.sendToServer(new BuildPacket(Ndir, ((Structure) Ast.get(STRlastid)).getUnlocalizedName(), Wx, Wy, Wz, rot, this.inventory.player.getHeldItem()));
+						PacketHandler.sendToServer(new BuildPacket(Ndir, ((Structure) Ast.get(STRlastid)).getUnlocalizedName(), Wx, Wy, Wz, rot, this.inventory.player
+								.getHeldItem()));
 						// GLoger.logInfo("Sending packet");
 						Minecraft.getMinecraft().thePlayer.closeScreen();
 					}
 				}
 			} else
 			{
-
+				
 				if (STRlastid == button.id)
 				{
 					rot = ((GuiButtonBuilder) button).rot;
 					if (Ast.get(STRlastid) instanceof StructureRotatable)
 					{
 						((GuiButtonBuilder) button).setRotation(((StructureRotatable) Ast.get(STRlastid)).nextPossibleValue(rot, Ndir, meta));
-
+						
 					}
 					rot = ((GuiButtonBuilder) button).rot;
 				} else
@@ -292,9 +290,9 @@ public class GuiBuilder extends GuiModular {
 					if (STRlastid != -1)
 					{
 						((GuiButtonBuilder) buttonList.get(STRlastid)).setEnabled(false);
-
+						
 					}
-
+					
 					STRlastid = button.id;
 					((GuiButtonBuilder) button).setEnabled(true);
 					if (Ast.get(STRlastid) instanceof StructureRotatable && ((GuiButtonBuilder) button).rot == 0)
@@ -303,29 +301,33 @@ public class GuiBuilder extends GuiModular {
 					}
 				}
 			}
-		}
-		catch (Throwable error)
+		} catch (Throwable error)
 		{
 			GLoger.logWarn("An error ocured in GuiBuilder", error);
 		}
 	}
-
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
-
+		
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
+		
 		int x = (width - Xsize - 40) / 2;
 		int y = (height - Ysize) / 2;
 		this.cornerX = x;
 		this.cornerY = y;
-
+		
 		drawTexturedModalRect(x, y, 0, 0, Xsize, Ysize);
-
+		
 		super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-
+		
+		if (buttonList.size() < Bid)
+		{
+			
+		}
+		
 		if (STRlastid == -1)
 		{
 			((GuiButton) buttonList.get(Bid)).enabled = false;
@@ -339,15 +341,16 @@ public class GuiBuilder extends GuiModular {
 				((GuiButton) buttonList.get(Bid)).enabled = false;
 			}
 		}
-
+		
 	}
-
+	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2)
 	{
 		super.drawGuiContainerForegroundLayer(par1, par2);
-
-		fontRendererObj.drawString(StatCollector.translateToLocal("builder.name"), (int) (xSize / 4.5D) - (fontRendererObj.getStringWidth(I18n.format("builder.name")) / 2) + 70, 10, 4210752, false);
+		
+		fontRendererObj.drawString(StatCollector.translateToLocal("builder.name"), (int) (xSize / 4.5D) - (fontRendererObj.getStringWidth(I18n.format("builder.name")) / 2) + 70,
+				10, 4210752, false);
 	}
-
+	
 }
