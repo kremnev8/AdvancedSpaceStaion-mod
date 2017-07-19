@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PlayerChatMessagePacket implements IMessage {
 	
 	private IChatComponent comp;
-	
+	//TODO delete this packet. It is useless. I even can't tell what it does.
 	public PlayerChatMessagePacket()
 	{}
 	

@@ -128,7 +128,7 @@ public class StructureSolarPanel extends StructureRotatable {
 	@Override
 	public String getName()
 	{
-		return StatCollector.translateToLocal("builder.solarpanel.rot" + rot + ("_short")) + StatCollector.translateToLocal("builder.solarpanel.name");
+		return StatCollector.translateToLocal("builder.solarpanel.name");
 	}
 	
 	@Override
@@ -157,7 +157,8 @@ public class StructureSolarPanel extends StructureRotatable {
 	public StructureData getStructureData()
 	{
 		StructureData data = super.getStructureData();
-		data.specialFunc = "generator";
+		data.specialFunc = StatCollector.translateToLocal("builder.side_info.funcs.solar.name");
+		data.name = StatCollector.translateToLocal("builder.solarpanel.rot" + rot + ("_short")) + StatCollector.translateToLocal("builder.solarpanel.name");
 		return data;
 	}
 	

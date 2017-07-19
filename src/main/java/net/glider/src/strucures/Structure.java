@@ -163,6 +163,10 @@ public abstract class Structure {
 
 	/**
 	 * check possible to place structure
+	 * @param meta 0 - everything, 1 - everything excluding pierce, 2 - only add
+	 * structures, 3 - only window(only rot == 0), 4 - solar panels, 5 -
+	 * greenhouse, 6 - pierce
+	 *
 	 */
 	public abstract boolean Check(World world, ForgeDirection dir, int x, int y, int z, int meta);
 

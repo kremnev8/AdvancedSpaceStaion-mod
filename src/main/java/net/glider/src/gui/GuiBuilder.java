@@ -46,9 +46,9 @@ public class GuiBuilder extends GuiModular {
 	private ResourceLocation texture = new ResourceLocation(GliderModInfo.ModTestures, "textures/Builder.png");
 	public int Xsize = 224;
 	public int Ysize = 160;
-	private int x;
-	private int y;
-	private int z;
+	private int Wx;
+	private int Wy;
+	private int Wz;
 	private ForgeDirection Ndir;
 	private int Bid;
 	public int STRlastid = -1;
@@ -97,24 +97,24 @@ public class GuiBuilder extends GuiModular {
 				nullMOP = true;
 			else
 			{
-				x = mop.blockX;
-				y = mop.blockY;
-				z = mop.blockZ;
+				Wx = mop.blockX;
+				Wy = mop.blockY;
+				Wz = mop.blockZ;
 
-				meta = player.worldObj.getBlockMetadata(x, y, z);
+				meta = player.worldObj.getBlockMetadata(Wx, Wy, Wz);
 				Ndir = ForgeDirection.getOrientation(mop.sideHit).getOpposite();
 				if (Ndir == ForgeDirection.EAST)
 				{
-					x = x - 1;
+					Wx = Wx - 1;
 				} else if (Ndir == ForgeDirection.WEST)
 				{
-					x = x + 1;
+					Wx = Wx + 1;
 				} else if (Ndir == ForgeDirection.SOUTH)
 				{
-					z = z - 1;
+					Wz = Wz - 1;
 				} else if (Ndir == ForgeDirection.NORTH)
 				{
-					z = z + 1;
+					Wz = Wz + 1;
 				}
 				inventory = player.inventory;
 			}
@@ -200,9 +200,9 @@ public class GuiBuilder extends GuiModular {
 				for (int a = 0; a < strucutures.size(); a++)
 				{
 					World world = (World) Minecraft.getMinecraft().theWorld;
-					if (((Structure) strucutures.get(a)).Check(world, Ndir, x, y, z, meta))
+					if (((Structure) strucutures.get(a)).Check(world, Ndir, Wx, Wy, Wz, meta))
 					{
-						if (((Structure) strucutures.get(a)).Check(world, Ndir, x, y, y, meta))
+						if (((Structure) strucutures.get(a)).Check(world, Ndir, Wx, Wy, Wy, meta))
 						{
 							Ast.put(Ast.size(), ((Structure) strucutures.get(a)));
 						}
@@ -270,7 +270,7 @@ public class GuiBuilder extends GuiModular {
 					if (sideinv.currentPossible)
 					{
 						rot = ((GuiButtonBuilder) buttonList.get(STRlastid)).rot;
-						PacketHandler.sendToServer(new BuildPacket(Ndir, ((Structure) Ast.get(STRlastid)).getUnlocalizedName(), x, y, z, rot, this.inventory.player.getHeldItem()));
+						PacketHandler.sendToServer(new BuildPacket(Ndir, ((Structure) Ast.get(STRlastid)).getUnlocalizedName(), Wx, Wy, Wz, rot, this.inventory.player.getHeldItem()));
 						// GLoger.logInfo("Sending packet");
 						Minecraft.getMinecraft().thePlayer.closeScreen();
 					}

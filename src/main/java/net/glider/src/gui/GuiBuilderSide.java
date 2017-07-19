@@ -357,11 +357,16 @@ public class GuiBuilderSide extends GuiModule {
 				((StructureRotatable) str).setRotation(build.rot);
 			}
 			StructureData data = str.getStructureData();
+			if (data.specialFunc.equals("none"))
+			{
+				data.specialFunc = StatCollector.translateToLocal("builder.side_info.special_func.none");
+			}
 
-			if (Minecraft.getMinecraft().gameSettings.forceUnicodeFont)
+			if (Minecraft.getMinecraft().gameSettings.forceUnicodeFont )
 			{
 				int dist = 8;
-				String name = BuildHandler.getLocolizedName(str.getUnlocalizedName(), build.rot, true);
+			//	String name = BuildHandler.getLocolizedName(str.getUnlocalizedName(), build.rot, true);
+				String name = data.name;
 				int width = fontRendererObj.getStringWidth(name);
 				if (width <= 80)
 				{
@@ -381,14 +386,14 @@ public class GuiBuilderSide extends GuiModule {
 				}
 				simpleText(StatCollector.translateToLocal("builder.side_info.connections") + ": " + data.mainConnect, 0, 5 + dist * 2);
 				simpleText(StatCollector.translateToLocal("builder.side_info.add_connections") + ": " + data.addConnect, 0, 5 + dist * 3);
-				if (!data.specialFunc.equals("none"))
+				if (fontRendererObj.getStringWidth(StatCollector.translateToLocal("builder.side_info.special_func") + data.specialFunc) > 82)
 				{
 					simpleText(StatCollector.translateToLocal("builder.side_info.special_func") + ":", 0, 5 + dist * 4);//
 					simpleText(data.specialFunc, 0, 5 + dist * 5);
 					simpleText(StatCollector.translateToLocal("builder.side_info.required") + ": ", 0, 5 + dist * 6);
 				} else
 				{
-					simpleText(StatCollector.translateToLocal("builder.side_info.special_func") + ": " + StatCollector.translateToLocal("builder.side_info.special_func.none"), 0, 5 + dist * 4);
+					simpleText(StatCollector.translateToLocal("builder.side_info.special_func") + ": " + data.specialFunc, 0, 5 + dist * 4);
 					simpleText(StatCollector.translateToLocal("builder.side_info.required") + ": ", 0, 5 + dist * 5);
 				}
 			} else
@@ -429,14 +434,14 @@ public class GuiBuilderSide extends GuiModule {
 				}
 				simpleText(StatCollector.translateToLocal("builder.side_info.short.connections") + ": " + data.mainConnect, 0, 5 + dist * base++);
 				simpleText(StatCollector.translateToLocal("builder.side_info.short.add_connections") + ": " + data.addConnect, 0, 5 + dist * base++);
-				if (!data.specialFunc.equals("none"))
+				if (fontRendererObj.getStringWidth(StatCollector.translateToLocal("builder.side_info.short.special_func") + data.specialFunc) > 82)
 				{
 					simpleText(StatCollector.translateToLocal("builder.side_info.short.special_func") + ":", 0, 5 + dist * base++);
 					simpleText(data.specialFunc, 0, 5 + dist * base++);
 					simpleText(StatCollector.translateToLocal("builder.side_info.short.required") + ": ", 0, 5 + dist * base++);
 				} else
 				{
-					simpleText(StatCollector.translateToLocal("builder.side_info.short.special_func") + ": " + StatCollector.translateToLocal("builder.side_info.short.special_func.none"), 0, 5 + dist * base++);
+					simpleText(StatCollector.translateToLocal("builder.side_info.short.special_func") + ": " + data.specialFunc, 0, 5 + dist * base++);
 					simpleText(StatCollector.translateToLocal("builder.side_info.short.required") + ": ", 0, 5 + dist * base++);
 				}
 			}

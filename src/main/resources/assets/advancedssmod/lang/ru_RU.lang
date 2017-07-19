@@ -78,14 +78,15 @@ builder.side_info.required=Необходимые предметы
 builder.side_info.short.name=Имя
 builder.side_info.short.connections=Соединений
 builder.side_info.short.add_connections=Доп. соед.
-builder.side_info.short.special_func=Фукция
-builder.side_info.short.special_func.none=нет
+builder.side_info.short.special_func=Функция
 builder.side_info.short.required=Необходимые предметы
 
 builder.side_info.funcs.airlock.name=Встроенный шлюз
 builder.side_info.funcs.cupola.name=Вид на землю
 builder.side_info.funcs.dockport.name=+1 место для стыковки
 builder.side_info.funcs.greenhouse.name=Выращивание растений
+builder.side_info.funcs.solar.name=Генератор
+builder.side_info.funcs.pierce.name=Выход в космос
 
 builder.deconstruct.failed=Разборка на сервере не удалась!
 builder.deconstruct.successfully=Сервер успешно разобрал выбранные структуры

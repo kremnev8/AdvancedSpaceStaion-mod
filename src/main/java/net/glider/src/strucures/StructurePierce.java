@@ -270,11 +270,15 @@ public class StructurePierce extends Structure {
 		}
 
 	}
-
+	/**
+	@param meta 0 - everything, 1 - everything excluding pierce, 2 - only add
+	 * structures, 3 - only window(only rot == 0), 4 - solar panels, 5 -
+	 * greenhouse, 6 - pierce
+	 */
 	@Override
 	public boolean Check(World world, ForgeDirection dir, int x, int y, int z, int meta)
 	{
-		if (meta != 0 && meta != 1 && meta != 6 && meta != -1)
+		if (meta != 0 && meta != 6 && meta != -1)
 		{
 			return false;
 		}
@@ -321,6 +325,14 @@ public class StructurePierce extends Structure {
 		items.add(new OreDictItemStack(new ItemStack(ItemMod.ironScaffold, 4, ItemMod.scaffold_meta)));
 
 		return items;
+	}
+	
+	@Override
+	public StructureData getStructureData()
+	{
+		StructureData data = super.getStructureData();
+		data.specialFunc = StatCollector.translateToLocal("builder.side_info.funcs.pierce.name");
+		return data;
 	}
 
 }
