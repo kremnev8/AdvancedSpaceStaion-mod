@@ -1,4 +1,4 @@
-package net.glider.src.strucures.matrix;
+package net.glider.src.utils;
 
 import java.util.HashMap;
 import java.util.Map;

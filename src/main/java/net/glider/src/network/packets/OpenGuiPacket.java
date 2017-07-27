@@ -1,10 +1,8 @@
 package net.glider.src.network.packets;
 
 import io.netty.buffer.ByteBuf;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import net.glider.src.gui.GuiRemover;
 import net.glider.src.strucures.Structure;
 import net.glider.src.tiles.TileEntityInfo;
@@ -21,25 +19,25 @@ public class OpenGuiPacket implements IMessage {
 	private Structure object;
 	private List<Structure> addObjects = new ArrayList<Structure>();
 	private List<Structure> ChildObjects = new ArrayList<Structure>();
-
+	
 	public OpenGuiPacket()
 	{
 	}
-
+	
 	public OpenGuiPacket(TileEntityInfo te)
 	{
 		object = te.Object;
 		addObjects = te.AddObjects;
 		ChildObjects = te.ChildObjects;
 	}
-
+	
 	public OpenGuiPacket(Structure str, List<Structure> addObj, List<Structure> childobj)
 	{
 		object = str;
 		addObjects = addObj;
 		ChildObjects = childobj;
 	}
-
+	
 	@Override
 	public void fromBytes(ByteBuf buf)
 	{
@@ -61,7 +59,7 @@ public class OpenGuiPacket implements IMessage {
 				addObjects.add(str);
 			}
 		}
-
+		
 		if (tag.getBoolean("CHILD"))
 		{
 			for (int i = 0; i < tag.getInteger("N_CHILD"); i++)
@@ -71,16 +69,43 @@ public class OpenGuiPacket implements IMessage {
 				int t2 = tag.getInteger("CH" + i + "_ROT");
 				ForgeDirection t3 = ForgeDirection.getOrientation(tag.getInteger("CH" + i + "_DIR"));
 				str.Configure(t1, t2, t3);
+				
+				if (tag.getBoolean("CHCN"))
+				{
+					for (int j = 0; j < tag.getInteger("N_CHCN"); j++)
+					{
+						Structure CNstr = Structure.FindStructure(tag.getString("CHCN" + j + "_OBJ"));
+						int[] CNt1 = tag.getIntArray("CHCN" + j + "_POS");
+						int CNt2 = tag.getInteger("CHCN" + j + "_ROT");
+						ForgeDirection CNt3 = ForgeDirection.getOrientation(tag.getInteger("CHCN" + j + "_DIR"));
+						str.Configure(CNt1, CNt2, CNt3);
+						str.connections.add(CNstr);
+					}
+				}
+				
 				ChildObjects.add(str);
 			}
 		}
+		
+		if (tag.getBoolean("CONN"))
+		{
+			for (int i = 0; i < tag.getInteger("N_CONN"); i++)
+			{
+				Structure str = Structure.FindStructure(tag.getString("CN" + i + "_OBJ"));
+				int[] t1 = tag.getIntArray("CN" + i + "_POS");
+				int t2 = tag.getInteger("CN" + i + "_ROT");
+				ForgeDirection t3 = ForgeDirection.getOrientation(tag.getInteger("CN" + i + "_DIR"));
+				str.Configure(t1, t2, t3);
+				object.connections.add(str);
+			}
+		}
 	}
-
+	
 	@Override
 	public void toBytes(ByteBuf buf)
 	{
 		NBTTagCompound tag = new NBTTagCompound();
-
+		
 		if (object != null)
 		{
 			tag.setBoolean("OBJWRT", true);
@@ -92,12 +117,12 @@ public class OpenGuiPacket implements IMessage {
 		{
 			tag.setBoolean("OBJWRT", false);
 		}
-
+		
 		if (addObjects != null && addObjects.size() > 0)
 		{
 			tag.setInteger("N_ADD_O", addObjects.size());
 			tag.setBoolean("ADDOBJ", true);
-
+			
 			for (int i = 0; i < addObjects.size(); i++)
 			{
 				tag.setInteger("A" + i + "_DIR", addObjects.get(i).placementDir.ordinal());
@@ -109,38 +134,73 @@ public class OpenGuiPacket implements IMessage {
 		{
 			tag.setBoolean("ADDOBJ", false);
 		}
-
+		
 		if (ChildObjects != null && ChildObjects.size() > 0)
 		{
 			tag.setInteger("N_CHILD", ChildObjects.size());
 			tag.setBoolean("CHILD", true);
-
+			
 			for (int i = 0; i < ChildObjects.size(); i++)
 			{
 				tag.setInteger("CH" + i + "_DIR", ChildObjects.get(i).placementDir.ordinal());
 				tag.setInteger("CH" + i + "_ROT", ChildObjects.get(i).placementRotation);
 				tag.setIntArray("CH" + i + "_POS", ChildObjects.get(i).placementPos);
 				tag.setString("CH" + i + "_OBJ", ChildObjects.get(i).getUnlocalizedName());
+				
+				if (ChildObjects.get(i).connections != null && ChildObjects.get(i).connections.size() > 0)
+				{
+					tag.setInteger("N_CHCN", ChildObjects.get(i).connections.size());
+					tag.setBoolean("CHCN", true);
+					
+					for (int j = 0; j < ChildObjects.get(i).connections.size(); j++)
+					{
+						tag.setInteger("CHCN" + j + "_DIR", ChildObjects.get(j).connections.get(j).placementDir.ordinal());
+						tag.setInteger("CHCN" + j + "_ROT", ChildObjects.get(i).connections.get(j).placementRotation);
+						tag.setIntArray("CHCN" + j + "_POS", ChildObjects.get(i).connections.get(j).placementPos);
+						tag.setString("CHCN" + j + "_OBJ", ChildObjects.get(i).connections.get(j).getUnlocalizedName());
+					}
+				} else
+				{
+					tag.setBoolean("CHCN", false);
+				}
 			}
 		} else
 		{
 			tag.setBoolean("CHILD", false);
 		}
+		
+		if (object != null && object.connections != null && object.connections.size() > 0)
+		{
+			tag.setInteger("N_CONN", object.connections.size());
+			tag.setBoolean("CONN", true);
+			
+			for (int i = 0; i < object.connections.size(); i++)
+			{
+				tag.setInteger("CN" + i + "_DIR", object.connections.get(i).placementDir.ordinal());
+				tag.setInteger("CN" + i + "_ROT", object.connections.get(i).placementRotation);
+				tag.setIntArray("CN" + i + "_POS", object.connections.get(i).placementPos);
+				tag.setString("CN" + i + "_OBJ", object.connections.get(i).getUnlocalizedName());
+			}
+		} else
+		{
+			tag.setBoolean("CONN", false);
+		}
+		
 		ByteBufUtils.writeTag(buf, tag);
 	}
-
+	
 	public static class Handler implements IMessageHandler<OpenGuiPacket, IMessage> {
 		@SideOnly(Side.CLIENT)
 		@Override
 		public IMessage onMessage(OpenGuiPacket pkt, MessageContext ctx)
 		{
-
+			
 			GuiRemover.object = pkt.object;
 			GuiRemover.addObjects = pkt.addObjects;
 			GuiRemover.ChildObjects = pkt.ChildObjects;
-
+			
 			return null;
 		}
-
+		
 	}
 }

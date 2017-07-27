@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 import net.glider.src.blocks.BlockContainerMod;
 import net.glider.src.blocks.BlockMod;
-import net.glider.src.strucures.matrix.MatrixHelper;
 import net.glider.src.tiles.TileEntityInfo;
 import net.glider.src.tiles.TileEntityRemoveInfo;
 import net.glider.src.utils.ForgeDirectionUtils;
 import net.glider.src.utils.ItemUtil;
+import net.glider.src.utils.MatrixHelper;
 import net.glider.src.utils.OreDictItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -336,6 +336,16 @@ public class BuildHandler {
 									if (STdir.getOpposite() == dir) Conect = true;
 								}
 							}
+							if (Conect)
+							{
+								int[] Ipos = ForgeDirectionUtils.IncreaseByDir(dir, IPoint.clone(), 9);
+								TileEntityInfo Ite = (TileEntityInfo) world.getTileEntity(Ipos[0], Ipos[1], Ipos[2]);
+								if (Ite != null)
+								{
+									
+									Ite.Object.connections.add(te.Object);
+								}
+							}
 						}
 					}
 				}
@@ -427,6 +437,16 @@ public class BuildHandler {
 								{
 									ForgeDirection STdir = dirs[i];
 									if (STdir.getOpposite() == Ndir) Conect = true;
+								}
+							}
+							if (Conect)
+							{
+								int[] Ipos = ForgeDirectionUtils.IncreaseByDir(dir, IPoint.clone(), 9);
+								TileEntityInfo Ite = (TileEntityInfo) world.getTileEntity(Ipos[0], Ipos[1], Ipos[2]);
+								if (Ite != null)
+								{
+									
+									Ite.Object.connections.add(te.Object);
 								}
 							}
 						}
@@ -535,6 +555,16 @@ public class BuildHandler {
 											if (STdir.getOpposite() == Ndir) Conect = true;
 										}
 									}
+									if (Conect)
+									{
+										int[] Ipos = ForgeDirectionUtils.IncreaseByDir(dir, IPoint.clone(), 9);
+										TileEntityInfo Ite = (TileEntityInfo) world.getTileEntity(Ipos[0], Ipos[1], Ipos[2]);
+										if (Ite != null)
+										{
+											
+											Ite.Object.connections.add(te.Object);
+										}
+									}
 								}
 							}
 						}
@@ -627,6 +657,15 @@ public class BuildHandler {
 								{
 									ForgeDirection STdir = dirs[i];
 									if (STdir.getOpposite() == dir) Conect = true;
+								}
+							}
+							if (Conect)
+							{
+								int[] Ipos = ForgeDirectionUtils.IncreaseByDir(dir, IPoint.clone(), 9);
+								TileEntityInfo Ite = (TileEntityInfo) world.getTileEntity(Ipos[0], Ipos[1], Ipos[2]);
+								if (Ite != null)
+								{
+									Ite.Object.connections.add(te.Object);
 								}
 							}
 						}
@@ -798,6 +837,15 @@ public class BuildHandler {
 										if (STdir.getOpposite() == Ndir) Conect = true;
 									}
 								}
+								if (Conect)
+								{
+									int[] Ipos = ForgeDirectionUtils.IncreaseByDir(dir, IPoint.clone(), 9);
+									TileEntityInfo Ite = (TileEntityInfo) world.getTileEntity(Ipos[0], Ipos[1], Ipos[2]);
+									if (Ite != null)
+									{
+										Ite.Object.connections.add(te.Object);
+									}
+								}
 							}
 						}
 					}
@@ -929,6 +977,15 @@ public class BuildHandler {
 									{
 										ForgeDirection STdir = dirs1[j];
 										if (STdir.getOpposite() == dirs[i]) Conect = true;
+									}
+								}
+								if (Conect)
+								{
+									int[] Ipos = ForgeDirectionUtils.IncreaseByDir(dir, IPoint.clone(), 9);
+									TileEntityInfo Ite = (TileEntityInfo) world.getTileEntity(Ipos[0], Ipos[1], Ipos[2]);
+									if (Ite != null)
+									{
+										Ite.Object.connections.add(te.Object);
 									}
 								}
 							}

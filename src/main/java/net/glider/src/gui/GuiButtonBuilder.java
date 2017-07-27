@@ -193,10 +193,10 @@ public class GuiButtonBuilder extends GuiButton {
 					}
 				} else if (dir == ForgeDirection.SOUTH)
 				{
-					if (rot == 0)
+					if (rot == 3)
 					{
 						DrawGuiIcon(this.xPosition + 3, this.yPosition + 3, "corner", 0);
-					} else if (rot == 3)
+					} else if (rot == 0)
 					{
 						DrawGuiIcon(this.xPosition + 3, this.yPosition + 3, "corner", 1);
 					}

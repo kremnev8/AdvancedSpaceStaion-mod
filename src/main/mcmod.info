@@ -1,14 +1,14 @@
 [
 {
-  "modid": "ASS mod",
-  "name": "glider",
-  "description": "",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "modid": "AdvancedSSMod",
+  "name": "Advanced Space Staion mod",
+  "description": "Brings more advanced and intresting space staion to GC",
+  "version": "1.7.10-1.4.0",
+  "mcversion": "1.7.10",
   "url": "",
   "updateUrl": "",
   "authorList": [ "kremnev8" ],
-  "credits": "",
+  "credits": "Thanks to: CreSerty - Assistant developer, GloomyFolken - author of HookLib",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

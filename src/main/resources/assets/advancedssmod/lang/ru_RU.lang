@@ -35,7 +35,7 @@ AdvancedSSMod:descr_shift.artificialGsource.name=Данное устройств
 AdvancedSSMod:descr_shift.armorStand.name=Данная стойка может заряжать броню а так заправлять некоторые устройства
 
 schematic.jetpack.name=Джетпак
-gui.rocket.warning.nopad.name=У меня нету взлетной площадки! Если я нажму запуск снова,пути назад не будет.
+gui.rocket.warning.nopad.name=У меня нету взлетной площадки! Если я нажму запуск снова, пути назад не будет.
 choreo.messages.undock.name=Ракета начинает отстыковку!
 choreo.messages.burn.name=Ракета начинает 10 секундный маневр для изменения орбиты!
 
@@ -50,7 +50,7 @@ builder.greenhouse.name=Теплица
 builder.pierce.name="Пирс"
 builder.name=Строитель
 builder.successfully=Сервер успешно построил
-builder.failed=Строительство на сервере не удалось!
+builder.failed=Строительство провалилось!
 builder.failed.noitems=Строительство на сервере не удалось! Недостаточно ресурсов для строительства.
 builder.failed.itemsreturn=Большинство предметов былы вернуты, но некоторые оказались повреждены...
 builder.solarpanel.name=Солнечная панель
@@ -88,7 +88,8 @@ builder.side_info.funcs.greenhouse.name=Выращивание растений
 builder.side_info.funcs.solar.name=Генератор
 builder.side_info.funcs.pierce.name=Выход в космос
 
-builder.deconstruct.failed=Разборка на сервере не удалась!
+builder.deconstruct.failed=Разборка провалилась!
+builder.deconstruct.partfailed=Разборка частично провалилась!
 builder.deconstruct.successfully=Сервер успешно разобрал выбранные структуры
 
 remover.name=Деконструктор
@@ -98,7 +99,6 @@ remover.no_selected.name=Не выбрано ни одной структуры!
 remover.no_linked_tile.name=Не найден связанный TileEntityInfo блок!
 
 remover.haschilds_tip.name=Эта структура имеет дочерние объекты. чтобы ее удалить, вам надо сначала удалить все её дочерние объекты
-
 
 ForgeDirs.DOWN.name=Внизу(Down)
 ForgeDirs.UP.name=Ввреху(Up)

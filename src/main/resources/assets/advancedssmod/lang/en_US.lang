@@ -50,8 +50,8 @@ builder.greenhouse.name=Greenhouse
 builder.pierce.name="Pierce"
 builder.name=Builder
 builder.successfully=Server successfully builded
-builder.failed=Building on server was failed!
-builder.failed.noitems=Building on server was failed! Not enough items to build structure.
+builder.failed=Building failed!
+builder.failed.noitems=Building failed! Not enough items to build structure.
 builder.failed.itemsreturn=Most items has been returned, but some get damaged...
 builder.solarpanel.name=Solar Panel
 builder.thall.name=T Hall
@@ -87,7 +87,8 @@ builder.side_info.funcs.greenhouse.name=Plants Growing
 builder.side_info.funcs.solar.name=Generator
 builder.side_info.funcs.pierce.name=Exit into space
 
-builder.deconstruct.failed=Deconstruction on server was failed!
+builder.deconstruct.failed=Deconstruction failed!
+builder.deconstruct.partfailed=Deconstruction partially failed!
 builder.deconstruct.successfully=Server successfully deconstructed selected structures
 
 remover.name=Remover
@@ -96,8 +97,6 @@ remover.deconstruct_button.name=Deconstruct
 remover.no_selected.name=No selected structures found!
 remover.no_linked_tile.name=No linked TileEntityInfo block found!
 
-#haschilds_tip is complex. do not translate separately
-#you need to traslate whole sentence and then split it by lenth
 remover.haschilds_tip.name=This structure have child structures. Before it can be removed, you need to remove all its child structures 
 
 

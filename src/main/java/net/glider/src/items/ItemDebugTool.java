@@ -2,9 +2,10 @@ package net.glider.src.items;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.glider.src.blocks.BlockContainerMod;
+import net.glider.src.blocks.BlockMod;
 import net.glider.src.strucures.Structure;
+import net.glider.src.strucures.StructureCornerHall;
 import net.glider.src.tiles.TileEntityInfo;
 import net.glider.src.tiles.TileEntityRemoveInfo;
 import net.glider.src.utils.GliderModInfo;
@@ -16,27 +17,29 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemDebugTool extends ItemMod {
-
+	
 	public IIcon BuilderIconRed;
 	public IIcon BuilderIconGreen;
-
+	
 	public ItemDebugTool(String uln)
 	{
 		super(uln);
 		this.setCreativeTab(CreativeTabs.tabTools);
 	}
-
+	
 	boolean test;
-
+	
 	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float f1, float f2, float f3)
 	{
+		// TODO add tool that can change structures data to anything.
 		Block b = world.getBlock(x, y, z);
-
+		
 		if (world.getBlock(x, y, z) == BlockContainerMod.BlockRemoveInfo)
 		{
 			if (!world.isRemote)
@@ -47,17 +50,26 @@ public class ItemDebugTool extends ItemMod {
 				{
 					player.addChatMessage(new ChatComponentText("Info Point Pos:"));
 					player.addChatMessage(new ChatComponentText(te.infoBlocks.get(0).xCoord + " " + te.infoBlocks.get(0).yCoord + " " + te.infoBlocks.get(0).zCoord));
-
+					
 					TileEntityInfo teI = te.infoBlocks.get(0);
-
+					
 					if (teI.Object != null && teI.Object.placementDir != null)
 					{
 						player.addChatMessage(new ChatComponentText("OBJ:" + teI.Object.getUnlocalizedName()));
 						player.addChatMessage(new ChatComponentText("DIR:" + teI.Object.placementDir.name()));
 						player.addChatMessage(new ChatComponentText("ROT:" + teI.Object.placementRotation + ""));
 						player.addChatMessage(new ChatComponentText("POS:" + teI.Object.placementPos[0] + " " + teI.Object.placementPos[1] + " " + teI.Object.placementPos[2]));
+						if (teI.Object.connections != null && teI.Object.connections.size() > 0)
+						{
+							player.addChatMessage(new ChatComponentText("Connections:"));
+							for (int i = 0; i < teI.Object.connections.size(); i++)
+							{
+								player.addChatMessage(new ChatComponentText(teI.Object.connections.get(i).getUnlocalizedName() + " "
+										+ teI.Object.connections.get(i).placementRotation + " " + teI.Object.connections.get(i).placementDir.toString()));
+							}
+						}
 					}
-
+					
 					if (te.infoBlocks.get(0).Object != null && te.infoBlocks.get(0).Object.getUnlocalizedName() == Structure.BIGHHALL)
 					{
 						Structure Object = te.infoBlocks.get(0).Object.copy();
@@ -72,7 +84,7 @@ public class ItemDebugTool extends ItemMod {
 								TileEntityInfo te2 = te.infoBlocks.get(i);
 								ChildObjects.addAll(te2.ChildObjects);
 								AddObjects.addAll(te2.AddObjects);
-
+								
 							}
 						}
 						if (ChildObjects != null && ChildObjects.size() > 0)
@@ -89,7 +101,7 @@ public class ItemDebugTool extends ItemMod {
 						}
 					} else
 					{
-
+						
 						if (teI.ChildObjects != null && teI.ChildObjects.size() > 0)
 						{
 							player.addChatMessage(new ChatComponentText("Child Structures:"));
@@ -103,7 +115,7 @@ public class ItemDebugTool extends ItemMod {
 								player.addChatMessage(new ChatComponentText(teI.AddObjects.get(i).getUnlocalizedName() + " " + teI.AddObjects.get(i).placementRotation));
 						}
 					}
-
+					
 				}
 				player.addChatMessage(new ChatComponentText("----"));
 				return true;
@@ -111,7 +123,7 @@ public class ItemDebugTool extends ItemMod {
 		}
 		return false;
 	}
-
+	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerIcons(IIconRegister registry)
@@ -120,5 +132,5 @@ public class ItemDebugTool extends ItemMod {
 		BuilderIconRed = registry.registerIcon(GliderModInfo.ModTestures + ":" + "Builder_slot_icon0");
 		BuilderIconGreen = registry.registerIcon(GliderModInfo.ModTestures + ":" + "Builder_slot_icon1");
 	}
-
+	
 }

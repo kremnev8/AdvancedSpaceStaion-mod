@@ -1,11 +1,8 @@
-
 package net.glider.src.network.packets;
 
 import io.netty.buffer.ByteBuf;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import net.glider.src.strucures.DeconstructHandler;
 import net.glider.src.strucures.Structure;
 import net.glider.src.utils.ChatUtils;
@@ -29,7 +26,8 @@ public class DeconstructPacket implements IMessage {
 	private int[] pos;
 	
 	public DeconstructPacket()
-	{}
+	{
+	}
 	
 	public DeconstructPacket(List<Structure> objs, int[] pos)
 	{
@@ -109,17 +107,25 @@ public class DeconstructPacket implements IMessage {
 			{
 				GLoger.logInfo("Deconstruct Packet Sucsessfuly recived!");
 				EntityPlayerMP player = ctx.getServerHandler().playerEntity;
-				if (player == null)
-					return null;
+				if (player == null) return null;
 				World world = player.worldObj;
 				
-				boolean deconstruct = DeconstructHandler.HandleDeconstruct(world, pkt.objects, player, pkt.pos);
-				if (!deconstruct)
+				int deconstruct = DeconstructHandler.HandleDeconstruct(world, pkt.objects, player, pkt.pos);
+				if (deconstruct == 0)
+				{
 					ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.deconstruct.failed", EnumChatFormatting.RED)));
-				else
-					ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.deconstruct.successfully", EnumChatFormatting.GREEN)).appendSibling(new ChatComponentText("!")));
-				//	player.addChatMessage(ChatUtils.modifyColor(new ChatComponentText(StatCollector.translateToLocal("builder.deconstruct.successfully")+"!"),EnumChatFormatting.GREEN));
-				//System.out.println("Building on server was failed!");
+				} else if (deconstruct == 1)
+				{
+					ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.deconstruct.partfailed", EnumChatFormatting.YELLOW)));
+				} else
+				{
+					ChatUtils
+							.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.deconstruct.successfully", EnumChatFormatting.GREEN))
+									.appendSibling(new ChatComponentText("!")));
+				}
+				// player.addChatMessage(ChatUtils.modifyColor(new
+				// ChatComponentText(StatCollector.translateToLocal("builder.deconstruct.successfully")+"!"),EnumChatFormatting.GREEN));
+				// System.out.println("Building on server was failed!");
 				
 			} else
 			{

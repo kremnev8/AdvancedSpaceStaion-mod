@@ -1,9 +1,7 @@
-
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import net.glider.src.items.ItemMod;
@@ -212,6 +210,7 @@ public class StructureHall extends Structure {
 			world.setBlock(x + -1, y + 2, z + 2, block3, 3, 2);
 			
 			world.setBlock(x - 3, y, z - 1, Blocks.air, 0, 2);
+			world.setBlock(x - 7, y, z + 1, Blocks.air, 0, 2);
 			
 			world.setBlock(x - 5, y - 3, z, Blocks.air, 0, 2);
 			
@@ -381,6 +380,7 @@ public class StructureHall extends Structure {
 			// BlockContainerMod.BlockRemoveInfo, 2,
 			// 2);
 			world.setBlock(x + 3, y, z + 1, Blocks.air, 0, 2);
+			world.setBlock(x + 7, y, z - 1, Blocks.air, 0, 2);
 			world.setBlock(x + 5, y - 3, z, Blocks.air, 0, 2);
 			
 			// BuildHandler.buildRemoveInfoPoint(world, dir,
@@ -547,6 +547,7 @@ public class StructureHall extends Structure {
 			// BlockContainerMod.BlockRemoveInfo, 3,
 			// 2);
 			world.setBlock(x - 1, y, z + 2, Blocks.air, 0, 2);
+			world.setBlock(x + 1, y, z + 6, Blocks.air, 0, 2);
 			world.setBlock(x, y - 3, z + 4, Blocks.air, 0, 2);
 			
 			// BuildHandler.buildRemoveInfoPoint(world, dir,
@@ -716,6 +717,7 @@ public class StructureHall extends Structure {
 			// BlockContainerMod.BlockRemoveInfo, 1,
 			// 2);
 			world.setBlock(x + 1, y, z - 2, Blocks.air, 0, 2);
+			world.setBlock(x - 1, y, z - 6, Blocks.air, 0, 2);
 			world.setBlock(x, y - 3, z - 4, Blocks.air, 0, 2);
 			
 			// BuildHandler.buildRemoveInfoPoint(world, dir,
@@ -1482,10 +1484,8 @@ public class StructureHall extends Structure {
 		{
 			return false;
 		}
-		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
-			return true;
-		else
-			return false;
+		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) return true;
+		else return false;
 	}
 	
 	@Override
