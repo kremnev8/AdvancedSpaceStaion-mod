@@ -49,6 +49,48 @@ public class StructureCornerHall extends StructureRotatable {
 		return rot;
 	}
 	
+	@Override
+	public int nextPossibleValue(int nowV, ForgeDirection dir, int meta)
+	{
+		int[] order = getPossibleOrder(dir);
+		if (nowV == -1)
+		{
+			return order[0];
+		}
+		for (int i = 0; i < order.length; i++)
+		{
+			if (order[i] == nowV)
+			{
+				if (i + 1 == order.length)
+				{
+					return order[0];
+				} else return order[i + 1];
+			}
+		}
+		
+		return nowV++;
+	}
+	
+	public int[] getPossibleOrder(ForgeDirection dir)
+	{
+		if (dir == ForgeDirection.EAST)
+		{
+			return new int[] { 2, 3 };
+		} else if (dir == ForgeDirection.NORTH)
+		{
+			return new int[] { 1, 2 };
+		} else if (dir == ForgeDirection.SOUTH)
+		{
+			return new int[] { 3, 0 };
+		} else if (dir == ForgeDirection.WEST)
+		{
+			return new int[] { 0, 1 };
+		} else
+		{
+			return new int[] {};
+		}
+	}
+	
 	public int getMetaFromDirARot(ForgeDirection dir, int rot)
 	{
 		if (rot == 0)
@@ -58,7 +100,7 @@ public class StructureCornerHall extends StructureRotatable {
 				return 2;
 			} else if (dir == ForgeDirection.SOUTH)
 			{
-				return 1;
+				return 3;
 			}
 		} else if (rot == 1)
 		{
@@ -85,7 +127,7 @@ public class StructureCornerHall extends StructureRotatable {
 				return 2;
 			} else if (dir == ForgeDirection.SOUTH)
 			{
-				return 3;
+				return 1;
 			}
 		}
 		return 0;
@@ -93,33 +135,40 @@ public class StructureCornerHall extends StructureRotatable {
 	
 	public ForgeDirection onTurn(ForgeDirection dir, int rot)
 	{
+		this.rot = rot;
+		return getDirs(dir)[0];
+	}
+	
+	@Override
+	public ForgeDirection[] getDirs(ForgeDirection dir)
+	{
 		if (dir == ForgeDirection.WEST)
 		{
 			if (rot == 0)
 			{
-				return ForgeDirection.NORTH;
-			} else return ForgeDirection.SOUTH;
+				return new ForgeDirection[] { ForgeDirection.NORTH };
+			} else return new ForgeDirection[] { ForgeDirection.SOUTH };
 		} else if (dir == ForgeDirection.EAST)
 		{
 			if (rot == 2)
 			{
-				return ForgeDirection.SOUTH;
-			} else return ForgeDirection.NORTH;
+				return new ForgeDirection[] { ForgeDirection.SOUTH };
+			} else return new ForgeDirection[] { ForgeDirection.NORTH };
 		} else if (dir == ForgeDirection.SOUTH)
 		{
 			if (rot == 0)
 			{
-				return ForgeDirection.WEST;
-			} else return ForgeDirection.EAST;
+				return new ForgeDirection[] { ForgeDirection.EAST };
+			} else return new ForgeDirection[] { ForgeDirection.WEST };
 		} else if (dir == ForgeDirection.NORTH)
 		{
 			if (rot == 1)
 			{
-				return ForgeDirection.EAST;
-			} else return ForgeDirection.WEST;
+				return new ForgeDirection[] { ForgeDirection.EAST };
+			} else return new ForgeDirection[] { ForgeDirection.WEST };
 		}
 		
-		return ForgeDirection.UNKNOWN;
+		return new ForgeDirection[] { ForgeDirection.UNKNOWN };
 	}
 	
 	@Override
@@ -291,6 +340,11 @@ public class StructureCornerHall extends StructureRotatable {
 				
 				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 				
+				pos = new int[] { x, y, z };
+				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 5);
+				
+				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+				
 			} else if (rot == 1)
 			{
 				// world.setBlock(x+-7, y+-3, z+-3, block1,5,2);
@@ -450,6 +504,11 @@ public class StructureCornerHall extends StructureRotatable {
 				int[] pos = new int[] { x, y, z };
 				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 4);
 				pos = ForgeDirectionUtils.IncreaseByDir(onTurn(dir, rot).getOpposite(), pos, 1);
+				
+				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+				
+				pos = new int[] { x, y, z };
+				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 5);
 				
 				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 				
@@ -618,6 +677,11 @@ public class StructureCornerHall extends StructureRotatable {
 				
 				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 				
+				pos = new int[] { x, y, z };
+				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 5);
+				
+				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+				
 			} else if (rot == 3)
 			{
 				// world.setBlock(x+-1, y+-3, z+-5, block1,5,2);
@@ -777,6 +841,11 @@ public class StructureCornerHall extends StructureRotatable {
 				int[] pos = new int[] { x, y, z };
 				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 4);
 				pos = ForgeDirectionUtils.IncreaseByDir(onTurn(dir, rot).getOpposite(), pos, 1);
+				
+				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+				
+				pos = new int[] { x, y, z };
+				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 5);
 				
 				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 				
@@ -945,6 +1014,11 @@ public class StructureCornerHall extends StructureRotatable {
 				
 				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 				
+				pos = new int[] { x, y, z };
+				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 5);
+				
+				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+				
 			} else if (rot == 2)
 			{
 				// world.setBlock(x+-5, y+-3, z+-7, block1,5,2);
@@ -1106,10 +1180,15 @@ public class StructureCornerHall extends StructureRotatable {
 				pos = ForgeDirectionUtils.IncreaseByDir(onTurn(dir, rot).getOpposite(), pos, 1);
 				
 				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+				
+				pos = new int[] { x, y, z };
+				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 5);
+				
+				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 			}
 		} else if (dir == ForgeDirection.SOUTH)
 		{
-			if (rot == 3)
+			if (rot == 0)
 			{
 				// world.setBlock(x+-3, y+-3, z+-1, block1,5,2);
 				Block block2 = Blocks.air;
@@ -1272,7 +1351,12 @@ public class StructureCornerHall extends StructureRotatable {
 				
 				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 				
-			} else if (rot == 0)
+				pos = new int[] { x, y, z };
+				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 5);
+				
+				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+				
+			} else if (rot == 3)
 			{
 				// world.setBlock(x+-4, y+-3, z+0, block1,5,2);
 				Block block2 = Blocks.air;
@@ -1431,6 +1515,11 @@ public class StructureCornerHall extends StructureRotatable {
 				int[] pos = new int[] { x, y, z };
 				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 4);
 				pos = ForgeDirectionUtils.IncreaseByDir(onTurn(dir, rot).getOpposite(), pos, 1);
+				
+				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+				
+				pos = new int[] { x, y, z };
+				pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 5);
 				
 				world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 				
@@ -2412,7 +2501,7 @@ public class StructureCornerHall extends StructureRotatable {
 			}
 		} else if (dir == ForgeDirection.SOUTH)
 		{
-			if (rot == 3)
+			if (rot == 0)
 			{
 				// world.setBlock(x+-3, y+-3, z+-1, block1,5,2);
 				Block block2 = GCBlocks.tinStairs1;
@@ -2572,7 +2661,7 @@ public class StructureCornerHall extends StructureRotatable {
 				
 				BuildHandler.buildRemoveInfoPoint(world, dir, getUnlocalizedName(), pos[0], pos[1], pos[2], rot, x + 0, y - 3, z + 4);
 				
-			} else if (rot == 0)
+			} else if (rot == 3)
 			{
 				// world.setBlock(x+-4, y+-3, z+0, block1,5,2);
 				Block block2 = GCBlocks.tinStairs1;

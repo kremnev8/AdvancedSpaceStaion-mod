@@ -1,9 +1,7 @@
-
 package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
@@ -39,7 +37,7 @@ public class StructureCrossroad extends Structure {
 		return Nstr;
 	}
 	
-	public static ForgeDirection[] getDirs(ForgeDirection dir)
+	public ForgeDirection[] getDirs(ForgeDirection dir)
 	{
 		if (dir == ForgeDirection.WEST)
 		{
@@ -56,8 +54,7 @@ public class StructureCrossroad extends Structure {
 		} else if (dir == ForgeDirection.UNKNOWN)
 		{
 			return new ForgeDirection[] { ForgeDirection.WEST, ForgeDirection.SOUTH, ForgeDirection.EAST, ForgeDirection.NORTH };
-		} else
-			return new ForgeDirection[] {};
+		} else return new ForgeDirection[] {};
 	}
 	
 	public static int[] ChangePosForDir(ForgeDirection dir, ForgeDirection Ndir, int x, int y, int z)
@@ -80,7 +77,7 @@ public class StructureCrossroad extends Structure {
 	{
 		if (dir == ForgeDirection.WEST)
 		{
-			//	world.setBlock(x+-8, y+-3, z+-4, block1,5,2);
+			// world.setBlock(x+-8, y+-3, z+-4, block1,5,2);
 			Block block2 = Blocks.air;
 			world.setBlock(x + -8, y + -2, z + -2, block2, 6, 2);
 			Block block3 = Blocks.air;
@@ -91,7 +88,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -8, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + -8, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + -8, y + 0, z + -2, block3, 4, 2);
-			//	world.setBlock(x+-8, y+0, z+0, block1,4,2);
+			// world.setBlock(x+-8, y+0, z+0, block1,4,2);
 			world.setBlock(x + -8, y + 0, z + 2, block3, 4, 2);
 			world.setBlock(x + -8, y + 1, z + -2, block3, 4, 2);
 			world.setBlock(x + -8, y + 1, z + 2, block3, 4, 2);
@@ -186,13 +183,14 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -4, y + -2, z + -1, block3, 4, 2);
 			Block block6 = Blocks.air;
 			world.setBlock(x + -4, y + -2, z + 0, block6, 0, 2);
-			//	world.setTileEntity(p_147455_1_, p_147455_2_, p_147455_3_, p_147455_4_);
+			// world.setTileEntity(p_147455_1_, p_147455_2_, p_147455_3_,
+			// p_147455_4_);
 			world.setBlock(x + -4, y + -2, z + 1, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 2, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 3, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 4, block3, 4, 2);
-			//	world.setBlock(x+-4, y+0, z+-4, block1,4,2);
-			//	world.setBlock(x+-4, y+0, z+4, block1,4,2);
+			// world.setBlock(x+-4, y+0, z+-4, block1,4,2);
+			// world.setBlock(x+-4, y+0, z+4, block1,4,2);
 			world.setBlock(x + -4, y + 2, z + -4, block3, 4, 2);
 			world.setBlock(x + -4, y + 2, z + -3, block3, 4, 2);
 			world.setBlock(x + -4, y + 2, z + -2, block2, 7, 2);
@@ -292,7 +290,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + 0, z + -2, block3, 4, 2);
-			//	world.setBlock(x+0, y+0, z+0, block1,4,2);
+			// world.setBlock(x+0, y+0, z+0, block1,4,2);
 			world.setBlock(x + 0, y + 0, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + 1, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + 1, z + 2, block3, 4, 2);
@@ -301,20 +299,26 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + 2, z + 0, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 1, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 2, block2, 3, 2);
-			//	world.setBlock(x+0, y+4, z+4, block1,14,2);
-			//	BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(),x+-4, y+-3, z+0, 0,x,y,z);
+			// world.setBlock(x+0, y+4, z+4, block1,14,2);
+			// BuildHandler.buildInfoPoint(world, dir,
+			// getUnlocalizedName(),x+-4, y+-3, z+0, 0,x,y,z);
 			
 			world.setBlock(x + -4, y + -3, z + 0, Blocks.air, 3, 2);
 			
 			int[] pos = new int[] { x, y, z };
 			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 2);
-			pos = ForgeDirectionUtils.IncreaseByDir(getDirs(dir)[2].getOpposite(), pos, 2);
-			
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 2);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnAgainstClockwise(dir), pos, 4);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 4);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 4);
 			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 			
 		} else if (dir == ForgeDirection.NORTH)
 		{
-			//	world.setBlock(x+-4, y+-3, z+-8, block1,5,2);
+			// world.setBlock(x+-4, y+-3, z+-8, block1,5,2);
 			Block block2 = Blocks.air;
 			world.setBlock(x + -4, y + -2, z + -6, block2, 6, 2);
 			Block block3 = Blocks.air;
@@ -325,7 +329,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -4, y + -1, z + -6, block3, 4, 2);
 			world.setBlock(x + -4, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + -4, y + 0, z + -6, block3, 4, 2);
-			//	world.setBlock(x+-4, y+0, z+-4, block1,4,2);
+			// world.setBlock(x+-4, y+0, z+-4, block1,4,2);
 			world.setBlock(x + -4, y + 0, z + -2, block3, 4, 2);
 			world.setBlock(x + -4, y + 1, z + -6, block3, 4, 2);
 			world.setBlock(x + -4, y + 1, z + -2, block3, 4, 2);
@@ -424,8 +428,8 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + -2, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + -1, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 0, block3, 4, 2);
-			//	world.setBlock(x+0, y+0, z+-8, block1,4,2);
-			//	world.setBlock(x+0, y+0, z+0, block1,4,2);
+			// world.setBlock(x+0, y+0, z+-8, block1,4,2);
+			// world.setBlock(x+0, y+0, z+0, block1,4,2);
 			world.setBlock(x + 0, y + 2, z + -8, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + -7, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + -6, block2, 7, 2);
@@ -525,7 +529,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + -1, z + -6, block3, 4, 2);
 			world.setBlock(x + 4, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + 4, y + 0, z + -6, block3, 4, 2);
-			//	world.setBlock(x+4, y+0, z+-4, block1,4,2);
+			// world.setBlock(x+4, y+0, z+-4, block1,4,2);
 			world.setBlock(x + 4, y + 0, z + -2, block3, 4, 2);
 			world.setBlock(x + 4, y + 1, z + -6, block3, 4, 2);
 			world.setBlock(x + 4, y + 1, z + -2, block3, 4, 2);
@@ -534,15 +538,21 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + 2, z + -4, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + -3, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + -2, block2, 3, 2);
-			//	world.setBlock(x+4, y+4, z+0, block1,14,2);
-			//	BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(),x+0, y+-3, z+-4, 0,x,y,z);
+			// world.setBlock(x+4, y+4, z+0, block1,14,2);
+			// BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(),x+0,
+			// y+-3, z+-4, 0,x,y,z);
 			
 			world.setBlock(x + 0, y + -3, z + -4, Blocks.air, 3, 2);
 			
 			int[] pos = new int[] { x, y, z };
 			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 2);
-			pos = ForgeDirectionUtils.IncreaseByDir(getDirs(dir)[2].getOpposite(), pos, 2);
-			
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 2);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnAgainstClockwise(dir), pos, 4);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 4);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 4);
 			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 			
 		} else if (dir == ForgeDirection.EAST)
@@ -554,10 +564,10 @@ public class StructureCrossroad extends Structure {
 			Block block4 = Blocks.air;
 			Block block5 = Blocks.air;
 			
-			//		world.setBlock(x+0, y+-3, z+-4, block1,5,2);
+			// world.setBlock(x+0, y+-3, z+-4, block1,5,2);
 			
 			world.setBlock(x + 0, y + -2, z + -2, block2, 6, 2);
-			//Block block3 = id:432;
+			// Block block3 = id:432;
 			world.setBlock(x + 0, y + -2, z + -1, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 0, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 1, block3, 4, 2);
@@ -565,7 +575,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + 0, z + -2, block3, 4, 2);
-			//		world.setBlock(x+0, y+0, z+0, block1,4,2);
+			// world.setBlock(x+0, y+0, z+0, block1,4,2);
 			world.setBlock(x + 0, y + 0, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + 1, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + 1, z + 2, block3, 4, 2);
@@ -604,7 +614,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 2, y + -2, z + 4, block2, 4, 2);
 			world.setBlock(x + 2, y + -1, z + -4, block3, 4, 2);
 			world.setBlock(x + 2, y + -1, z + -3, block3, 4, 2);
-			//Block block4 = id:459;
+			// Block block4 = id:459;
 			world.setBlock(x + 2, y + -1, z + -2, block4, 0, 2);
 			world.setBlock(x + 2, y + -1, z + 2, block4, 0, 2);
 			world.setBlock(x + 2, y + -1, z + 3, block3, 4, 2);
@@ -615,7 +625,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 2, y + 0, z + 4, block3, 4, 2);
 			world.setBlock(x + 2, y + 1, z + -4, block3, 4, 2);
 			world.setBlock(x + 2, y + 1, z + -3, block3, 4, 2);
-			//	Block block5 = id:452;
+			// Block block5 = id:452;
 			world.setBlock(x + 2, y + 1, z + -2, block5, 2, 2);
 			world.setBlock(x + 2, y + 1, z + 2, block4, 8, 2);
 			world.setBlock(x + 2, y + 1, z + 3, block3, 4, 2);
@@ -658,14 +668,14 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + -2, z + -3, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + -2, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + -1, block3, 4, 2);
-			//Block block6 = id:505;
+			// Block block6 = id:505;
 			world.setBlock(x + 4, y + -2, z + 0, block6, 0, 2);
 			world.setBlock(x + 4, y + -2, z + 1, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + 2, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + 3, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + 4, block3, 4, 2);
-			//	world.setBlock(x+4, y+0, z+-4, block1,4,2);
-			//	world.setBlock(x+4, y+0, z+4, block1,4,2);
+			// world.setBlock(x+4, y+0, z+-4, block1,4,2);
+			// world.setBlock(x+4, y+0, z+4, block1,4,2);
 			world.setBlock(x + 4, y + 2, z + -4, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + -3, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + -2, block2, 7, 2);
@@ -765,7 +775,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 8, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + 8, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + 8, y + 0, z + -2, block3, 4, 2);
-			//	world.setBlock(x+8, y+0, z+0, block1,4,2);
+			// world.setBlock(x+8, y+0, z+0, block1,4,2);
 			world.setBlock(x + 8, y + 0, z + 2, block3, 4, 2);
 			world.setBlock(x + 8, y + 1, z + -2, block3, 4, 2);
 			world.setBlock(x + 8, y + 1, z + 2, block3, 4, 2);
@@ -774,16 +784,22 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 8, y + 2, z + 0, block3, 4, 2);
 			world.setBlock(x + 8, y + 2, z + 1, block3, 4, 2);
 			world.setBlock(x + 8, y + 2, z + 2, block2, 3, 2);
-			//	world.setBlock(x+8, y+4, z+4, block1,14,2);
+			// world.setBlock(x+8, y+4, z+4, block1,14,2);
 			
-			//	BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(),x+4, y+-3, z+0,0,x,y,z);
+			// BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(),x+4,
+			// y+-3, z+0,0,x,y,z);
 			
 			world.setBlock(x + 4, y + -3, z + 0, Blocks.air, 3, 2);
 			
 			int[] pos = new int[] { x, y, z };
 			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 2);
-			pos = ForgeDirectionUtils.IncreaseByDir(getDirs(dir)[2].getOpposite(), pos, 2);
-			
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 2);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnAgainstClockwise(dir), pos, 4);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 4);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 4);
 			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 			
 		} else if (dir == ForgeDirection.SOUTH)
@@ -794,10 +810,10 @@ public class StructureCrossroad extends Structure {
 			Block block4 = Blocks.air;
 			Block block5 = Blocks.air;
 			
-			//	world.setBlock(x+-4, y+-3, z+0, block1,5,2);
-			//Block block2 = id:454;
+			// world.setBlock(x+-4, y+-3, z+0, block1,5,2);
+			// Block block2 = id:454;
 			world.setBlock(x + -4, y + -2, z + 2, block2, 6, 2);
-			//	Block block3 = id:432;
+			// Block block3 = id:432;
 			world.setBlock(x + -4, y + -2, z + 3, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 4, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 5, block3, 4, 2);
@@ -805,7 +821,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -4, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + -4, y + -1, z + 6, block3, 4, 2);
 			world.setBlock(x + -4, y + 0, z + 2, block3, 4, 2);
-			//	world.setBlock(x+-4, y+0, z+4, block1,4,2);
+			// world.setBlock(x+-4, y+0, z+4, block1,4,2);
 			world.setBlock(x + -4, y + 0, z + 6, block3, 4, 2);
 			world.setBlock(x + -4, y + 1, z + 2, block3, 4, 2);
 			world.setBlock(x + -4, y + 1, z + 6, block3, 4, 2);
@@ -844,7 +860,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -2, y + -2, z + 8, block2, 4, 2);
 			world.setBlock(x + -2, y + -1, z + 0, block3, 4, 2);
 			world.setBlock(x + -2, y + -1, z + 1, block3, 4, 2);
-			//	Block block4 = id:459;
+			// Block block4 = id:459;
 			world.setBlock(x + -2, y + -1, z + 2, block4, 0, 2);
 			world.setBlock(x + -2, y + -1, z + 6, block4, 0, 2);
 			world.setBlock(x + -2, y + -1, z + 7, block3, 4, 2);
@@ -855,7 +871,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -2, y + 0, z + 8, block3, 4, 2);
 			world.setBlock(x + -2, y + 1, z + 0, block3, 4, 2);
 			world.setBlock(x + -2, y + 1, z + 1, block3, 4, 2);
-			//	Block block5 = id:452;
+			// Block block5 = id:452;
 			world.setBlock(x + -2, y + 1, z + 2, block5, 2, 2);
 			world.setBlock(x + -2, y + 1, z + 6, block4, 8, 2);
 			world.setBlock(x + -2, y + 1, z + 7, block3, 4, 2);
@@ -898,14 +914,14 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + -2, z + 1, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 3, block3, 4, 2);
-			//	Block block6 = id:505;
+			// Block block6 = id:505;
 			world.setBlock(x + 0, y + -2, z + 4, block6, 0, 2);
 			world.setBlock(x + 0, y + -2, z + 5, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 6, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 7, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 8, block3, 4, 2);
-			//	world.setBlock(x+0, y+0, z+0, block1,4,2);
-			//	world.setBlock(x+0, y+0, z+8, block1,4,2);
+			// world.setBlock(x+0, y+0, z+0, block1,4,2);
+			// world.setBlock(x+0, y+0, z+8, block1,4,2);
 			world.setBlock(x + 0, y + 2, z + 0, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 1, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 2, block2, 7, 2);
@@ -1005,7 +1021,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + 4, y + -1, z + 6, block3, 4, 2);
 			world.setBlock(x + 4, y + 0, z + 2, block3, 4, 2);
-			//	world.setBlock(x+4, y+0, z+4, block1,4,2);
+			// world.setBlock(x+4, y+0, z+4, block1,4,2);
 			world.setBlock(x + 4, y + 0, z + 6, block3, 4, 2);
 			world.setBlock(x + 4, y + 1, z + 2, block3, 4, 2);
 			world.setBlock(x + 4, y + 1, z + 6, block3, 4, 2);
@@ -1014,15 +1030,21 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + 2, z + 4, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + 5, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + 6, block2, 3, 2);
-			//	world.setBlock(x+4, y+4, z+8, block1,14,2);
-			//	BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(),x+0, y+-3, z+4, 0,x,y,z);
+			// world.setBlock(x+4, y+4, z+8, block1,14,2);
+			// BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(),x+0,
+			// y+-3, z+4, 0,x,y,z);
 			
 			world.setBlock(x + 0, y + -3, z + 4, Blocks.air, 3, 2);
 			
 			int[] pos = new int[] { x, y, z };
 			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 2);
-			pos = ForgeDirectionUtils.IncreaseByDir(getDirs(dir)[2].getOpposite(), pos, 2);
-			
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 2);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnAgainstClockwise(dir), pos, 4);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 4);
+			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 4);
 			world.setBlock(pos[0], pos[1], pos[2], Blocks.air, 0, 2);
 			
 		}
@@ -1034,7 +1056,7 @@ public class StructureCrossroad extends Structure {
 		
 		if (dir == ForgeDirection.WEST)
 		{
-			//	world.setBlock(x+-8, y+-3, z+-4, block1,5,2);
+			// world.setBlock(x+-8, y+-3, z+-4, block1,5,2);
 			Block block2 = GCBlocks.tinStairs1;
 			world.setBlock(x + -8, y + -2, z + -2, block2, 6, 2);
 			Block block3 = GCBlocks.basicBlock;
@@ -1045,7 +1067,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -8, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + -8, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + -8, y + 0, z + -2, block3, 4, 2);
-			//	world.setBlock(x+-8, y+0, z+0, block1,4,2);
+			// world.setBlock(x+-8, y+0, z+0, block1,4,2);
 			world.setBlock(x + -8, y + 0, z + 2, block3, 4, 2);
 			world.setBlock(x + -8, y + 1, z + -2, block3, 4, 2);
 			world.setBlock(x + -8, y + 1, z + 2, block3, 4, 2);
@@ -1139,13 +1161,14 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -4, y + -2, z + -2, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + -1, block3, 4, 2);
 			BuildHandler.buildBuildPoint(world, x - 4, y - 2, z, 2);
-			//	world.setTileEntity(p_147455_1_, p_147455_2_, p_147455_3_, p_147455_4_);
+			// world.setTileEntity(p_147455_1_, p_147455_2_, p_147455_3_,
+			// p_147455_4_);
 			world.setBlock(x + -4, y + -2, z + 1, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 2, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 3, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 4, block3, 4, 2);
-			//	world.setBlock(x+-4, y+0, z+-4, block1,4,2);
-			//	world.setBlock(x+-4, y+0, z+4, block1,4,2);
+			// world.setBlock(x+-4, y+0, z+-4, block1,4,2);
+			// world.setBlock(x+-4, y+0, z+4, block1,4,2);
 			world.setBlock(x + -4, y + 2, z + -4, block3, 4, 2);
 			world.setBlock(x + -4, y + 2, z + -3, block3, 4, 2);
 			world.setBlock(x + -4, y + 2, z + -2, block2, 7, 2);
@@ -1245,7 +1268,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + 0, z + -2, block3, 4, 2);
-			//	world.setBlock(x+0, y+0, z+0, block1,4,2);
+			// world.setBlock(x+0, y+0, z+0, block1,4,2);
 			world.setBlock(x + 0, y + 0, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + 1, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + 1, z + 2, block3, 4, 2);
@@ -1254,18 +1277,18 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + 2, z + 0, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 1, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 2, block2, 3, 2);
-			//	world.setBlock(x+0, y+4, z+4, block1,14,2);
+			// world.setBlock(x+0, y+4, z+4, block1,14,2);
 			BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + -4, y + -3, z + 0, 0, x, y, z);
 			
 			int[] pos = new int[] { x, y, z };
 			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 2);
-			pos = ForgeDirectionUtils.IncreaseByDir(getDirs(dir)[2].getOpposite(), pos, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 2);
 			
 			BuildHandler.buildRemoveInfoPoint(world, dir, getUnlocalizedName(), pos[0], pos[1], pos[2], 0, x + -4, y + -3, z + 0);
 			
 		} else if (dir == ForgeDirection.NORTH)
 		{
-			//	world.setBlock(x+-4, y+-3, z+-8, block1,5,2);
+			// world.setBlock(x+-4, y+-3, z+-8, block1,5,2);
 			Block block2 = GCBlocks.tinStairs1;
 			world.setBlock(x + -4, y + -2, z + -6, block2, 6, 2);
 			Block block3 = GCBlocks.basicBlock;
@@ -1276,7 +1299,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -4, y + -1, z + -6, block3, 4, 2);
 			world.setBlock(x + -4, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + -4, y + 0, z + -6, block3, 4, 2);
-			//	world.setBlock(x+-4, y+0, z+-4, block1,4,2);
+			// world.setBlock(x+-4, y+0, z+-4, block1,4,2);
 			world.setBlock(x + -4, y + 0, z + -2, block3, 4, 2);
 			world.setBlock(x + -4, y + 1, z + -6, block3, 4, 2);
 			world.setBlock(x + -4, y + 1, z + -2, block3, 4, 2);
@@ -1374,8 +1397,8 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + -2, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + -1, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 0, block3, 4, 2);
-			//	world.setBlock(x+0, y+0, z+-8, block1,4,2);
-			//	world.setBlock(x+0, y+0, z+0, block1,4,2);
+			// world.setBlock(x+0, y+0, z+-8, block1,4,2);
+			// world.setBlock(x+0, y+0, z+0, block1,4,2);
 			world.setBlock(x + 0, y + 2, z + -8, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + -7, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + -6, block2, 7, 2);
@@ -1475,7 +1498,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + -1, z + -6, block3, 4, 2);
 			world.setBlock(x + 4, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + 4, y + 0, z + -6, block3, 4, 2);
-			//	world.setBlock(x+4, y+0, z+-4, block1,4,2);
+			// world.setBlock(x+4, y+0, z+-4, block1,4,2);
 			world.setBlock(x + 4, y + 0, z + -2, block3, 4, 2);
 			world.setBlock(x + 4, y + 1, z + -6, block3, 4, 2);
 			world.setBlock(x + 4, y + 1, z + -2, block3, 4, 2);
@@ -1484,12 +1507,12 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + 2, z + -4, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + -3, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + -2, block2, 3, 2);
-			//	world.setBlock(x+4, y+4, z+0, block1,14,2);
+			// world.setBlock(x+4, y+4, z+0, block1,14,2);
 			BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 0, y + -3, z + -4, 0, x, y, z);
 			
 			int[] pos = new int[] { x, y, z };
 			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 2);
-			pos = ForgeDirectionUtils.IncreaseByDir(getDirs(dir)[2].getOpposite(), pos, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 2);
 			
 			BuildHandler.buildRemoveInfoPoint(world, dir, getUnlocalizedName(), pos[0], pos[1], pos[2], 0, x + 0, y + -3, z + -4);
 			
@@ -1501,10 +1524,10 @@ public class StructureCrossroad extends Structure {
 			Block block4 = GCBlocks.slabGCHalf;
 			Block block5 = GCBlocks.brightLamp;
 			
-			//		world.setBlock(x+0, y+-3, z+-4, block1,5,2);
+			// world.setBlock(x+0, y+-3, z+-4, block1,5,2);
 			
 			world.setBlock(x + 0, y + -2, z + -2, block2, 6, 2);
-			//Block block3 = id:432;
+			// Block block3 = id:432;
 			world.setBlock(x + 0, y + -2, z + -1, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 0, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 1, block3, 4, 2);
@@ -1512,7 +1535,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + 0, z + -2, block3, 4, 2);
-			//		world.setBlock(x+0, y+0, z+0, block1,4,2);
+			// world.setBlock(x+0, y+0, z+0, block1,4,2);
 			world.setBlock(x + 0, y + 0, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + 1, z + -2, block3, 4, 2);
 			world.setBlock(x + 0, y + 1, z + 2, block3, 4, 2);
@@ -1551,7 +1574,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 2, y + -2, z + 4, block2, 4, 2);
 			world.setBlock(x + 2, y + -1, z + -4, block3, 4, 2);
 			world.setBlock(x + 2, y + -1, z + -3, block3, 4, 2);
-			//Block block4 = id:459;
+			// Block block4 = id:459;
 			world.setBlock(x + 2, y + -1, z + -2, block4, 0, 2);
 			world.setBlock(x + 2, y + -1, z + 2, block4, 0, 2);
 			world.setBlock(x + 2, y + -1, z + 3, block3, 4, 2);
@@ -1562,7 +1585,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 2, y + 0, z + 4, block3, 4, 2);
 			world.setBlock(x + 2, y + 1, z + -4, block3, 4, 2);
 			world.setBlock(x + 2, y + 1, z + -3, block3, 4, 2);
-			//	Block block5 = id:452;
+			// Block block5 = id:452;
 			world.setBlock(x + 2, y + 1, z + -2, block5, 2, 2);
 			world.setBlock(x + 2, y + 1, z + 2, block4, 8, 2);
 			world.setBlock(x + 2, y + 1, z + 3, block3, 4, 2);
@@ -1605,14 +1628,14 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + -2, z + -3, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + -2, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + -1, block3, 4, 2);
-			//Block block6 = id:505;
+			// Block block6 = id:505;
 			BuildHandler.buildBuildPoint(world, x + 4, y - 2, z, 2);
 			world.setBlock(x + 4, y + -2, z + 1, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + 2, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + 3, block3, 4, 2);
 			world.setBlock(x + 4, y + -2, z + 4, block3, 4, 2);
-			//	world.setBlock(x+4, y+0, z+-4, block1,4,2);
-			//	world.setBlock(x+4, y+0, z+4, block1,4,2);
+			// world.setBlock(x+4, y+0, z+-4, block1,4,2);
+			// world.setBlock(x+4, y+0, z+4, block1,4,2);
 			world.setBlock(x + 4, y + 2, z + -4, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + -3, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + -2, block2, 7, 2);
@@ -1712,7 +1735,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 8, y + -1, z + -2, block3, 4, 2);
 			world.setBlock(x + 8, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + 8, y + 0, z + -2, block3, 4, 2);
-			//	world.setBlock(x+8, y+0, z+0, block1,4,2);
+			// world.setBlock(x+8, y+0, z+0, block1,4,2);
 			world.setBlock(x + 8, y + 0, z + 2, block3, 4, 2);
 			world.setBlock(x + 8, y + 1, z + -2, block3, 4, 2);
 			world.setBlock(x + 8, y + 1, z + 2, block3, 4, 2);
@@ -1721,13 +1744,13 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 8, y + 2, z + 0, block3, 4, 2);
 			world.setBlock(x + 8, y + 2, z + 1, block3, 4, 2);
 			world.setBlock(x + 8, y + 2, z + 2, block2, 3, 2);
-			//	world.setBlock(x+8, y+4, z+4, block1,14,2);
+			// world.setBlock(x+8, y+4, z+4, block1,14,2);
 			
 			BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 4, y + -3, z + 0, 0, x, y, z);
 			
 			int[] pos = new int[] { x, y, z };
 			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 2);
-			pos = ForgeDirectionUtils.IncreaseByDir(getDirs(dir)[2].getOpposite(), pos, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 2);
 			
 			BuildHandler.buildRemoveInfoPoint(world, dir, getUnlocalizedName(), pos[0], pos[1], pos[2], 0, x + 4, y + -3, z + 0);
 			
@@ -1738,10 +1761,10 @@ public class StructureCrossroad extends Structure {
 			Block block4 = GCBlocks.slabGCHalf;
 			Block block5 = GCBlocks.brightLamp;
 			
-			//	world.setBlock(x+-4, y+-3, z+0, block1,5,2);
-			//Block block2 = id:454;
+			// world.setBlock(x+-4, y+-3, z+0, block1,5,2);
+			// Block block2 = id:454;
 			world.setBlock(x + -4, y + -2, z + 2, block2, 6, 2);
-			//	Block block3 = id:432;
+			// Block block3 = id:432;
 			world.setBlock(x + -4, y + -2, z + 3, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 4, block3, 4, 2);
 			world.setBlock(x + -4, y + -2, z + 5, block3, 4, 2);
@@ -1749,7 +1772,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -4, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + -4, y + -1, z + 6, block3, 4, 2);
 			world.setBlock(x + -4, y + 0, z + 2, block3, 4, 2);
-			//	world.setBlock(x+-4, y+0, z+4, block1,4,2);
+			// world.setBlock(x+-4, y+0, z+4, block1,4,2);
 			world.setBlock(x + -4, y + 0, z + 6, block3, 4, 2);
 			world.setBlock(x + -4, y + 1, z + 2, block3, 4, 2);
 			world.setBlock(x + -4, y + 1, z + 6, block3, 4, 2);
@@ -1788,7 +1811,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -2, y + -2, z + 8, block2, 4, 2);
 			world.setBlock(x + -2, y + -1, z + 0, block3, 4, 2);
 			world.setBlock(x + -2, y + -1, z + 1, block3, 4, 2);
-			//	Block block4 = id:459;
+			// Block block4 = id:459;
 			world.setBlock(x + -2, y + -1, z + 2, block4, 0, 2);
 			world.setBlock(x + -2, y + -1, z + 6, block4, 0, 2);
 			world.setBlock(x + -2, y + -1, z + 7, block3, 4, 2);
@@ -1799,7 +1822,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + -2, y + 0, z + 8, block3, 4, 2);
 			world.setBlock(x + -2, y + 1, z + 0, block3, 4, 2);
 			world.setBlock(x + -2, y + 1, z + 1, block3, 4, 2);
-			//	Block block5 = id:452;
+			// Block block5 = id:452;
 			world.setBlock(x + -2, y + 1, z + 2, block5, 2, 2);
 			world.setBlock(x + -2, y + 1, z + 6, block4, 8, 2);
 			world.setBlock(x + -2, y + 1, z + 7, block3, 4, 2);
@@ -1842,14 +1865,14 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 0, y + -2, z + 1, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 2, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 3, block3, 4, 2);
-			//	Block block6 = id:505;
+			// Block block6 = id:505;
 			BuildHandler.buildBuildPoint(world, x, y - 2, z + 4, 2);
 			world.setBlock(x + 0, y + -2, z + 5, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 6, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 7, block3, 4, 2);
 			world.setBlock(x + 0, y + -2, z + 8, block3, 4, 2);
-			//	world.setBlock(x+0, y+0, z+0, block1,4,2);
-			//	world.setBlock(x+0, y+0, z+8, block1,4,2);
+			// world.setBlock(x+0, y+0, z+0, block1,4,2);
+			// world.setBlock(x+0, y+0, z+8, block1,4,2);
 			world.setBlock(x + 0, y + 2, z + 0, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 1, block3, 4, 2);
 			world.setBlock(x + 0, y + 2, z + 2, block2, 7, 2);
@@ -1949,7 +1972,7 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + -1, z + 2, block3, 4, 2);
 			world.setBlock(x + 4, y + -1, z + 6, block3, 4, 2);
 			world.setBlock(x + 4, y + 0, z + 2, block3, 4, 2);
-			//	world.setBlock(x+4, y+0, z+4, block1,4,2);
+			// world.setBlock(x+4, y+0, z+4, block1,4,2);
 			world.setBlock(x + 4, y + 0, z + 6, block3, 4, 2);
 			world.setBlock(x + 4, y + 1, z + 2, block3, 4, 2);
 			world.setBlock(x + 4, y + 1, z + 6, block3, 4, 2);
@@ -1958,12 +1981,12 @@ public class StructureCrossroad extends Structure {
 			world.setBlock(x + 4, y + 2, z + 4, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + 5, block3, 4, 2);
 			world.setBlock(x + 4, y + 2, z + 6, block2, 3, 2);
-			//	world.setBlock(x+4, y+4, z+8, block1,14,2);
+			// world.setBlock(x+4, y+4, z+8, block1,14,2);
 			BuildHandler.buildInfoPoint(world, dir, getUnlocalizedName(), x + 0, y + -3, z + 4, 0, x, y, z);
 			
 			int[] pos = new int[] { x, y, z };
 			pos = ForgeDirectionUtils.IncreaseByDir(dir, pos, 2);
-			pos = ForgeDirectionUtils.IncreaseByDir(getDirs(dir)[2].getOpposite(), pos, 2);
+			pos = ForgeDirectionUtils.IncreaseByDir(ForgeDirectionUtils.turnClockwise(dir), pos, 2);
 			
 			BuildHandler.buildRemoveInfoPoint(world, dir, getUnlocalizedName(), pos[0], pos[1], pos[2], 0, x + 0, y + -3, z + 4);
 			
@@ -2391,15 +2414,13 @@ public class StructureCrossroad extends Structure {
 		{
 			return false;
 		}
-		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH || dir == ForgeDirection.UNKNOWN)
-			return true;
-		else
-			return false;
+		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH || dir == ForgeDirection.UNKNOWN) return true;
+		else return false;
 	}
 	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
-	{	
+	{
 		
 	}
 	

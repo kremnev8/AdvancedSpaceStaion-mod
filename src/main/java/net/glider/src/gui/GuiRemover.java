@@ -90,7 +90,7 @@ public class GuiRemover extends GuiContainer {
 	public void initGui()
 	{// TODO make deleting part possible even if it has children when children
 		// have other connection to some part of station
-	
+		
 		int x = (width - Xsize - 40) / 2;
 		int y = (height - Ysize) / 2;
 		
@@ -116,7 +116,25 @@ public class GuiRemover extends GuiContainer {
 				}
 			} else
 			{
-				hasChilds = true;
+				int connNum = 0;
+				for (int i = 0; i < ChildObjects.size(); i++)
+				{
+					if (ChildObjects.get(i).connections.size() > 0)
+					{
+						connNum++;
+					}
+				}
+				if (ChildObjects.size() != connNum)
+				{
+					hasChilds = true;
+				} else
+				{
+					if (object != null)
+					{
+						this.buttonList.add(new GuiButtonRemover(2, x + 9, y + 17, object.getUnlocalizedName(), object, y));
+						objCount++;
+					}
+				}
 			}
 			if ((objCount < 3 && !hasChilds) || (objCount < 4 && hasChilds)) ((GuiVerticalSlider) this.buttonList.get(0)).enabled = false;
 			if (addObjects != null && addObjects.size() > 0)
@@ -289,14 +307,7 @@ public class GuiRemover extends GuiContainer {
 		
 		if (hasChilds)
 		{
-			// for (int i = 0; i <
-			// Integer.parseInt(StatCollector.translateToLocal("remover.haschilds_tip.num_lines"));
-			// i++)
-			// {
-			// fontRendererObj.drawString(StatCollector.translateToLocal("remover.haschilds_tip"
-			// + i + ".name"), (int) (xSize / 4.5D) - 30, 50 + (i * 9),
-			// 14737632, true);
-			// }
+			
 			String tip = StatCollector.translateToLocal("remover.haschilds_tip.name"); // 125
 			String[] words = tip.split("[\\s']");
 			List<String> finalW = new ArrayList<>();
@@ -319,12 +330,6 @@ public class GuiRemover extends GuiContainer {
 			}
 			
 		}
-		// TileEntityInfo te = ((TileEntityRemoveInfo)world.getTileEntity(x, y,
-		// z)).infoBlock;
-		// fontRendererObj.drawString(te.xCoord+" "+te.yCoord+" "+te.zCoord,
-		// (int)(xSize /4.5D) -
-		// (fontRendererObj.getStringWidth(I18n.format("remover.name")) / 2)+15,
-		// 40, 4210752, false);
 	}
 	
 }
