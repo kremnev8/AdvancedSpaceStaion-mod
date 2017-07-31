@@ -1,4 +1,3 @@
-
 package net.glider.src.network;
 
 import net.glider.src.network.packets.AnimationTellServerPacket;
@@ -11,6 +10,7 @@ import net.glider.src.network.packets.DeconstructPacket;
 import net.glider.src.network.packets.DismountPacket;
 import net.glider.src.network.packets.DockItemSyncPacket;
 import net.glider.src.network.packets.GetWorldGravityDataPacket;
+import net.glider.src.network.packets.GravityChangePacket;
 import net.glider.src.network.packets.InvScalePacket;
 import net.glider.src.network.packets.JetpackUseFuelPacket;
 import net.glider.src.network.packets.LaunchRocketPacket;
@@ -82,6 +82,8 @@ public final class PacketHandler {
 		
 		HANDLER.registerMessage(ArmorStandItemSyncPacket.Handler.class, ArmorStandItemSyncPacket.class, 26, Side.CLIENT);
 		HANDLER.registerMessage(PlayerChatMessagePacket.Handler.class, PlayerChatMessagePacket.class, 27, Side.CLIENT);
+		
+		HANDLER.registerMessage(GravityChangePacket.Handler.class, GravityChangePacket.class, 28, Side.SERVER);
 	}
 	
 	public static Packet getMCPacket(IMessage message)

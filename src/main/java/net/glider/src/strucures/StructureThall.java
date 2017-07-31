@@ -72,7 +72,7 @@ public class StructureThall extends StructureRotatable {
 	public Structure copy()
 	{
 		StructureThall Nstr = new StructureThall(hidden);
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
 	

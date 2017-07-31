@@ -1,4 +1,3 @@
-
 package net.glider.src.gui;
 
 import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseElectricBlock;
@@ -10,7 +9,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerArtificialGSource extends Container {
-	private TileBaseElectricBlock tileEntity;
+	public TileBaseElectricBlock tileEntity;
 	
 	public ContainerArtificialGSource(InventoryPlayer par1InventoryPlayer, TileEntityGravitySource fuelLoader)
 	{

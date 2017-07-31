@@ -3,6 +3,7 @@ package net.glider.src.network.packets;
 import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.List;
+import net.glider.src.gui.GuiModificator;
 import net.glider.src.gui.GuiRemover;
 import net.glider.src.strucures.Structure;
 import net.glider.src.tiles.TileEntityInfo;
@@ -19,29 +20,33 @@ public class OpenGuiPacket implements IMessage {
 	private Structure object;
 	private List<Structure> addObjects = new ArrayList<Structure>();
 	private List<Structure> ChildObjects = new ArrayList<Structure>();
+	private boolean isRemover;
 	
 	public OpenGuiPacket()
 	{
 	}
 	
-	public OpenGuiPacket(TileEntityInfo te)
+	public OpenGuiPacket(TileEntityInfo te, boolean isRemover)
 	{
 		object = te.Object;
 		addObjects = te.AddObjects;
 		ChildObjects = te.ChildObjects;
+		this.isRemover = isRemover;
 	}
 	
-	public OpenGuiPacket(Structure str, List<Structure> addObj, List<Structure> childobj)
+	public OpenGuiPacket(Structure str, List<Structure> addObj, List<Structure> childobj, boolean isRemover)
 	{
 		object = str;
 		addObjects = addObj;
 		ChildObjects = childobj;
+		this.isRemover = isRemover;
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf)
 	{
 		NBTTagCompound tag = ByteBufUtils.readTag(buf);
+		isRemover = tag.getBoolean("REMOVER");
 		if (tag.getBoolean("OBJWRT"))
 		{
 			object = Structure.FindStructure(tag.getString("OBJ"));
@@ -105,7 +110,7 @@ public class OpenGuiPacket implements IMessage {
 	public void toBytes(ByteBuf buf)
 	{
 		NBTTagCompound tag = new NBTTagCompound();
-		
+		tag.setBoolean("REMOVER", isRemover);
 		if (object != null)
 		{
 			tag.setBoolean("OBJWRT", true);
@@ -194,11 +199,17 @@ public class OpenGuiPacket implements IMessage {
 		@Override
 		public IMessage onMessage(OpenGuiPacket pkt, MessageContext ctx)
 		{
-			
-			GuiRemover.object = pkt.object;
-			GuiRemover.addObjects = pkt.addObjects;
-			GuiRemover.ChildObjects = pkt.ChildObjects;
-			
+			if (pkt.isRemover)
+			{
+				GuiRemover.object = pkt.object;
+				GuiRemover.addObjects = pkt.addObjects;
+				GuiRemover.ChildObjects = pkt.ChildObjects;
+			} else
+			{
+				GuiModificator.object = pkt.object;
+				GuiModificator.addObjects = pkt.addObjects;
+				GuiModificator.ChildObjects = pkt.ChildObjects;
+			}
 			return null;
 		}
 		

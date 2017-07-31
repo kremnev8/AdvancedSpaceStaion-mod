@@ -32,7 +32,7 @@ public class StructureCornerHall extends StructureRotatable {
 	public Structure copy()
 	{
 		StructureCornerHall Nstr = new StructureCornerHall(hiddenS);
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
 	

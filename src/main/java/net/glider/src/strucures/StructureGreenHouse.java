@@ -2,7 +2,6 @@ package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import net.glider.src.items.ItemMod;
@@ -15,12 +14,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class StructureGreenHouse extends Structure {
-
+	
 	public StructureGreenHouse()
 	{
 		super(false);
 	}
-
+	
 	@Override
 	public void Build(World world, ForgeDirection dir, int x, int y, int z)
 	{
@@ -665,11 +664,11 @@ public class StructureGreenHouse extends Structure {
 		world.setBlock(x + 2, y + 0, z - 3, block2, 4, 2);
 		world.setBlock(x + 2, y + 0, z - 2, block2, 4, 2);
 	}
-
+	
 	@Override
 	public void deconstruct(World world, ForgeDirection dir, int x, int y, int z)
 	{
-
+		
 		Block block1 = Blocks.air;
 		world.setBlock(x - 11, y + 1, z - 10, block1, 2, 2);
 		Block block2 = Blocks.air;
@@ -1286,7 +1285,7 @@ public class StructureGreenHouse extends Structure {
 		world.setBlock(x + 2, y + 3, z - 2, block1, 1, 2);
 		world.setBlock(x + 2, y + 3, z - 1, block1, 1, 2);
 		world.setBlock(x + 2, y + 3, z + 0, block1, 1, 2);
-
+		
 		block1 = GCBlocks.basicBlock;
 		world.setBlock(x - 10, y + 0, z - 9, block1, 4, 2);
 		world.setBlock(x - 10, y + 0, z - 8, block1, 4, 2);
@@ -1307,9 +1306,9 @@ public class StructureGreenHouse extends Structure {
 		world.setBlock(x - 9, y - 5, z - 2, block1, 4, 2);
 		world.setBlock(x - 9, y - 5, z - 1, block1, 4, 2);
 		world.setBlock(x - 9, y + 0, z - 10, block1, 4, 2);
-
+		
 		BuildHandler.buildBuildPoint(world, x - 9, y, z - 9, 5);
-
+		
 		world.setBlock(x - 9, y + 0, z - 8, block1, 4, 2);
 		world.setBlock(x - 9, y + 0, z - 7, block1, 4, 2);
 		world.setBlock(x - 9, y + 0, z - 6, block1, 4, 2);
@@ -1551,9 +1550,9 @@ public class StructureGreenHouse extends Structure {
 		world.setBlock(x + 2, y + 0, z - 4, block1, 1, 2);
 		world.setBlock(x + 2, y + 0, z - 3, block1, 1, 2);
 		world.setBlock(x + 2, y + 0, z - 2, block1, 1, 2);
-
+		
 	}
-
+	
 	@Override
 	public boolean Check(World world, ForgeDirection dir, int x, int y, int z, int meta)
 	{
@@ -1567,37 +1566,38 @@ public class StructureGreenHouse extends Structure {
 		}
 		return false;
 	}
-
+	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
 	{
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		return StatCollector.translateToLocal("builder.greenhouse.name");
 	}
-
+	
 	@Override
 	public boolean isHidden()
 	{
 		return false;
 	}
+	
 	@Override
 	public String getUnlocalizedName()
 	{
 		return "greenhouse";
 	}
-
+	
 	@Override
 	public Structure copy()
 	{
 		StructureGreenHouse Nstr = new StructureGreenHouse();
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
-
+	
 	@Override
 	public List<OreDictItemStack> getRequiredItems()
 	{
@@ -1609,7 +1609,7 @@ public class StructureGreenHouse extends Structure {
 		items.add(new OreDictItemStack(new ItemStack(Blocks.glass, 12, 0)));
 		return items;
 	}
-
+	
 	@Override
 	public StructureData getStructureData()
 	{
@@ -1617,5 +1617,5 @@ public class StructureGreenHouse extends Structure {
 		data.specialFunc = StatCollector.translateToLocal("builder.side_info.funcs.greenhouse.name");
 		return data;
 	}
-
+	
 }

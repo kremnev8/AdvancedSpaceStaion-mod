@@ -31,7 +31,7 @@ public class StructureWindow extends StructureRotatable {
 	public Structure copy()
 	{
 		StructureWindow Nstr = new StructureWindow(hidden);
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
 	
@@ -760,7 +760,7 @@ public class StructureWindow extends StructureRotatable {
 		if (meta == 3 && rot == 1)
 		{
 			return false;
-		} else if (meta != 3 && meta != 0 && meta != 1 && rot == 0)
+		} else if (meta != 3 && meta != 0 && rot == 0)
 		{
 			return false;
 		}

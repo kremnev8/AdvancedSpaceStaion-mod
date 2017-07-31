@@ -3,7 +3,6 @@ package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import net.glider.src.items.ItemMod;
@@ -29,7 +28,7 @@ public class StructureCupola extends Structure {
 	public Structure copy()
 	{
 		StructureCupola Nstr = new StructureCupola(hidden);
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
 	
@@ -251,8 +250,7 @@ public class StructureCupola extends Structure {
 		if (dir == ForgeDirection.DOWN)
 		{
 			return true;
-		} else
-			return false;
+		} else return false;
 	}
 	
 	@Override

@@ -24,13 +24,13 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class ContainerRemover extends Container {
+public class ContainerModificator extends Container {
 	
 	public InventoryPlayer inventory;
 	public World world;
 	TileEntityRemoveInfo te;
 	
-	public ContainerRemover(InventoryPlayer inv, TileEntityRemoveInfo tile)
+	public ContainerModificator(InventoryPlayer inv, TileEntityRemoveInfo tile)
 	{
 		this.inventory = inv;
 		world = inv.player.worldObj;
@@ -79,7 +79,7 @@ public class ContainerRemover extends Container {
 						}
 					}
 					
-					PacketHandler.sendTo(new OpenGuiPacket(Object, AddObjects, ChildObjects, true), (EntityPlayerMP) player);
+					PacketHandler.sendTo(new OpenGuiPacket(Object, AddObjects, ChildObjects, false), (EntityPlayerMP) player);
 				} else
 				{
 					if (te.infoBlocks.get(0).ChildObjects != null && te.infoBlocks.get(0).ChildObjects.size() > 0)
@@ -102,7 +102,7 @@ public class ContainerRemover extends Container {
 							}
 						}
 					}
-					PacketHandler.sendTo(new OpenGuiPacket(te.infoBlocks.get(0), true), (EntityPlayerMP) player);
+					PacketHandler.sendTo(new OpenGuiPacket(te.infoBlocks.get(0), false), (EntityPlayerMP) player);
 				}
 				
 			} else

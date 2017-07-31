@@ -3,7 +3,6 @@ package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import net.glider.src.blocks.BlockContainerMod;
@@ -30,13 +29,13 @@ public class StructureDockingPort extends Structure {
 	public Structure copy()
 	{
 		StructureDockingPort Nstr = new StructureDockingPort(hidden);
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
 	
 	@Override
 	public void deconstruct(World world, ForgeDirection dir, int x, int y, int z)
-	{	
+	{
 		
 	}
 	
@@ -133,8 +132,7 @@ public class StructureDockingPort extends Structure {
 		if (dir == ForgeDirection.DOWN)
 		{
 			return true;
-		} else
-			return false;
+		} else return false;
 	}
 	
 	@Override

@@ -298,6 +298,10 @@ public class GuiBuilder extends GuiModular {
 					if (Ast.get(STRlastid) instanceof StructureRotatable && ((GuiButtonBuilder) button).rot == 0)
 					{
 						((GuiButtonBuilder) button).setRotation(((StructureRotatable) Ast.get(STRlastid)).nextPossibleValue(-1, Ndir, meta));
+						rot = ((GuiButtonBuilder) button).rot;
+					} else
+					{
+						rot = ((GuiButtonBuilder) button).rot;
 					}
 				}
 			}
