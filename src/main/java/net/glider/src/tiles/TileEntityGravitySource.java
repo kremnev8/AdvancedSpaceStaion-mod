@@ -1,8 +1,6 @@
-
 package net.glider.src.tiles;
 
 import java.util.EnumSet;
-
 import micdoodle8.mods.galacticraft.api.transmission.NetworkType;
 import micdoodle8.mods.galacticraft.core.energy.tile.TileBaseElectricBlock;
 import micdoodle8.mods.galacticraft.core.util.RedstoneUtil;
@@ -19,6 +17,7 @@ public class TileEntityGravitySource extends TileBaseElectricBlock {
 	public double SettedGA = 1.0F;
 	@NetworkedField(targetSide = Side.SERVER)
 	public double ClientVal = 0F;
+	public boolean gA_changed = false;
 	
 	public TileEntityGravitySource()
 	{
@@ -50,9 +49,10 @@ public class TileEntityGravitySource extends TileBaseElectricBlock {
 	@Override
 	public void slowDischarge()
 	{
-		if (ClientVal != SettedGA)
+		if (ClientVal != SettedGA && gA_changed)
 		{
 			SettedGA = ClientVal;
+			gA_changed = false;
 		}
 		if (this.hasEnoughEnergyToRun && !RedstoneUtil.isBlockReceivingRedstone(this.worldObj, this.xCoord, this.yCoord, this.zCoord))
 		{
@@ -99,6 +99,7 @@ public class TileEntityGravitySource extends TileBaseElectricBlock {
 	{
 		super.readFromNBT(nbt);
 		SettedGA = nbt.getDouble("GValue");
+		ClientVal = SettedGA;
 	}
 	
 }

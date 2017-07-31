@@ -2,8 +2,12 @@ package net.glider.src.items;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.glider.src.GliderCore;
 import net.glider.src.blocks.BlockContainerMod;
 import net.glider.src.blocks.BlockMod;
+import net.glider.src.gui.GuiHandler;
+import net.glider.src.network.PacketHandler;
+import net.glider.src.network.packets.OpenGuiOnServerPacket;
 import net.glider.src.strucures.Structure;
 import net.glider.src.strucures.StructureCornerHall;
 import net.glider.src.tiles.TileEntityInfo;
@@ -40,7 +44,7 @@ public class ItemDebugTool extends ItemMod {
 		// TODO add tool that can change structures data to anything.
 		Block b = world.getBlock(x, y, z);
 		
-		if (world.getBlock(x, y, z) == BlockContainerMod.BlockRemoveInfo)
+		if (world.getBlock(x, y, z) == BlockContainerMod.BlockRemoveInfo && !player.isSneaking())
 		{
 			if (!world.isRemote)
 			{
@@ -119,6 +123,13 @@ public class ItemDebugTool extends ItemMod {
 				}
 				player.addChatMessage(new ChatComponentText("----"));
 				return true;
+			}
+		} else if (world.getBlock(x, y, z) == BlockContainerMod.BlockRemoveInfo)
+		{
+			if (world.isRemote)
+			{
+				player.openGui(GliderCore.instance, GuiHandler.MODIFICATORGUI, world, x, y, z);
+				PacketHandler.sendToServer(new OpenGuiOnServerPacket(GuiHandler.MODIFICATORGUI, x, y, z));
 			}
 		}
 		return false;

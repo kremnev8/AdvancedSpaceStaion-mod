@@ -51,7 +51,7 @@ builder.pierce.name="Пирс"
 builder.name=Строитель
 builder.successfully=Сервер успешно построил
 builder.failed=Строительство провалилось!
-builder.failed.noitems=Строительство на сервере не удалось! Недостаточно ресурсов для строительства.
+builder.failed.noitems=Строительство провалилось! Недостаточно ресурсов для строительства.
 builder.failed.itemsreturn=Большинство предметов былы вернуты, но некоторые оказались повреждены...
 builder.solarpanel.name=Солнечная панель
 builder.thall.name=Т-коридор
@@ -99,6 +99,12 @@ remover.no_selected.name=Не выбрано ни одной структуры!
 remover.no_linked_tile.name=Не найден связанный TileEntityInfo блок!
 
 remover.haschilds_tip.name=Эта структура имеет дочерние объекты. чтобы ее удалить, вам надо сначала удалить все её дочерние объекты
+
+modificator.name=Настройщик
+modificator.direction.name=напр:
+modificator.rotation.name=повр:
+modificator.children.name=Дочерние
+modificator.additional.name=Дополнительные
 
 ForgeDirs.DOWN.name=Внизу(Down)
 ForgeDirs.UP.name=Ввреху(Up)

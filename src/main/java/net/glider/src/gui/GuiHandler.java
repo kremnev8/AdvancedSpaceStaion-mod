@@ -1,4 +1,3 @@
-
 package net.glider.src.gui;
 
 import net.glider.src.tiles.TileEntityArmorStand;
@@ -18,14 +17,14 @@ public class GuiHandler implements IGuiHandler {
 	public static final int FUELLOADERGUI = 3;
 	public static final int ARMORSTANDGUI = 4;
 	public static final int GRAVITYSOURCEGUI = 5;
+	public static final int MODIFICATORGUI = 6;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
 		TileEntity te = world.getTileEntity(x, y, z);
 		
-		switch (ID)
-		{
+		switch (ID) {
 		case BUILDERGUI:
 			return new ContainerBuilder(player.inventory);
 		case REMOVERGUI:
@@ -45,6 +44,8 @@ public class GuiHandler implements IGuiHandler {
 			{
 				return new ContainerArtificialGSource(player.inventory, (TileEntityGravitySource) te);
 			}
+		case MODIFICATORGUI:
+			return new ContainerModificator(player.inventory, (TileEntityRemoveInfo) te);
 		}
 		
 		return null;
@@ -55,8 +56,7 @@ public class GuiHandler implements IGuiHandler {
 	{
 		TileEntity te = world.getTileEntity(x, y, z);
 		
-		switch (ID)
-		{
+		switch (ID) {
 		case BUILDERGUI:
 			return new GuiBuilder(player);
 		case REMOVERGUI:
@@ -76,6 +76,8 @@ public class GuiHandler implements IGuiHandler {
 			{
 				return new GuiArtificialGSource(player.inventory, (TileEntityGravitySource) te);
 			}
+		case MODIFICATORGUI:
+			return new GuiModificator(player, (TileEntityRemoveInfo) te);
 		}
 		
 		return null;

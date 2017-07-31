@@ -3,7 +3,6 @@ package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import micdoodle8.mods.galacticraft.planets.mars.items.MarsItems;
@@ -35,7 +34,7 @@ public class StructureBigHall extends StructureRotatable {
 	public Structure copy()
 	{
 		StructureBigHall Nstr = new StructureBigHall(hidden);
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
 	
@@ -76,10 +75,12 @@ public class StructureBigHall extends StructureRotatable {
 		
 		if (rot == 1)
 		{
-			return new ForgeDirection[] { ForgeDirectionUtils.turnAgainstClockwise(dir), ForgeDirectionUtils.turnAgainstClockwise(dir), dir, dir, ForgeDirectionUtils.turnClockwise(dir), ForgeDirectionUtils.turnClockwise(dir), dir.getOpposite() };
+			return new ForgeDirection[] { ForgeDirectionUtils.turnAgainstClockwise(dir), ForgeDirectionUtils.turnAgainstClockwise(dir), dir, dir,
+					ForgeDirectionUtils.turnClockwise(dir), ForgeDirectionUtils.turnClockwise(dir), dir.getOpposite() };
 		} else if (rot == 0)
 		{
-			return new ForgeDirection[] { dir.getOpposite(), ForgeDirectionUtils.turnAgainstClockwise(dir), ForgeDirectionUtils.turnAgainstClockwise(dir), dir, dir, ForgeDirectionUtils.turnClockwise(dir), ForgeDirectionUtils.turnClockwise(dir) };
+			return new ForgeDirection[] { dir.getOpposite(), ForgeDirectionUtils.turnAgainstClockwise(dir), ForgeDirectionUtils.turnAgainstClockwise(dir), dir, dir,
+					ForgeDirectionUtils.turnClockwise(dir), ForgeDirectionUtils.turnClockwise(dir) };
 		}
 		
 		return new ForgeDirection[] {};
@@ -13482,15 +13483,13 @@ public class StructureBigHall extends StructureRotatable {
 		{
 			return false;
 		}
-		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
-			return true;
-		else
-			return false;
+		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) return true;
+		else return false;
 	}
 	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
-	{	
+	{
 		
 	}
 	

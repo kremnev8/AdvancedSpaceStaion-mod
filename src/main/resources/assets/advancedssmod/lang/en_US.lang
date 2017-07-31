@@ -99,6 +99,12 @@ remover.no_linked_tile.name=No linked TileEntityInfo block found!
 
 remover.haschilds_tip.name=This structure have child structures. Before it can be removed, you need to remove all its child structures 
 
+modificator.name=Modificator
+modificator.direction.name=dir:
+modificator.rotation.name=rot:
+modificator.children.name=Children
+modificator.additional.name=Additional
+
 
 ForgeDirs.DOWN.name=Down
 ForgeDirs.UP.name=Up

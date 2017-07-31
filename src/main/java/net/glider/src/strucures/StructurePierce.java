@@ -2,7 +2,6 @@ package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import net.glider.src.items.ItemMod;
@@ -15,12 +14,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class StructurePierce extends Structure {
-
+	
 	public StructurePierce()
 	{
 		super(false);
 	}
-
+	
 	@Override
 	public void Build(World world, ForgeDirection dir, int x, int y, int z)
 	{
@@ -56,7 +55,7 @@ public class StructurePierce extends Structure {
 			world.setBlock(x + 0, y + 2, z - 1, block1, 0, 2);
 			world.setBlock(x + 0, y + 2, z + 0, block1, 0, 2);
 			world.setBlock(x + 0, y + 2, z + 1, block1, 0, 2);
-
+			
 		} else if (dir == ForgeDirection.EAST)
 		{
 			Block block1 = GCBlocks.tinStairs1;
@@ -82,7 +81,7 @@ public class StructurePierce extends Structure {
 			world.setBlock(x + 2, y - 2, z - 1, block1, 5, 2);
 			world.setBlock(x + 2, y - 2, z + 0, block1, 5, 2);
 			world.setBlock(x + 2, y - 2, z + 1, block1, 5, 2);
-
+			
 			block1 = Blocks.air;
 			world.setBlock(x + 0, y + 2, z - 1, block1, 0, 2);
 			world.setBlock(x + 0, y + 2, z + 0, block1, 0, 2);
@@ -122,7 +121,7 @@ public class StructurePierce extends Structure {
 			world.setBlock(x + 0, y + 2, z + 0, block1, 0, 2);
 			world.setBlock(x + 1, y + 2, z - 1, block1, 0, 2);
 			world.setBlock(x + 1, y + 2, z + 0, block1, 0, 2);
-
+			
 		} else if (dir == ForgeDirection.SOUTH)
 		{
 			Block block1 = GCBlocks.tinStairs1;
@@ -148,7 +147,7 @@ public class StructurePierce extends Structure {
 			world.setBlock(x + 2, y + 0, z + 0, block2, 4, 2);
 			world.setBlock(x + 2, y + 1, z + 0, block2, 4, 2);
 			world.setBlock(x + 2, y + 2, z + 0, block1, 3, 2);
-
+			
 			block1 = Blocks.air;
 			world.setBlock(x - 1, y + 2, z + 0, block1, 0, 2);
 			world.setBlock(x - 1, y + 2, z + 1, block1, 0, 2);
@@ -156,11 +155,11 @@ public class StructurePierce extends Structure {
 			world.setBlock(x + 0, y + 2, z + 1, block1, 0, 2);
 			world.setBlock(x + 1, y + 2, z + 0, block1, 0, 2);
 			world.setBlock(x + 1, y + 2, z + 1, block1, 0, 2);
-
+			
 		}
-
+		
 	}
-
+	
 	@Override
 	public void deconstruct(World world, ForgeDirection dir, int x, int y, int z)
 	{
@@ -189,7 +188,7 @@ public class StructurePierce extends Structure {
 			world.setBlock(x + 0, y + 1, z + 2, block2, 4, 2);
 			world.setBlock(x + 0, y + 2, z - 2, block1, 0, 2);
 			world.setBlock(x + 0, y + 2, z + 2, block1, 0, 2);
-
+			
 		} else if (dir == ForgeDirection.EAST)
 		{
 			Block block1 = Blocks.air;
@@ -240,7 +239,7 @@ public class StructurePierce extends Structure {
 			world.setBlock(x + 2, y + 0, z + 0, block2, 4, 2);
 			world.setBlock(x + 2, y + 1, z + 0, block2, 4, 2);
 			world.setBlock(x + 2, y + 2, z + 0, block1, 2, 2);
-
+			
 		} else if (dir == ForgeDirection.SOUTH)
 		{
 			Block block1 = Blocks.air;
@@ -266,14 +265,16 @@ public class StructurePierce extends Structure {
 			world.setBlock(x + 2, y + 0, z + 0, block2, 4, 2);
 			world.setBlock(x + 2, y + 1, z + 0, block2, 4, 2);
 			world.setBlock(x + 2, y + 2, z + 0, block1, 3, 2);
-
+			
 		}
-
+		
 	}
+	
 	/**
-	@param meta 0 - everything, 1 - everything excluding pierce, 2 - only add
-	 * structures, 3 - only window(only rot == 0), 4 - solar panels, 5 -
-	 * greenhouse, 6 - pierce
+	 * @param meta
+	 *            0 - everything, 1 - everything excluding pierce, 2 - only add
+	 *            structures, 3 - only window(only rot == 0), 4 - solar panels,
+	 *            5 - greenhouse, 6 - pierce
 	 */
 	@Override
 	public boolean Check(World world, ForgeDirection dir, int x, int y, int z, int meta)
@@ -285,45 +286,45 @@ public class StructurePierce extends Structure {
 		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) return true;
 		else return false;
 	}
-
+	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
 	{
 	}
-
+	
 	@Override
 	public boolean isHidden()
 	{
 		return false;
 	}
-
+	
 	@Override
 	public String getName()
 	{
 		return StatCollector.translateToLocal("builder.pierce.name");
 	}
-
+	
 	@Override
 	public String getUnlocalizedName()
 	{
 		return "pierce";
 	}
-
+	
 	@Override
 	public Structure copy()
 	{
 		StructurePierce Nstr = new StructurePierce();
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
-
+	
 	@Override
 	public List<OreDictItemStack> getRequiredItems()
 	{
 		List<OreDictItemStack> items = new ArrayList();
 		items.add(new OreDictItemStack(new ItemStack(GCItems.basicItem, 8, 7), "plateTin"));
 		items.add(new OreDictItemStack(new ItemStack(ItemMod.ironScaffold, 4, ItemMod.scaffold_meta)));
-
+		
 		return items;
 	}
 	
@@ -334,5 +335,5 @@ public class StructurePierce extends Structure {
 		data.specialFunc = StatCollector.translateToLocal("builder.side_info.funcs.pierce.name");
 		return data;
 	}
-
+	
 }

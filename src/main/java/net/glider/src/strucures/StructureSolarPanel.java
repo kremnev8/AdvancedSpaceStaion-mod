@@ -28,7 +28,7 @@ public class StructureSolarPanel extends StructureRotatable {
 	public Structure copy()
 	{
 		StructureSolarPanel Nstr = new StructureSolarPanel(hidden);
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
 	

@@ -3,7 +3,6 @@ package net.glider.src.strucures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.items.GCItems;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityAirLockController;
@@ -32,7 +31,7 @@ public class StructureHallWAirlock extends Structure {
 	public Structure copy()
 	{
 		StructureHallWAirlock Nstr = new StructureHallWAirlock(hidden);
-		Nstr.Configure(placementPos, placementRotation, placementDir);
+		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
 		return Nstr;
 	}
 	
@@ -51,7 +50,7 @@ public class StructureHallWAirlock extends Structure {
 	
 	@Override
 	public void deconstruct(World world, ForgeDirection dir, int x, int y, int z)
-	{	
+	{
 		
 	}
 	
@@ -698,15 +697,13 @@ public class StructureHallWAirlock extends Structure {
 		{
 			return false;
 		}
-		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH)
-			return true;
-		else
-			return false;
+		if (dir == ForgeDirection.WEST || dir == ForgeDirection.EAST || dir == ForgeDirection.NORTH || dir == ForgeDirection.SOUTH) return true;
+		else return false;
 	}
 	
 	@Override
 	public void ClearWay(World world, ForgeDirection dir, int x, int y, int z)
-	{	
+	{
 		
 	}
 	
