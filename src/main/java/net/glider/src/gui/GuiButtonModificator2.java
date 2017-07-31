@@ -1,0 +1,141 @@
+package net.glider.src.gui;
+
+import net.glider.src.gui.GuiButtonBuilder.GuiIconsUtil;
+import net.glider.src.strucures.Structure;
+import net.glider.src.strucures.StructureRotatable;
+import net.glider.src.utils.ForgeDirectionUtils;
+import net.glider.src.utils.GLoger;
+import net.glider.src.utils.GliderModInfo;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.ForgeDirection;
+import org.lwjgl.opengl.GL11;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+@SideOnly(Side.CLIENT)
+public class GuiButtonModificator2 extends GuiButton {
+	protected static final ResourceLocation buttonTextures = new ResourceLocation(GliderModInfo.ModTestures, "textures/Modificator.png");
+	/** Button width in pixels */
+	public int width = 131;
+	/** Button height in pixels */
+	public int height = 17;
+	/** The x position of this control. */
+	public int xPosition;
+	/** The y position of this control. */
+	public int yPosition;
+	/** The string displayed on this control. */
+	public String displayString;
+	public int id;
+	/** True if this control is enabled, false to disable. */
+	public boolean enabled;
+	/** Hides the button completely if false. */
+	public boolean visible;
+	protected boolean field_146123_n;
+	private static final String __OBFID = "CL_00000668";
+	public int packedFGColour;
+	public boolean Enabled;
+	
+	private int NyPos;
+	
+	private int ZeroPos;
+	
+	public int[] strPos;
+	public boolean visSelf = true;
+	
+	public GuiButtonModificator2(int id, int xpos, int ypos, int y)
+	{
+		super(id, xpos, ypos, 127, 24, "");
+		super.visible = false;
+		this.enabled = true;
+		this.visible = true;
+		this.id = id;
+		this.xPosition = xpos;
+		this.yPosition = ypos;
+		this.displayString = "";
+	}
+	
+	/**
+	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over
+	 * this button and 2 if it IS hovering over this button.
+	 */
+	public int getHoverState(boolean hover)
+	{
+		byte b0 = 1;
+		
+		if (!this.enabled)
+		{
+			b0 = 0;
+		} else if (hover)
+		{
+			b0 = 2;
+		}
+		
+		return b0;
+	}
+	
+	/**
+	 * Draws this button to the screen.
+	 */
+	public void drawButton(Minecraft mine, int x, int y)
+	{
+		
+		NyPos = this.yPosition - (11 * GuiModificator.move);
+		if (visSelf)
+		{
+			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 99)
+			{
+				this.visible = false;
+			} else this.visible = true;
+		}
+		if (this.visible)
+		{
+			FontRenderer fontrenderer = mine.fontRenderer;
+			mine.getTextureManager().bindTexture(buttonTextures);
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			this.field_146123_n = x >= this.xPosition && y >= NyPos && x < this.xPosition + this.width && y < NyPos + this.height;
+			int k = this.getHoverState(this.field_146123_n);
+			GL11.glEnable(GL11.GL_BLEND);
+			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+			
+			this.drawTexturedModalRect(this.xPosition, NyPos, 164, 124, 67, this.height);//en
+			this.drawTexturedModalRect(this.xPosition + 67, NyPos, 164, 144, 67, this.height);//en
+			
+			if (getHoverState(this.field_146123_n) == 2)
+			{
+				this.drawTexturedModalRect(this.xPosition + 2, NyPos + 2, 168, 56, 64, this.height - 3);//en
+				this.drawTexturedModalRect(this.xPosition + 66, NyPos + 2, 168, 90, 67, this.height - 3);//en
+			} else
+			{
+				this.drawTexturedModalRect(this.xPosition + 2, NyPos + 2, 168, 73, 64, this.height - 3);//hover
+				this.drawTexturedModalRect(this.xPosition + 66, NyPos + 2, 168, 107, 64, this.height - 3);//hover
+			}
+		}
+	}
+	
+	/**
+	 * Returns true if the mouse has been pressed on this control. Equivalent of
+	 * MouseListener.mousePressed(MouseEvent e).
+	 */
+	public boolean mousePressed(Minecraft mine, int x, int y)
+	{
+		return this.enabled && this.visible && x >= this.xPosition && y >= NyPos && x < this.xPosition + this.width && y < NyPos + this.height;
+	}
+	
+	public int getButtonWidth()
+	{
+		return this.width;
+	}
+	
+	public int func_154310_c()
+	{
+		return this.height;
+	}
+	
+}

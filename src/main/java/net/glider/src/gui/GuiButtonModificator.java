@@ -201,8 +201,9 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 	 */
 	public void drawButton(Minecraft mine, int x, int y)
 	{
+		int move_mod = 11;
 		
-		NyPos = this.yPosition - (44 * GuiModificator.move);
+		NyPos = this.yPosition - (move_mod * GuiModificator.move);
 		if (visSelf)
 		{
 			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 99)
@@ -278,10 +279,16 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 			{
 				if (this.elementList.get(k) instanceof GuiButton)
 				{
+					int old = ((GuiButton) this.elementList.get(k)).yPosition;
+					((GuiButton) this.elementList.get(k)).yPosition -= (move_mod * GuiModificator.move);
 					((GuiButton) this.elementList.get(k)).drawButton(mine, x, y);
+					((GuiButton) this.elementList.get(k)).yPosition = old;
 				} else if (this.elementList.get(k) instanceof GuiTextField)
 				{
+					int old = ((GuiTextField) this.elementList.get(k)).yPosition;
+					((GuiTextField) this.elementList.get(k)).yPosition -= (move_mod * GuiModificator.move);
 					((GuiTextField) this.elementList.get(k)).drawTextBox();
+					((GuiTextField) this.elementList.get(k)).yPosition = old;
 				}
 			}
 			
@@ -460,20 +467,23 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 	
 	public boolean mouseClicked(int x, int y, int but)
 	{
+		int move_mod = 11;
+		int shift = (move_mod * GuiModificator.move);
+		;
 		for (int l = 0; l < this.elementList.size(); ++l)
 		{
 			if (this.elementList.get(l) instanceof GuiButton && but == 0)
 			{
 				Minecraft mine = Minecraft.getMinecraft();
 				GuiButton guibutton = (GuiButton) this.elementList.get(l);
-				if (guibutton.mousePressed(mine, x, y))
+				if (guibutton.mousePressed(mine, x, y + shift))
 				{
 					guibutton.func_146113_a(mine.getSoundHandler());
 				}
 			} else if (this.elementList.get(l) instanceof GuiTextField)
 			{
 				GuiTextField field = (GuiTextField) this.elementList.get(l);
-				field.mouseClicked(x, y, but);
+				field.mouseClicked(x, y + shift, but);
 				if (!field.isFocused())
 				{
 					try

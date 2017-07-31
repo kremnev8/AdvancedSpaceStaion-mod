@@ -33,7 +33,7 @@ public class StructureCrossroad extends Structure {
 	public Structure copy()
 	{
 		StructureCrossroad Nstr = new StructureCrossroad(hidden);
-		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
+		Nstr.Configure(placementPos != null ? placementPos.clone() : new int[] { 0, 0, 0 }, placementRotation, placementDir);
 		return Nstr;
 	}
 	

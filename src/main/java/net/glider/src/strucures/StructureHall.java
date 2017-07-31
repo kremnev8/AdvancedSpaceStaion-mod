@@ -28,7 +28,7 @@ public class StructureHall extends Structure {
 	public Structure copy()
 	{
 		StructureHall Nstr = new StructureHall(hiddenS);
-		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
+		Nstr.Configure(placementPos != null ? placementPos.clone() : new int[] { 0, 0, 0 }, placementRotation, placementDir);
 		return Nstr;
 	}
 	

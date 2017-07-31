@@ -31,7 +31,7 @@ public class StructureWindow extends StructureRotatable {
 	public Structure copy()
 	{
 		StructureWindow Nstr = new StructureWindow(hidden);
-		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
+		Nstr.Configure(placementPos != null ? placementPos.clone() : new int[] { 0, 0, 0 }, placementRotation, placementDir);
 		return Nstr;
 	}
 	
