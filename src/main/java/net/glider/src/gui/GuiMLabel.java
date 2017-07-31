@@ -14,10 +14,6 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class GuiMLabel extends GuiButton {
-	/** Button width in pixels */
-	public int width;
-	/** Button height in pixels */
-	public int height;
 	/** The x position of this control. */
 	public int xPosition;
 	/** The y position of this control. */
@@ -30,23 +26,23 @@ public class GuiMLabel extends GuiButton {
 	/** Hides the button completely if false. */
 	public boolean visible;
 	protected boolean field_146123_n;
-	public int packedFGColour;
 	
-	public GuiMLabel(int id, int x, int y, String text)
+	private int NyPos;
+	private int ZeroPos;
+	public boolean visSelf = true;
+	
+	public GuiMLabel(int id, int x, int y, String text, int zp)
 	{
-		super(id, x, y, 0, 0, text);
+		super(id, x, y, 1, 1, text);
 		super.enabled = false;
 		super.visible = false;
-		this.width = 200;
-		this.height = 20;
 		this.enabled = true;
 		this.visible = true;
 		this.id = id;
 		this.xPosition = x;
 		this.yPosition = y;
-		this.width = 1;
-		this.height = 1;
 		this.displayString = text;
+		ZeroPos = zp;
 	}
 	
 	/**
@@ -54,13 +50,22 @@ public class GuiMLabel extends GuiButton {
 	 */
 	public void drawButton(Minecraft mine, int x, int y)
 	{
+		NyPos = this.yPosition - (11 * GuiModificator.move);
+		if (visSelf)
+		{//133
+			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 99)
+			{
+				this.visible = false;
+			} else this.visible = true;
+		}
 		if (this.visible)
 		{
+			zLevel = 10;
 			FontRenderer fontrenderer = mine.fontRenderer;
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			int l = 14737632;
+			int l = 4210752;
 			
-			this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, l);
+			fontrenderer.drawString(this.displayString, this.xPosition + (int) (133 / 2) - (fontrenderer.getStringWidth(this.displayString) / 2), NyPos, l, false);
 		}
 	}
 	

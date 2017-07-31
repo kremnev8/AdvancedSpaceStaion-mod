@@ -29,7 +29,7 @@ public class StructureDockingPort extends Structure {
 	public Structure copy()
 	{
 		StructureDockingPort Nstr = new StructureDockingPort(hidden);
-		Nstr.Configure(placementPos.clone(), placementRotation, placementDir);
+		Nstr.Configure(placementPos != null ? placementPos.clone() : new int[] { 0, 0, 0 }, placementRotation, placementDir);
 		return Nstr;
 	}
 	

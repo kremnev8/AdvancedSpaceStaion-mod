@@ -12,18 +12,26 @@ import net.glider.src.utils.ChatUtils;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+import cofh.core.gui.GuiTextEntry;
 
 public class GuiModificator extends GuiContainer {
 	
@@ -74,8 +82,23 @@ public class GuiModificator extends GuiContainer {
 		
 		this.buttonList.clear();
 		
-		this.buttonList.add(new GuiVerticalSlider(0, x + 144, y + 15, 10, 129, "R", "R", 0, 5, 0, true, false));
-		if (object != null) this.buttonList.add(new GuiButtonModificator(1, x + 7, y + 15, object, y + 15));
+		this.buttonList.add(new GuiVerticalSlider(0, x + 144, y + 15, 10, 129, "R", "R", 0,
+				10 + (ChildObjects != null ? ChildObjects.size() * 2 : 0) + (addObjects != null ? addObjects.size() * 2 : 0), 0, true, false));
+		if (object != null)
+		{
+			this.buttonList.add(new GuiButtonModificator(1, x + 7, y + 15, object, y));
+			this.buttonList.add(new GuiMLabel(2, x + 7, y + 59, StatCollector.translateToLocal("modificator.children.name"), y));
+			int lasti = 70;
+			if (ChildObjects != null && ChildObjects.size() > 0)
+			{
+				for (int i = 0; i < ChildObjects.size(); i++)
+				{
+					this.buttonList.add(new GuiButtonModificator(3 + i, x + 7, y + 70 + 44 * i, ChildObjects.get(i), y));
+					lasti += 44;
+				}
+			}
+			this.buttonList.add(new GuiButtonModificator2(10, x + 7, lasti, y));
+		}
 		
 		// this.buttonList.add(new GuiButton(1, x + 70, y + 101, 80, 20,
 		// StatCollector.translateToLocal("remover.deconstruct_button.name")));
@@ -100,6 +123,47 @@ public class GuiModificator extends GuiContainer {
 	{
 		super.actionPerformed(button);
 		
+	}
+	
+	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_)
+	{
+		this.drawDefaultBackground();
+		int k = this.guiLeft;
+		int l = this.guiTop;
+		this.drawGuiContainerBackgroundLayer(p_73863_3_, p_73863_1_, p_73863_2_);
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		RenderHelper.disableStandardItemLighting();
+		GL11.glDisable(GL11.GL_LIGHTING);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+		
+		int i;
+		
+		for (i = this.buttonList.size() - 1; i != -1; i--)
+		{
+			((GuiButton) this.buttonList.get(i)).drawButton(this.mc, p_73863_1_, p_73863_2_);
+		}
+		
+		RenderHelper.enableGUIStandardItemLighting();
+		GL11.glPushMatrix();
+		GL11.glTranslatef((float) k, (float) l, 0.0F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		short short1 = 240;
+		short short2 = 240;
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) short1 / 1.0F, (float) short2 / 1.0F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		int k1;
+		
+		//Forge: Force lighting to be disabled as there are some issue where lighting would
+		//incorrectly be applied based on items that are in the inventory.
+		GL11.glDisable(GL11.GL_LIGHTING);
+		this.drawGuiContainerForegroundLayer(p_73863_1_, p_73863_2_);
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glPopMatrix();
+		
+		GL11.glEnable(GL11.GL_LIGHTING);
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		RenderHelper.enableStandardItemLighting();
 	}
 	
 	@Override
@@ -130,11 +194,16 @@ public class GuiModificator extends GuiContainer {
 		int y = (height - Ysize) / 2;
 		drawTexturedModalRect(x, y, 0, 0, Xsize, Ysize);
 		
+		GL11.glEnable(GL11.GL_SCISSOR_TEST);
+		int factor = 4;
+		GL11.glScissor((x + 5) * factor, mc.displayHeight - (y + 146) * factor, 160 * factor, 131 * factor);
+		
 	}
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int MouseX, int MouseY)
 	{
+		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 		fontRendererObj.drawString(StatCollector.translateToLocal("modificator.name"),
 				(int) (xSize / 4.5D) - (fontRendererObj.getStringWidth(I18n.format("modificator.name")) / 2) + 15, 12, 4210752, false);
 		
