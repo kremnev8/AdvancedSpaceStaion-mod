@@ -8,6 +8,7 @@
 /src/main/resources/assets/galacticraftmars
 /src/main/resources/assets/galacticraftmoon
 /src/main/resources/assets/projecte
+/build
 .gradle
 .settings
 .project

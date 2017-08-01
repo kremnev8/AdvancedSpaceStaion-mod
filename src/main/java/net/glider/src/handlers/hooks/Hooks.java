@@ -3,9 +3,7 @@ package net.glider.src.handlers.hooks;
 
 import gloomyfolken.hooklib.asm.Hook;
 import gloomyfolken.hooklib.asm.ReturnCondition;
-
 import java.util.Iterator;
-
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Satellite;
@@ -34,6 +32,8 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.WorldProvider;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -41,6 +41,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Hooks {
 	
 	public static boolean ignoreThis = false;
+	
+	@Hook(returnCondition = ReturnCondition.ON_TRUE)
+	public static boolean registerProvider(GalacticraftRegistry reg, int id, Class<? extends WorldProvider> provider, boolean keepLoaded, int defaultID)
+	{
+		if ((id == ConfigManagerCore.idDimensionOverworldOrbit || id == ConfigManagerCore.idDimensionOverworldOrbitStatic) && !ignoreThis)
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	@Hook(returnCondition = ReturnCondition.ON_TRUE)
 	public static boolean registerSpaceStation(GalacticraftRegistry reg, SpaceStationType sst)
@@ -57,10 +67,12 @@ public class Hooks {
 	{
 		if (satellite == GalacticraftCore.satelliteSpaceStation)
 		{
-			satellite.setDimensionInfo(ConfigManagerCore.idDimensionOverworldOrbit, ConfigManagerCore.idDimensionOverworldOrbitStatic, WorldProviderOrbitEarth.class).setTierRequired(1);
-			
+			satellite.setDimensionInfo(ConfigManagerCore.idDimensionOverworldOrbit, ConfigManagerCore.idDimensionOverworldOrbitStatic, WorldProviderOrbitEarth.class)
+					.setTierRequired(1);
+			ignoreThis = true;
 			GalacticraftRegistry.registerProvider(ConfigManagerCore.idDimensionOverworldOrbit, WorldProviderOrbitEarth.class, false, 0);
 			GalacticraftRegistry.registerProvider(ConfigManagerCore.idDimensionOverworldOrbitStatic, WorldProviderOrbitEarth.class, true, 0);
+			ignoreThis = false;
 			GalacticraftRegistry.registerTeleportType(WorldProviderOrbitEarth.class, new TeleportTypeSpaceStation());
 		}
 	}
@@ -88,7 +100,8 @@ public class Hooks {
 	@Hook
 	public static void onEntityFall(EventHandlerGC evhand, LivingFallEvent event)
 	{
-		if (event.entity.worldObj.isRemote && event.entityLiving instanceof EntityPlayerMP && ((EntityPlayerMP) event.entityLiving).getCurrentArmor(2) != null && ((EntityPlayerMP) event.entityLiving).getCurrentArmor(2).getItem() != ItemMod.spaceJetpack)
+		if (event.entity.worldObj.isRemote && event.entityLiving instanceof EntityPlayerMP && ((EntityPlayerMP) event.entityLiving).getCurrentArmor(2) != null
+				&& ((EntityPlayerMP) event.entityLiving).getCurrentArmor(2).getItem() != ItemMod.spaceJetpack)
 		{
 			PacketHandler.sendToServer(new SyncPlayerFallPacket(event.distance * ((IGalacticraftWorldProvider) event.entityLiving.worldObj.provider).getFallDamageModifier()));
 		}
@@ -137,11 +150,9 @@ public class Hooks {
 	{
 		if (player.worldObj.provider instanceof WorldProviderOrbit && !(player.worldObj.provider instanceof WorldProviderOrbitModif))
 		{
-			if (FreefallHandler.testFreefall(player))
-				return false;
+			if (FreefallHandler.testFreefall(player)) return false;
 			GCPlayerStatsClient stats = GCPlayerStatsClient.get(player);
-			if (stats.inFreefall)
-				return false;
+			if (stats.inFreefall) return false;
 		}
 		return player.movementInput.sneak && !player.isPlayerSleeping();
 	}

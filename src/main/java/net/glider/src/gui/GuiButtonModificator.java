@@ -65,6 +65,8 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 	
 	private int[] poslist = new int[3];
 	
+	public static boolean isAnyInFocus = false;
+	
 	public GuiButtonModificator(int id, int xpos, int ypos, Structure str, int y)
 	{//TODO rewrite it to use this: GuiElementTextBox
 		super(id, xpos, ypos, 134, 44, "");
@@ -206,7 +208,7 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 		NyPos = this.yPosition - (move_mod * GuiModificator.move);
 		if (visSelf)
 		{
-			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 99)
+			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 157)
 			{
 				this.visible = false;
 			} else this.visible = true;
@@ -221,7 +223,7 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-			this.drawTexturedModalRect(this.xPosition, NyPos, 2, 154, this.width, this.height);
+			this.drawTexturedModalRect(this.xPosition, NyPos, 2, 166, this.width, this.height);
 			
 			boolean onPlusSign = x >= this.xPosition + 113 && y >= NyPos + 6 && x < this.xPosition + 113 + 16 && y < NyPos + 6 + 16;
 			if (onPlusSign)
@@ -476,9 +478,21 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 			{
 				Minecraft mine = Minecraft.getMinecraft();
 				GuiButton guibutton = (GuiButton) this.elementList.get(l);
+				boolean before = false;
+				if (guibutton instanceof GuiElementDropdown)
+				{
+					before = ((GuiElementDropdown) guibutton).dropdownClicked;
+				}
 				if (guibutton.mousePressed(mine, x, y + shift))
 				{
 					guibutton.func_146113_a(mine.getSoundHandler());
+				}
+				if (guibutton instanceof GuiElementDropdown)
+				{
+					if (before != ((GuiElementDropdown) guibutton).dropdownClicked)
+					{
+						isAnyInFocus = ((GuiElementDropdown) guibutton).dropdownClicked;
+					}
 				}
 			} else if (this.elementList.get(l) instanceof GuiTextField)
 			{
