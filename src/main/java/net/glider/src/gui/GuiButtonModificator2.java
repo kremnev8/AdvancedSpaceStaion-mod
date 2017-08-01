@@ -22,7 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class GuiButtonModificator2 extends GuiButton {
 	protected static final ResourceLocation buttonTextures = new ResourceLocation(GliderModInfo.ModTestures, "textures/Modificator.png");
 	/** Button width in pixels */
-	public int width = 134;
+	public int width = 131;
 	/** Button height in pixels */
 	public int height = 17;
 	/** The x position of this control. */
@@ -58,7 +58,6 @@ public class GuiButtonModificator2 extends GuiButton {
 		this.xPosition = xpos;
 		this.yPosition = ypos;
 		this.displayString = "";
-		this.ZeroPos = y;
 	}
 	
 	/**
@@ -89,7 +88,7 @@ public class GuiButtonModificator2 extends GuiButton {
 		NyPos = this.yPosition - (11 * GuiModificator.move);
 		if (visSelf)
 		{
-			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 157)
+			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 99)
 			{
 				this.visible = false;
 			} else this.visible = true;
@@ -99,18 +98,23 @@ public class GuiButtonModificator2 extends GuiButton {
 			FontRenderer fontrenderer = mine.fontRenderer;
 			mine.getTextureManager().bindTexture(buttonTextures);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.field_146123_n = x >= this.xPosition && y >= NyPos && x < this.xPosition + this.width && y < NyPos + this.height && !GuiButtonModificator.isAnyInFocus;
+			this.field_146123_n = x >= this.xPosition && y >= NyPos && x < this.xPosition + this.width && y < NyPos + this.height;
 			int k = this.getHoverState(this.field_146123_n);
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			
+			this.drawTexturedModalRect(this.xPosition, NyPos, 164, 124, 67, this.height);//en
+			this.drawTexturedModalRect(this.xPosition + 67, NyPos, 164, 144, 67, this.height);//en
+			
 			if (getHoverState(this.field_146123_n) == 2)
 			{
-				this.drawTexturedModalRect(this.xPosition, NyPos, 2, 230, 134, 17);//en
+				this.drawTexturedModalRect(this.xPosition + 2, NyPos + 2, 168, 56, 64, this.height - 3);//en
+				this.drawTexturedModalRect(this.xPosition + 66, NyPos + 2, 168, 90, 67, this.height - 3);//en
 			} else
 			{
-				this.drawTexturedModalRect(this.xPosition, NyPos, 2, 212, 134, 17);
+				this.drawTexturedModalRect(this.xPosition + 2, NyPos + 2, 168, 73, 64, this.height - 3);//hover
+				this.drawTexturedModalRect(this.xPosition + 66, NyPos + 2, 168, 107, 64, this.height - 3);//hover
 			}
 		}
 	}
@@ -121,8 +125,7 @@ public class GuiButtonModificator2 extends GuiButton {
 	 */
 	public boolean mousePressed(Minecraft mine, int x, int y)
 	{
-		return this.enabled && this.visible && x >= this.xPosition && y >= NyPos && x < this.xPosition + this.width && y < NyPos + this.height
-				&& !GuiButtonModificator.isAnyInFocus;
+		return this.enabled && this.visible && x >= this.xPosition && y >= NyPos && x < this.xPosition + this.width && y < NyPos + this.height;
 	}
 	
 	public int getButtonWidth()

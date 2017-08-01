@@ -53,7 +53,7 @@ public class GuiMLabel extends GuiButton {
 		NyPos = this.yPosition - (11 * GuiModificator.move);
 		if (visSelf)
 		{//133
-			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 157)
+			if (NyPos < ZeroPos - 25 || NyPos > ZeroPos + 99)
 			{
 				this.visible = false;
 			} else this.visible = true;
