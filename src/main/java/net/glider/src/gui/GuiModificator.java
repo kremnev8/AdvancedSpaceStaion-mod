@@ -37,7 +37,7 @@ public class GuiModificator extends GuiContainer {
 	
 	private ResourceLocation texture = new ResourceLocation(GliderModInfo.ModTestures, "textures/Modificator.png");
 	private int Xsize = 160;
-	private int Ysize = 163;
+	private int Ysize = 152;
 	
 	private int x;
 	private int y;
@@ -82,12 +82,8 @@ public class GuiModificator extends GuiContainer {
 		
 		this.buttonList.clear();
 		
-		this.buttonList.add(new GuiVerticalSlider(0, x + 144, y + 15, 10, 140, "R", "R", 0,
-				(ChildObjects != null ? ChildObjects.size() * 4 : 0) + (addObjects != null ? addObjects.size() * 4 : 0) - 2, 0, true, false));
-		if (((GuiVerticalSlider) this.buttonList.get(0)).maxValue < 0)
-		{
-			((GuiVerticalSlider) this.buttonList.get(0)).enabled = false;
-		}
+		this.buttonList.add(new GuiVerticalSlider(0, x + 144, y + 15, 10, 129, "R", "R", 0,
+				10 + (ChildObjects != null ? ChildObjects.size() * 2 : 0) + (addObjects != null ? addObjects.size() * 2 : 0), 0, true, false));
 		if (object != null)
 		{
 			this.buttonList.add(new GuiButtonModificator(1, x + 7, y + 15, object, y));
@@ -101,20 +97,7 @@ public class GuiModificator extends GuiContainer {
 					lasti += 44;
 				}
 			}
-			this.buttonList.add(new GuiButtonModificator2(buttonList.size(), x + 7, y + lasti, y));
-			lasti += 22;
-			this.buttonList.add(new GuiMLabel(buttonList.size(), x + 7, y + lasti, StatCollector.translateToLocal("modificator.additional.name"), y));
-			lasti += 11;
-			int lid = buttonList.size();
-			if (addObjects != null && addObjects.size() > 0)
-			{
-				for (int i = 0; i < addObjects.size(); i++)
-				{
-					this.buttonList.add(new GuiButtonModificator(lid + i, x + 7, y + lasti, addObjects.get(i), y));
-					lasti += 44;
-				}
-			}
-			this.buttonList.add(new GuiButtonModificator2(buttonList.size(), x + 7, y + lasti, y));
+			this.buttonList.add(new GuiButtonModificator2(10, x + 7, lasti, y));
 		}
 		
 		// this.buttonList.add(new GuiButton(1, x + 70, y + 101, 80, 20,
@@ -213,7 +196,7 @@ public class GuiModificator extends GuiContainer {
 		
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);
 		int factor = 4;
-		GL11.glScissor((x + 5) * factor, mc.displayHeight - (y + 157) * factor, 160 * factor, 142 * factor);
+		GL11.glScissor((x + 5) * factor, mc.displayHeight - (y + 146) * factor, 160 * factor, 131 * factor);
 		
 	}
 	
@@ -222,7 +205,7 @@ public class GuiModificator extends GuiContainer {
 	{
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 		fontRendererObj.drawString(StatCollector.translateToLocal("modificator.name"),
-				(int) (xSize / 4.5D) - (fontRendererObj.getStringWidth(I18n.format("modificator.name")) / 2) + 15, 6, 4210752, false);
+				(int) (xSize / 4.5D) - (fontRendererObj.getStringWidth(I18n.format("modificator.name")) / 2) + 15, 12, 4210752, false);
 		
 	}
 	

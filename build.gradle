@@ -22,7 +22,7 @@ targetCompatibility = 1.7
 
 version = "${advSS_version}"
 group= "java.net" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "AdvancedSSMod"
+archivesBaseName = "AdvancedSSmod"
 
 minecraft {
     version = "${minecraft_version}-${forge_version}-${minecraft_version}"
@@ -30,14 +30,6 @@ minecraft {
 
     replace "@VERSION@", project.version
     replaceIn "GliderModInfo.java"
-}
-
-jar {
-  manifest {
-      attributes 'FMLCorePlugin': 'net.glider.src.handlers.hooks.GliderHookLoader'
-      attributes 'FMLCorePluginContainsFMLMod': 'true'
-	  attributes 'FMLAT': 'AdvancedSSMod_at.cfg'
-  }
 }
 
 repositories {
