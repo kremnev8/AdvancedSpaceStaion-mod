@@ -3,7 +3,6 @@ package net.glider.src.entity.choreo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
@@ -30,16 +29,15 @@ public class RocketUndockChoreoScene extends ChoreoScene {
 	{
 		EntityRocketFakeTiered rocket = (EntityRocketFakeTiered) entity;
 		
-		double x1 = 2 * Math.cos(entity.rotationYaw * Math.PI / 180.0D) * Math.sin(entity.rotationPitch * Math.PI / 180.0D);
-		double z1 = 2 * Math.sin(entity.rotationYaw * Math.PI / 180.0D) * Math.sin(entity.rotationPitch * Math.PI / 180.0D);
-		double y1 = 2 * Math.cos((entity.rotationPitch - 180) * Math.PI / 180.0D);
+		//	double x1 = 2 * Math.cos(entity.rotationYaw * Math.PI / 180.0D) * Math.sin(entity.rotationPitch * Math.PI / 180.0D);
+		//	double z1 = 2 * Math.sin(entity.rotationYaw * Math.PI / 180.0D) * Math.sin(entity.rotationPitch * Math.PI / 180.0D);
+		//	double y1 = 2 * Math.cos((entity.rotationPitch - 180) * Math.PI / 180.0D);
 		
 		final double y = entity.prevPosY + (entity.posY - entity.prevPosY);
 		final double x2 = entity.posX;
 		final double z2 = entity.posZ;
 		
-		switch (time)
-		{
+		switch (time) {
 		case 0:
 			//setup
 			if (entity.riddenByEntity != null && entity.worldObj.isRemote)
@@ -123,12 +121,9 @@ public class RocketUndockChoreoScene extends ChoreoScene {
 	public void SetEntitySpeedInSec(double speed, boolean x, boolean y, boolean z)
 	{
 		double speedInTicks = speed / 20;
-		if (x)
-			this.entity.motionX = speedInTicks;
-		if (y)
-			this.entity.motionY = speedInTicks;
-		if (z)
-			this.entity.motionZ = speedInTicks;
+		if (x) this.entity.motionX = speedInTicks;
+		if (y) this.entity.motionY = speedInTicks;
+		if (z) this.entity.motionZ = speedInTicks;
 	}
 	
 	@Override
@@ -141,7 +136,7 @@ public class RocketUndockChoreoScene extends ChoreoScene {
 	
 	@Override
 	public void UpdateChoreoEntity()
-	{	
+	{
 		
 	}
 	

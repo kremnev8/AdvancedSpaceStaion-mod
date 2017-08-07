@@ -32,13 +32,12 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 	public static boolean updatedList = false;
 	public static boolean updateddouble = false;
 	
-	public double artificialG;
+	public static double artificialG;
 	
 	private static double pPrevMotionX;
 	public static double pPrevMotionY;
 	private static double pPrevMotionZ;
 	
-	// TODO make plants die if there is no air.
 	@Override
 	public void setDimension(int var1)
 	{
@@ -194,16 +193,16 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 		return chunkcoordinates;
 	}
 	
-	// Overriding only in case the Galacticraft API is not up-to-date
-	// (with up-to-date API this makes zero difference)
+	//Overriding only in case the Galacticraft API is not up-to-date
+	//(with up-to-date API this makes zero difference)
 	@Override
 	public boolean canRespawnHere()
 	{
 		return true;
 	}
 	
-	// Overriding only in case the Galacticraft API is not up-to-date
-	// (with up-to-date API this makes zero difference)
+	//Overriding only in case the Galacticraft API is not up-to-date
+	//(with up-to-date API this makes zero difference)
 	@Override
 	public int getRespawnDimension(EntityPlayerMP player)
 	{

@@ -3,7 +3,6 @@ package net.glider.src.gui;
 import net.glider.src.gui.GuiButtonBuilder.GuiIconsUtil;
 import net.glider.src.strucures.Structure;
 import net.glider.src.strucures.StructureRotatable;
-import net.glider.src.utils.ForgeDirectionUtils;
 import net.glider.src.utils.GLoger;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.client.Minecraft;
@@ -11,13 +10,10 @@ import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +22,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementDropdown;
 import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementDropdown.IDropboxCallback;
+import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementTextBox;
+import micdoodle8.mods.galacticraft.core.client.gui.element.GuiElementTextBox.ITextBoxCallback;
+import micdoodle8.mods.galacticraft.core.util.ColorUtil;
 
 @SideOnly(Side.CLIENT)
-public class GuiButtonModificator extends GuiButton implements IDropboxCallback {
+public class GuiButtonModificator extends GuiButton implements IDropboxCallback, ITextBoxCallback {
 	protected static final ResourceLocation buttonTextures = new ResourceLocation(GliderModInfo.ModTestures, "textures/Modificator.png");
 	
 	protected static final ResourceLocation Icons = new ResourceLocation(GliderModInfo.ModTestures, "textures/Icons.png");
@@ -61,14 +60,18 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 	public int[] strPos;
 	public boolean visSelf = true;
 	
-	public List elementList = new ArrayList();
+	public List<GuiButton> elementList = new ArrayList();
 	
 	private int[] poslist = new int[3];
 	
 	public static boolean isAnyInFocus = false;
 	
-	public GuiButtonModificator(int id, int xpos, int ypos, Structure str, int y)
-	{//TODO rewrite it to use this: GuiElementTextBox
+	public boolean isDelSign = false;
+	
+	private boolean disableDel = false;
+	
+	public GuiButtonModificator(int id, int xpos, int ypos, Structure str, int y, boolean disableDel)
+	{
 		super(id, xpos, ypos, 134, 44, "");
 		super.visible = false;
 		this.enabled = true;
@@ -77,6 +80,7 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 		this.xPosition = xpos;
 		this.yPosition = ypos;
 		ZeroPos = y;
+		this.disableDel = disableDel;
 		if (str != null)
 		{
 			ButStr = str;
@@ -93,23 +97,18 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 		elementList.clear();
 		
 		FontRenderer fontrenderer = Minecraft.getMinecraft().fontRenderer;
-		poslist[0] = elementList.size();
-		elementList.add(new GuiTextField(fontrenderer, xpos + 31, ypos + 28, 20, 10));
-		((GuiTextField) elementList.get(0)).setText(Integer.toString(ButStr.placementPos[0]));
-		poslist[1] = elementList.size();
-		elementList.add(new GuiTextField(fontrenderer, xpos + 61, ypos + 28, 20, 10));
-		((GuiTextField) elementList.get(1)).setText(Integer.toString(ButStr.placementPos[1]));
-		poslist[2] = elementList.size();
-		elementList.add(new GuiTextField(fontrenderer, xpos + 91, ypos + 28, 20, 10));
-		((GuiTextField) elementList.get(2)).setText(Integer.toString(ButStr.placementPos[2]));
+		
+		elementList.add(new GuiElementTextBox(0, this, xpos + 31, ypos + 28, 20, 10, "", true, 3, true));
+		elementList.add(new GuiElementTextBox(1, this, xpos + 61, ypos + 28, 20, 10, "", true, 3, true));
+		elementList.add(new GuiElementTextBox(2, this, xpos + 91, ypos + 28, 20, 10, "", true, 3, true));
 		
 		String[] list = new String[] { ForgeDirection.WEST.toString(), ForgeDirection.EAST.toString(), ForgeDirection.SOUTH.toString(), ForgeDirection.NORTH.toString(),
 				ForgeDirection.UP.toString(), ForgeDirection.DOWN.toString() };
-		elementList.add(new GuiElementDropdown(1, this, xpos + 24 + fontrenderer.getStringWidth(StatCollector.translateToLocal("modificator.direction.name")), ypos + 12, list));
+		elementList.add(new GuiElementDropdown(3, this, xpos + 24 + fontrenderer.getStringWidth(StatCollector.translateToLocal("modificator.direction.name")), ypos + 12, list));
 		String[] list2 = new String[] { "0", "1", "2", "3" };
-		elementList.add(new GuiElementDropdown(2, this, xpos + 80 + fontrenderer.getStringWidth(StatCollector.translateToLocal("modificator.rotation.name")), ypos + 12, list2));
+		elementList.add(new GuiElementDropdown(4, this, xpos + 80 + fontrenderer.getStringWidth(StatCollector.translateToLocal("modificator.rotation.name")), ypos + 12, list2));
 		
-		if (ButStr instanceof StructureRotatable)
+		if (str instanceof StructureRotatable)
 		{
 			List<String> intList = new ArrayList();
 			intList.add("0");
@@ -118,7 +117,7 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 			intList.add("3");
 			for (int i = 0; i < intList.size(); i++)
 			{
-				if (!((StructureRotatable) ButStr).isPossible(ButStr.placementDir, Integer.parseInt(intList.get(i)), 0))
+				if (!((StructureRotatable) str).isPossible(str.placementDir, Integer.parseInt(intList.get(i)), 0))
 				{
 					intList.remove(i);
 					i--;
@@ -135,6 +134,7 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 			}
 		} else
 		{
+			((GuiElementDropdown) elementList.get(4)).optionStrings = new String[] { "-" };
 			((GuiElementDropdown) elementList.get(4)).enabled = false;
 		}
 		List<String> dirList = new ArrayList();
@@ -147,7 +147,7 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 		
 		for (int i = 0; i < dirList.size(); i++)
 		{
-			if (!ButStr.Check(Minecraft.getMinecraft().theWorld, ForgeDirection.valueOf(dirList.get(i)), 0, 0, 0, 0))
+			if (!str.Check(Minecraft.getMinecraft().theWorld, ForgeDirection.valueOf(dirList.get(i)), 0, 0, 0, 0))
 			{
 				dirList.remove(i);
 				i--;
@@ -156,7 +156,13 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 		if (dirList.size() > 0)
 		{
 			((GuiElementDropdown) elementList.get(3)).optionStrings = dirList.toArray(new String[0]);
-			((GuiElementDropdown) elementList.get(3)).enabled = true;
+			if (dirList.size() == 1)
+			{
+				((GuiElementDropdown) elementList.get(3)).enabled = false;
+			} else
+			{
+				((GuiElementDropdown) elementList.get(3)).enabled = true;
+			}
 		} else
 		{
 			((GuiElementDropdown) elementList.get(3)).optionStrings = new String[] { "-" };
@@ -242,6 +248,17 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 			{
 				this.drawTexturedModalRect(this.xPosition + 5, NyPos + 23, 184, 20, 20, 17);//rst sign
 			}
+			if (!disableDel)
+			{
+				boolean onDelSign = x >= this.xPosition + 116 && y >= NyPos + 26 && x < this.xPosition + 116 + 13 && y < NyPos + 26 + 13;
+				if (onDelSign)
+				{
+					this.drawTexturedModalRect(this.xPosition + 116, NyPos + 26, 200, 41, 13, 13);//rst sign
+				} else
+				{
+					this.drawTexturedModalRect(this.xPosition + 116, NyPos + 26, 185, 41, 13, 13);//rst sign
+				}
+			}
 			
 			try
 			{
@@ -263,10 +280,6 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 			//	   break;
 			// }
 			//  }
-			int a;
-			if (Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode()) a = 5;
-			else a = 0;
-			
 			fontrenderer.drawString(ButStr.getName(), this.xPosition + 24, NyPos + 4, l, false);
 			
 			fontrenderer.drawString(StatCollector.translateToLocal("modificator.direction.name"), this.xPosition + 24, NyPos + 14, l, false);
@@ -285,12 +298,6 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 					((GuiButton) this.elementList.get(k)).yPosition -= (move_mod * GuiModificator.move);
 					((GuiButton) this.elementList.get(k)).drawButton(mine, x, y);
 					((GuiButton) this.elementList.get(k)).yPosition = old;
-				} else if (this.elementList.get(k) instanceof GuiTextField)
-				{
-					int old = ((GuiTextField) this.elementList.get(k)).yPosition;
-					((GuiTextField) this.elementList.get(k)).yPosition -= (move_mod * GuiModificator.move);
-					((GuiTextField) this.elementList.get(k)).drawTextBox();
-					((GuiTextField) this.elementList.get(k)).yPosition = old;
 				}
 			}
 			
@@ -464,63 +471,41 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 	 */
 	public boolean mousePressed(Minecraft mine, int x, int y)
 	{
-		return this.enabled && this.visible && x >= this.xPosition + 113 && y >= NyPos + 6 && x < this.xPosition + 113 + 16 && y < NyPos + 6 + 16;
-	}
-	
-	public boolean mouseClicked(int x, int y, int but)
-	{
 		int move_mod = 11;
 		int shift = (move_mod * GuiModificator.move);
 		;
 		for (int l = 0; l < this.elementList.size(); ++l)
 		{
-			if (this.elementList.get(l) instanceof GuiButton && but == 0)
+			GuiButton guibutton = this.elementList.get(l);
+			if (guibutton instanceof GuiElementDropdown)
 			{
-				Minecraft mine = Minecraft.getMinecraft();
-				GuiButton guibutton = (GuiButton) this.elementList.get(l);
-				boolean before = false;
-				if (guibutton instanceof GuiElementDropdown)
-				{
-					before = ((GuiElementDropdown) guibutton).dropdownClicked;
-				}
+				boolean before = ((GuiElementDropdown) guibutton).dropdownClicked;
 				if (guibutton.mousePressed(mine, x, y + shift))
 				{
 					guibutton.func_146113_a(mine.getSoundHandler());
 				}
-				if (guibutton instanceof GuiElementDropdown)
+				if (before != ((GuiElementDropdown) guibutton).dropdownClicked)
 				{
-					if (before != ((GuiElementDropdown) guibutton).dropdownClicked)
-					{
-						isAnyInFocus = ((GuiElementDropdown) guibutton).dropdownClicked;
-					}
+					isAnyInFocus = ((GuiElementDropdown) guibutton).dropdownClicked;
 				}
-			} else if (this.elementList.get(l) instanceof GuiTextField)
+			} else if (guibutton instanceof GuiElementTextBox)
 			{
-				GuiTextField field = (GuiTextField) this.elementList.get(l);
-				field.mouseClicked(x, y + shift, but);
-				if (!field.isFocused())
+				GuiElementTextBox field = (GuiElementTextBox) this.elementList.get(l);
+				field.mousePressed(mine, x, y + shift);
+				if (!field.isTextFocused)
 				{
 					try
 					{
-						int val = Integer.parseInt(field.getText());
-						if (l == poslist[0])
-						{
-							ButStr.placementPos[0] = val;
-						} else if (l == poslist[1])
-						{
-							ButStr.placementPos[1] = val;
-						} else if (l == poslist[2])
-						{
-							ButStr.placementPos[2] = val;
-						}
+						int val = Integer.parseInt(field.text.equals("") ? "0" : field.text);
+						if (val != -1 && ButStr.placementPos.length > field.id) ButStr.placementPos[field.id] = val;
+						
 					} catch (Exception e)
 					{
-						e.printStackTrace();
-						GLoger.logWarn("Player somehow entered not integer value into position field - " + field.getText());
 					}
 					
 				}
 			}
+			
 		}
 		boolean onRstSign = x >= this.xPosition + 5 && y >= NyPos + 23 && x < this.xPosition + 5 + 20 && y < NyPos + 23 + 17;
 		if (onRstSign)
@@ -528,20 +513,20 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 			this.ButStr = OrgStr.copy();
 			initButtons(ButStr);
 		}
-		return this.enabled && this.visible && x >= this.xPosition + 113 && y >= NyPos + 6 && x < this.xPosition + 113 + 16 && y < NyPos + 6 + 16;
+		boolean onDelSign = x >= this.xPosition + 116 && y >= NyPos + 26 && x < this.xPosition + 116 + 13 && y < NyPos + 26 + 13 && !disableDel;
+		boolean onPlusSign = x >= this.xPosition + 113 && y >= NyPos + 6 && x < this.xPosition + 113 + 16 && y < NyPos + 6 + 16;
+		
+		this.isDelSign = onDelSign;
+		return this.enabled && this.visible && (onPlusSign || onDelSign);
 	}
 	
 	public void keyTyped(char ch, int num)
 	{
-		if (ch == '1' || ch == '2' || ch == '3' || ch == '4' || ch == '5' || ch == '6' || ch == '7' || ch == '8' || ch == '9' || ch == '0' || ch == '-' || num == 14 || num == 203
-				|| num == 205)
+		for (int i = 0; i < elementList.size(); i++)
 		{
-			for (int i = 0; i < elementList.size(); i++)
+			if (elementList.get(i) instanceof GuiElementTextBox)
 			{
-				if (elementList.get(i) instanceof GuiTextField)
-				{
-					((GuiTextField) elementList.get(i)).textboxKeyTyped(ch, num);
-				}
+				((GuiElementTextBox) elementList.get(i)).keyTyped(ch, num);
 			}
 		}
 	}
@@ -590,7 +575,7 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 	@Override
 	public void onSelectionChanged(GuiElementDropdown dropdown, int selection)
 	{
-		if (dropdown.id == 1)//Bighall org dir - SOUTH
+		if (dropdown.id == 3)//Bighall org dir - SOUTH
 		{
 			ForgeDirection dir = ForgeDirection.valueOf(dropdown.optionStrings[selection]);
 			ButStr.placementDir = dir;
@@ -662,7 +647,11 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 		int ret = 0;
 		for (int i = 0; i < dropdown.optionStrings.length; i++)
 		{
-			if (dropdown.id == 1)
+			if (!dropdown.enabled)
+			{
+				break;
+			}
+			if (dropdown.id == 3)
 			{
 				if (ForgeDirection.valueOf(dropdown.optionStrings[i]) == ButStr.placementDir)
 				{
@@ -691,6 +680,38 @@ public class GuiButtonModificator extends GuiButton implements IDropboxCallback 
 	@Override
 	public void onIntruderInteraction()
 	{
+	}
+	
+	@Override
+	public void onIntruderInteraction(GuiElementTextBox textBox)
+	{
+	}
+	
+	@Override
+	public boolean canPlayerEdit(GuiElementTextBox textBox, EntityPlayer player)
+	{
+		return true;
+	}
+	
+	@Override
+	public void onTextChanged(GuiElementTextBox textBox, String newText)
+	{
+	}
+	
+	@Override
+	public String getInitialText(GuiElementTextBox textBox)
+	{
+		if (ButStr.placementPos.length > textBox.id)
+		{
+			return Integer.toString(ButStr.placementPos[textBox.id]);
+		}
+		return "";
+	}
+	
+	@Override
+	public int getTextColor(GuiElementTextBox textBox)
+	{
+		return ColorUtil.to32BitColor(255, 255, 255, 255);
 	}
 	
 }

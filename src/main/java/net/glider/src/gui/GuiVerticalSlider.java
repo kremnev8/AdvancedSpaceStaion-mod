@@ -4,13 +4,11 @@ package net.glider.src.gui;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.client.config.GuiButtonExt;
 
 /**
- * This class is blatantly stolen from iChunUtils with permission.
+ * This class is blatantly stolen from iChunUtils.
  * 
  * @author iChun
  */
@@ -78,10 +76,12 @@ public class GuiVerticalSlider extends GuiButtonExt {
 	}
 	
 	/**
-	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over this button and 2 if it IS hovering over this button.
+	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over
+	 * this button and 2 if it IS hovering over this button.
 	 */
 	/**
-	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over this button and 2 if it IS hovering over this button.
+	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over
+	 * this button and 2 if it IS hovering over this button.
 	 */
 	@Override
 	public int getHoverState(boolean par1)
@@ -103,24 +103,16 @@ public class GuiVerticalSlider extends GuiButtonExt {
 	public void drawButton(Minecraft mc, int mouseX, int mouseY)
 	{
 		this.field_146123_n = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-		int k = this.getHoverState(this.field_146123_n);
 		// GuiUtils.drawContinuousTexturedBox(buttonTextures, this.xPosition, this.yPosition, 0, 46 + k * 20, this.width, this.height, 200, 20, 2, 3, 2, 2, this.zLevel);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(slidertex);
 		mouseDragged(mc, mouseX, mouseY);
-		/*   int color = 14737632;
-		   
-		   if (packedFGColour != 0)
-		   {
-		       color = packedFGColour;
-		   }
-		   else if (!this.enabled)
-		   {
-		       color = 10526880;
-		   }
-		   else if (this.field_146123_n)
-		   {
-		       color = 16777120;
-		   }*/
+		/*
+		 * int color = 14737632;
+		 * 
+		 * if (packedFGColour != 0) { color = packedFGColour; } else if
+		 * (!this.enabled) { color = 10526880; } else if (this.field_146123_n) {
+		 * color = 16777120; }
+		 */
 		
 		//    String buttonText = this.displayString;
 		//    int strWidth = mc.fontRenderer.getStringWidth(buttonText);
@@ -133,10 +125,12 @@ public class GuiVerticalSlider extends GuiButtonExt {
 	}
 	
 	/**
-	 * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
+	 * Fired when the mouse button is dragged. Equivalent of
+	 * MouseListener.mouseDragged(MouseEvent e).
 	 */
 	/**
-	 * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
+	 * Fired when the mouse button is dragged. Equivalent of
+	 * MouseListener.mouseDragged(MouseEvent e).
 	 */
 	@Override
 	protected void mouseDragged(Minecraft par1Minecraft, int par2, int par3)
@@ -160,11 +154,9 @@ public class GuiVerticalSlider extends GuiButtonExt {
 				if (!dragging)
 				{
 					this.drawTexturedModalRect(this.xPosition, this.yPosition + (int) (this.sliderValue * (float) (this.height - 15)) + 1, 169, 15, 10, 15);
-				} else
-					this.drawTexturedModalRect(this.xPosition, this.yPosition + (int) (this.sliderValue * (float) (this.height - 15)) + 1, 158, 15, 10, 15);
+				} else this.drawTexturedModalRect(this.xPosition, this.yPosition + (int) (this.sliderValue * (float) (this.height - 15)) + 1, 158, 15, 10, 15);
 			}
-		} else
-			this.drawTexturedModalRect(this.xPosition, this.yPosition + 1, 158, 31, 10, 15);
+		} else this.drawTexturedModalRect(this.xPosition, this.yPosition + 1, 158, 31, 10, 15);
 		// this.drawTexturedModalRect(this.xPosition +4, this.yPosition +
 		// (int)(this.sliderValue * (float)(this.height - 22)) +1, 196, 66, 4,
 		// 20);
@@ -172,7 +164,8 @@ public class GuiVerticalSlider extends GuiButtonExt {
 	}
 	
 	/**
-	 * Returns true if the mouse has been pressed on this control. Equivalent of MouseListener.mousePressed(MouseEvent e).
+	 * Returns true if the mouse has been pressed on this control. Equivalent of
+	 * MouseListener.mousePressed(MouseEvent e).
 	 */
 	@Override
 	public boolean mousePressed(Minecraft par1Minecraft, int par2, int par3)
@@ -185,10 +178,8 @@ public class GuiVerticalSlider extends GuiButtonExt {
 			updateSlider();
 			this.dragging = true;
 			return true;
-		} else
-		{
-			return false;
 		}
+		return false;
 	}
 	
 	public void updateSlider()
@@ -241,10 +232,12 @@ public class GuiVerticalSlider extends GuiButtonExt {
 	}
 	
 	/**
-	 * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
+	 * Fired when the mouse button is released. Equivalent of
+	 * MouseListener.mouseReleased(MouseEvent e).
 	 */
 	/**
-	 * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
+	 * Fired when the mouse button is released. Equivalent of
+	 * MouseListener.mouseReleased(MouseEvent e).
 	 */
 	@Override
 	public void mouseReleased(int par1, int par2)

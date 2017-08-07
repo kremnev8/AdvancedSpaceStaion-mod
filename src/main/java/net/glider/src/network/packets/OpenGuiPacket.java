@@ -201,11 +201,13 @@ public class OpenGuiPacket implements IMessage {
 		{
 			if (pkt.isRemover)
 			{
+				GuiRemover.prepareToOpen();
 				GuiRemover.object = pkt.object;
 				GuiRemover.addObjects = pkt.addObjects;
 				GuiRemover.ChildObjects = pkt.ChildObjects;
 			} else
 			{
+				GuiModificator.prepareToOpen();
 				GuiModificator.object = pkt.object;
 				GuiModificator.addObjects = pkt.addObjects;
 				GuiModificator.ChildObjects = pkt.ChildObjects;

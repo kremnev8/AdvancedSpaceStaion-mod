@@ -104,6 +104,7 @@ modificator.direction.name=dir:
 modificator.rotation.name=rot:
 modificator.children.name=Children
 modificator.additional.name=Additional
+modificator.notready.name=This tool is not fully implemented!
 
 
 ForgeDirs.DOWN.name=Down

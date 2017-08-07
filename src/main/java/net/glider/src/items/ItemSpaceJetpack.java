@@ -3,7 +3,6 @@ package net.glider.src.items;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import net.glider.src.ClientProxy;
@@ -103,11 +102,13 @@ public class ItemSpaceJetpack extends ItemArmorMod {
 		if (itemStack.hasTagCompound())
 		{
 			this.readFromNBT(tag);
-			if (this.activated && world.isRemote && !prop.getAnimationHandler().isAnimationActive("Enabled idle") && !prop.getAnimationHandler().isAnimationActive("Enable") && !prop.getAnimationHandler().isAnimationActive("Disable"))
+			if (this.activated && world.isRemote && !prop.getAnimationHandler().isAnimationActive("Enabled idle") && !prop.getAnimationHandler().isAnimationActive("Enable")
+					&& !prop.getAnimationHandler().isAnimationActive("Disable"))
 			{
 				prop.getAnimationHandler().clearAnimations();
 				prop.getAnimationHandler().activateAnimation("Enabled idle", 0);
-			} else if (!this.activated && world.isRemote && !prop.getAnimationHandler().isAnimationActive("Disabled idle") && !prop.getAnimationHandler().isAnimationActive("Disable") && !prop.getAnimationHandler().isAnimationActive("Enable"))
+			} else if (!this.activated && world.isRemote && !prop.getAnimationHandler().isAnimationActive("Disabled idle")
+					&& !prop.getAnimationHandler().isAnimationActive("Disable") && !prop.getAnimationHandler().isAnimationActive("Enable"))
 			{
 				prop.getAnimationHandler().clearAnimations();
 				prop.getAnimationHandler().activateAnimation("Disabled idle", 0);
@@ -144,9 +145,6 @@ public class ItemSpaceJetpack extends ItemArmorMod {
 			boolean disable = isDisabled(player, false);
 			if (!disable)
 			{
-				
-				Vec3 vect = player.getLookVec();
-				
 				float vel = 0.5F;
 				
 				int ang = 0;
@@ -235,11 +233,9 @@ public class ItemSpaceJetpack extends ItemArmorMod {
 			
 		}
 		
-		/*	if (KeysPressed.size() > 0)
-			{
-			KeysPressed.clear();
-			markDirty();
-			}*/
+		/*
+		 * if (KeysPressed.size() > 0) { KeysPressed.clear(); markDirty(); }
+		 */
 		
 	}
 	
@@ -248,7 +244,7 @@ public class ItemSpaceJetpack extends ItemArmorMod {
 		if (player.worldObj.provider instanceof WorldProviderOrbitModif)
 		{
 			WorldProviderOrbitModif prow = (WorldProviderOrbitModif) player.worldObj.provider;
-			if (prow.artificialG > 0.5D)
+			if (prow.getGravityAdd() > 0.5D)
 			{
 				return true;
 			}

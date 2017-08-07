@@ -14,16 +14,14 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.ForgeDirection;
-
 import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiButtonRemover extends GuiButton {
 	protected static final ResourceLocation buttonTextures = new ResourceLocation(GliderModInfo.ModTestures, "textures/Remover.png");
-
+	
 	protected static final ResourceLocation Icons = new ResourceLocation(GliderModInfo.ModTestures, "textures/Icons.png");
 	/** Button width in pixels */
 	public int width = 127;
@@ -44,17 +42,17 @@ public class GuiButtonRemover extends GuiButton {
 	private static final String __OBFID = "CL_00000668";
 	public int packedFGColour;
 	public boolean Enabled;
-
+	
 	public int rot = 0;
 	public ForgeDirection dir = ForgeDirection.UNKNOWN;
 	public String strName;
 	private int NyPos;
-
+	
 	private int ZeroPos;
-
+	
 	public int[] strPos;
 	public boolean visSelf = true;
-
+	
 	public GuiButtonRemover(int id, int xpos, int ypos, String Dispstring, Structure str, int y)
 	{
 		super(id, xpos, ypos, 127, 24, Dispstring);
@@ -74,22 +72,22 @@ public class GuiButtonRemover extends GuiButton {
 			strPos = str.placementPos;
 		}
 	}
-
+	
 	public void setEnabled(boolean e)
 	{
 		this.Enabled = e;
 	}
-
+	
 	public void setRotation(int rot)
 	{
 		this.rot = rot;
 	}
-
+	
 	public void setDirection(ForgeDirection dir)
 	{
 		this.dir = dir;
 	}
-
+	
 	/**
 	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over
 	 * this button and 2 if it IS hovering over this button.
@@ -97,7 +95,7 @@ public class GuiButtonRemover extends GuiButton {
 	public int getHoverState(boolean p_146114_1_)
 	{
 		byte b0 = 1;
-
+		
 		if (!this.enabled)
 		{
 			b0 = 0;
@@ -105,16 +103,16 @@ public class GuiButtonRemover extends GuiButton {
 		{
 			b0 = 2;
 		}
-
+		
 		return b0;
 	}
-
+	
 	/**
 	 * Draws this button to the screen.
 	 */
 	public void drawButton(Minecraft p_146112_1_, int p_146112_2_, int p_146112_3_)
 	{
-
+		
 		NyPos = this.yPosition - (28 * GuiRemover.move);
 		if (visSelf)
 		{
@@ -129,11 +127,10 @@ public class GuiButtonRemover extends GuiButton {
 			p_146112_1_.getTextureManager().bindTexture(buttonTextures);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			this.field_146123_n = p_146112_2_ >= this.xPosition && p_146112_3_ >= NyPos && p_146112_2_ < this.xPosition + this.width && p_146112_3_ < NyPos + this.height;
-			int k = this.getHoverState(this.field_146123_n);
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
+			
 			if (getHoverState(this.field_146123_n) == 0)
 			{
 				this.drawTexturedModalRect(this.xPosition, NyPos, 0, 127, this.width, this.height);//disable
@@ -145,7 +142,7 @@ public class GuiButtonRemover extends GuiButton {
 			{
 				this.drawTexturedModalRect(this.xPosition, NyPos, 0, 152, this.width, this.height);//hover
 			} else this.drawTexturedModalRect(this.xPosition, NyPos, 0, 127, this.width, this.height);//disable
-
+			
 			try
 			{
 				renderIcons();
@@ -155,7 +152,7 @@ public class GuiButtonRemover extends GuiButton {
 			}
 			this.mouseDragged(p_146112_1_, p_146112_2_, p_146112_3_);
 			int l = 4210752;
-
+			
 			if (packedFGColour != 0)
 			{
 				l = packedFGColour;
@@ -174,10 +171,7 @@ public class GuiButtonRemover extends GuiButton {
 			//	   break;
 			// }
 			//  }
-			int a;
-			if (Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode()) a = 5;
-			else a = 0;
-
+			
 			String NewDispStr = "";
 			Structure str = Structure.FindStructure(strName);
 			if (str instanceof StructureRotatable)
@@ -188,7 +182,7 @@ public class GuiButtonRemover extends GuiButton {
 			{
 				NewDispStr = str.getName();
 			}
-
+			
 			fontrenderer.drawString(NewDispStr, (this.xPosition + this.width / 2) - 40, NyPos + (this.height - 20) - 3 / 2, l, false);
 			if (this.dir != ForgeDirection.UP && this.dir != ForgeDirection.DOWN)
 			{
@@ -198,7 +192,7 @@ public class GuiButtonRemover extends GuiButton {
 			//  this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, l);
 		}
 	}
-
+	
 	private void renderIcons()
 	{
 		Minecraft.getMinecraft().getTextureManager().bindTexture(Icons);
@@ -346,9 +340,9 @@ public class GuiButtonRemover extends GuiButton {
 		{
 			DrawGuiIcon(this.xPosition + 115, NyPos + 7, "redstar", 0);
 		}
-
+		
 	}
-
+	
 	/**
 	 * Fired when the mouse button is dragged. Equivalent of
 	 * MouseListener.mouseDragged(MouseEvent e).
@@ -356,7 +350,7 @@ public class GuiButtonRemover extends GuiButton {
 	protected void mouseDragged(Minecraft p_146119_1_, int p_146119_2_, int p_146119_3_)
 	{
 	}
-
+	
 	/**
 	 * Fired when the mouse button is released. Equivalent of
 	 * MouseListener.mouseReleased(MouseEvent e).
@@ -364,44 +358,45 @@ public class GuiButtonRemover extends GuiButton {
 	public void mouseReleased(int p_146118_1_, int p_146118_2_)
 	{
 	}
-
+	
 	/**
 	 * Returns true if the mouse has been pressed on this control. Equivalent of
 	 * MouseListener.mousePressed(MouseEvent e).
 	 */
 	public boolean mousePressed(Minecraft p_146116_1_, int p_146116_2_, int p_146116_3_)
 	{
-		return this.enabled && this.visible && p_146116_2_ >= this.xPosition && p_146116_3_ >= NyPos && p_146116_2_ < this.xPosition + this.width && p_146116_3_ < NyPos + this.height;
+		return this.enabled && this.visible && p_146116_2_ >= this.xPosition && p_146116_3_ >= NyPos && p_146116_2_ < this.xPosition + this.width
+				&& p_146116_3_ < NyPos + this.height;
 	}
-
+	
 	public boolean func_146115_a()
 	{
 		return this.field_146123_n;
 	}
-
+	
 	public void func_146111_b(int p_146111_1_, int p_146111_2_)
 	{
 	}
-
+	
 	public void func_146113_a(SoundHandler p_146113_1_)
 	{
 		p_146113_1_.playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 	}
-
+	
 	public int getButtonWidth()
 	{
 		return this.width;
 	}
-
+	
 	public int func_154310_c()
 	{
 		return this.height;
 	}
-
+	
 	public void DrawGuiIcon(int x, int y, String name, int rot)
 	{
 		GuiIconsUtil.initMap();
-
+		
 		int[] Iconpos = GuiIconsUtil.Icons.get(name + "_" + rot);
 		int[] Iconsize = new int[] { 16, 16 };
 		if (name.equals("redcross"))
@@ -412,7 +407,7 @@ public class GuiButtonRemover extends GuiButton {
 			Iconsize = new int[] { 9, 9 };
 		}
 		this.drawTexturedModalRect(x, y, Iconpos[0], Iconpos[1], Iconsize[0], Iconsize[1]);
-
+		
 	}
-
+	
 }

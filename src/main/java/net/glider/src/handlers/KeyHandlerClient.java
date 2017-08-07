@@ -19,9 +19,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
-
 import org.lwjgl.input.Keyboard;
-
 import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class KeyHandlerClient extends KeyHandler {
@@ -32,7 +30,6 @@ public class KeyHandlerClient extends KeyHandler {
 	
 	static
 	{
-		Minecraft mc = Minecraft.getMinecraft();
 		openFuelGui = micdoodle8.mods.galacticraft.core.tick.KeyHandlerClient.openFuelGui;
 		
 		TestAnim = new KeyBinding(GCCoreUtil.translate("Jetpack Toggle"), Keyboard.KEY_H, GliderModInfo.MOD_NAME);
@@ -77,8 +74,6 @@ public class KeyHandlerClient extends KeyHandler {
 			{
 				return;
 			}
-			
-			GCPlayerStatsClient stats = GCPlayerStatsClient.get(playerBase);
 			
 			if (kb.getKeyCode() == openFuelGui.getKeyCode())
 			{
@@ -138,7 +133,6 @@ public class KeyHandlerClient extends KeyHandler {
 			Entity entityTest = mc.thePlayer.ridingEntity;
 			if (entityTest != null && entityTest instanceof EntityRocketFakeTiered && keyNum == 5)
 			{
-				EntityRocketFakeTiered entity = (EntityRocketFakeTiered) entityTest;
 				
 				if (kb.getKeyCode() == mc.gameSettings.keyBindInventory.getKeyCode())
 				{
@@ -153,5 +147,6 @@ public class KeyHandlerClient extends KeyHandler {
 	
 	@Override
 	public void keyUp(Type types, KeyBinding kb, boolean tickEnd)
-	{}
+	{
+	}
 }

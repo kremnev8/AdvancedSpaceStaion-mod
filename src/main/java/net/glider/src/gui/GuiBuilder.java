@@ -122,7 +122,7 @@ public class GuiBuilder extends GuiModular {
 			error.printStackTrace();
 		}
 		
-		sideinv = new GuiBuilderSide(this, this.inventorySlots, true, false);
+		sideinv = new GuiBuilderSide(this, true, false);
 		this.modules.add(sideinv);
 		
 	}
@@ -182,7 +182,6 @@ public class GuiBuilder extends GuiModular {
 		{
 			AstG.clear();
 			Ast.clear();
-			boolean disp;
 			
 			if (nullMOP) Minecraft.getMinecraft().displayGuiScreen(null);
 			
@@ -267,8 +266,8 @@ public class GuiBuilder extends GuiModular {
 					if (sideinv.currentPossible)
 					{
 						rot = ((GuiButtonBuilder) buttonList.get(STRlastid)).rot;
-						PacketHandler.sendToServer(new BuildPacket(Ndir, ((Structure) Ast.get(STRlastid)).getUnlocalizedName(), Wx, Wy, Wz, rot, this.inventory.player
-								.getHeldItem()));
+						PacketHandler
+								.sendToServer(new BuildPacket(Ndir, ((Structure) Ast.get(STRlastid)).getUnlocalizedName(), Wx, Wy, Wz, rot, this.inventory.player.getHeldItem()));
 						// GLoger.logInfo("Sending packet");
 						Minecraft.getMinecraft().thePlayer.closeScreen();
 					}

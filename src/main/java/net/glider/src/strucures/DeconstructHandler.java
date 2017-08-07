@@ -80,11 +80,14 @@ public class DeconstructHandler {
 	public static int HandleDeconstruct(World world, List<Structure> objs, EntityPlayerMP player, int[] Ipos)
 	{
 		List<ItemStack> afterI = new ArrayList();
-		boolean partiallyfailed = false;
 		for (int i = 0; i < objs.size(); i++)
 		{
 			
 			Structure str = (Structure) objs.get(i);
+			if (str instanceof StructureRotatable)
+			{
+				((StructureRotatable) str).setRotation(str.placementRotation);
+			}
 			
 			if (!player.capabilities.isCreativeMode)
 			{
@@ -162,11 +165,11 @@ public class DeconstructHandler {
 						}
 						if (noConn)
 						{
-							partiallyfailed = true;
 							if (objs.size() > 1)
 							{
 								return 1;
-							} else return 0;
+							}
+							return 0;
 						}
 					}
 					
@@ -329,11 +332,11 @@ public class DeconstructHandler {
 						}
 						if (noConn)
 						{
-							partiallyfailed = true;
 							if (objs.size() > 1)
 							{
 								return 1;
-							} else return 0;
+							}
+							return 0;
 						}
 					}
 					
@@ -593,11 +596,11 @@ public class DeconstructHandler {
 						}
 						if (noConn)
 						{
-							partiallyfailed = true;
 							if (objs.size() > 1)
 							{
 								return 1;
-							} else return 0;
+							}
+							return 0;
 						}
 					}
 					
@@ -869,11 +872,11 @@ public class DeconstructHandler {
 						}
 						if (noConn)
 						{
-							partiallyfailed = true;
 							if (objs.size() > 1)
 							{
 								return 1;
-							} else return 0;
+							}
+							return 0;
 						}
 					}
 					
@@ -1041,11 +1044,11 @@ public class DeconstructHandler {
 						}
 						if (noConn)
 						{
-							partiallyfailed = true;
 							if (objs.size() > 1)
 							{
 								return 1;
-							} else return 0;
+							}
+							return 0;
 						}
 					}
 					
@@ -1182,8 +1185,8 @@ public class DeconstructHandler {
 							}
 						}
 					}
-					int[] Ppos;
-					Ppos = IPoint.clone();
+					//	int[] Ppos;
+					//Ppos = IPoint.clone();
 					str11.setRotation(str.placementRotation);
 					ForgeDirection[] Ndirs = str11.getDirs(str.placementDir);
 					

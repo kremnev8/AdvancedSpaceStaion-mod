@@ -54,9 +54,7 @@ public class SlotGhost extends Slot {
 		if (state)
 		{
 			return ItemMod.getBuilderIcons(1);
-		} else
-		{
-			return ItemMod.getBuilderIcons(0);
 		}
+		return ItemMod.getBuilderIcons(0);
 	}
 }

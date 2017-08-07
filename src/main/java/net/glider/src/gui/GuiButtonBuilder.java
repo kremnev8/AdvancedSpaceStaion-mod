@@ -103,7 +103,6 @@ public class GuiButtonBuilder extends GuiButton {
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			this.field_146123_n = p_146112_2_ >= this.xPosition && p_146112_3_ >= this.yPosition && p_146112_2_ < this.xPosition + this.width
 					&& p_146112_3_ < this.yPosition + this.height;
-			int k = this.getHoverState(this.field_146123_n);
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -139,11 +138,8 @@ public class GuiButtonBuilder extends GuiButton {
 			{
 				l = 16777120;
 			}
-			int a;
-			if (Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode()) a = 5;
-			else a = 0;
-			fontrenderer.drawString(this.displayString, this.xPosition + 18 + (int) (width / 4.5D) - (fontrenderer.getStringWidth(this.displayString) / 2), this.yPosition
-					+ (this.height - 8) - 3 / 2, l, false);
+			fontrenderer.drawString(this.displayString, this.xPosition + 18 + (int) (width / 4.5D) - (fontrenderer.getStringWidth(this.displayString) / 2),
+					this.yPosition + (this.height - 8) - 3 / 2, l, false);
 			
 		}
 	}

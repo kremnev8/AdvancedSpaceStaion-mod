@@ -32,6 +32,13 @@ minecraft {
     replaceIn "GliderModInfo.java"
 }
 
+jar {
+  manifest {
+      attributes 'FMLCorePlugin': 'net.glider.src.handlers.hooks.GliderHookLoader'
+      attributes 'FMLCorePluginContainsFMLMod': 'true'
+  }
+}
+
 repositories {
 }
  

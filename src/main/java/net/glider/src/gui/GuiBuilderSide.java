@@ -1,9 +1,7 @@
 package net.glider.src.gui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import net.glider.src.strucures.BuildHandler;
 import net.glider.src.strucures.Structure;
 import net.glider.src.strucures.StructureData;
 import net.glider.src.strucures.StructureRotatable;
@@ -14,7 +12,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -30,8 +27,6 @@ public class GuiBuilderSide extends GuiModule {
 	public static final int Ysize = 137;
 	public int x;
 	public int y;
-	
-	public boolean doDraw = false;
 	
 	private ResourceLocation texture = new ResourceLocation(GliderModInfo.ModTestures, "textures/gui/Builder_side.png");
 	
@@ -49,9 +44,9 @@ public class GuiBuilderSide extends GuiModule {
 	public boolean currentPossible = false;
 	private int lastSliderV = -1;
 	
-	public GuiBuilderSide(GuiModular parent, Container container, boolean right, boolean bottom)
+	public GuiBuilderSide(GuiModular parent, boolean right, boolean bottom)
 	{
-		super(parent, container, right, bottom);
+		super(parent, right, bottom);
 		lastBid = -1;
 	}
 	
@@ -64,7 +59,7 @@ public class GuiBuilderSide extends GuiModule {
 	}
 	
 	@Override
-	public boolean handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+	public void mouseClicked(int mouseX, int mouseY, int mouseButton)
 	{
 		
 		if (mouseButton == 0)
@@ -79,11 +74,10 @@ public class GuiBuilderSide extends GuiModule {
 				}
 			}
 		}
-		return false;
 	}
 	
 	@Override
-	public boolean handleMouseReleased(int mouseX, int mouseY, int state)
+	public boolean mouseReleased(int mouseX, int mouseY, int state)
 	{
 		if (this.selectedButton != null && state == 0)
 		{
@@ -123,7 +117,7 @@ public class GuiBuilderSide extends GuiModule {
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int mouseX, int mouseY)
+	public void drawGuiBackgroundLayer(int mouseX, int mouseY)
 	{
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		
@@ -135,9 +129,9 @@ public class GuiBuilderSide extends GuiModule {
 		y = build.cornerY + 15;
 		if (build.STRlastid != -1)
 		{
-			this.doDraw = true;
-			this.GuiLeft = guiLeft = x;
-			this.GuiTop = guiTop = y;
+			this.isEnabled = true;
+			this.guiLeft = x;
+			this.guiTop = y;
 			this.xSize = Xsize;
 			this.ySize = Ysize;
 			drawTexturedModalRect(x, y, 0, 0, Xsize, Ysize);
@@ -247,7 +241,7 @@ public class GuiBuilderSide extends GuiModule {
 			
 		} else
 		{
-			this.doDraw = false;
+			this.isEnabled = false;
 			this.xSize = 0;
 			this.ySize = 0;
 		}
@@ -319,19 +313,10 @@ public class GuiBuilderSide extends GuiModule {
 		return mX >= slot.xDisplayPosition - 1 && mX < slot.xDisplayPosition + 16 + 1 && mY >= slot.yDisplayPosition - 1 && mY < slot.yDisplayPosition + 16 + 1;
 	}
 	
-	// fontRendererObj.drawString(
-	// StatCollector.translateToLocal("builder.name"), "this is test",
-	// (int)(xSize /4.5D) -
-	// (fontRendererObj.getStringWidth(I18n.format("builder.name")) / 2)+70,
-	// 5,
-	// 5,
-	// 4210752,
-	// false);
-	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
+	public void drawGuiForegroundLayer(int mouseX, int mouseY)
 	{
-		if (doDraw)
+		if (isEnabled)
 		{
 			
 			/*

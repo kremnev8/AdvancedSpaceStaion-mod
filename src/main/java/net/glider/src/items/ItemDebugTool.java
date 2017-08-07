@@ -12,6 +12,7 @@ import net.glider.src.strucures.Structure;
 import net.glider.src.strucures.StructureCornerHall;
 import net.glider.src.tiles.TileEntityInfo;
 import net.glider.src.tiles.TileEntityRemoveInfo;
+import net.glider.src.utils.ChatUtils;
 import net.glider.src.utils.GliderModInfo;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,7 +20,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
@@ -44,7 +47,7 @@ public class ItemDebugTool extends ItemMod {
 		// TODO add tool that can change structures data to anything.
 		Block b = world.getBlock(x, y, z);
 		
-		if (world.getBlock(x, y, z) == BlockContainerMod.BlockRemoveInfo && !player.isSneaking())
+		if (b == BlockContainerMod.BlockRemoveInfo && !player.isSneaking())
 		{
 			if (!world.isRemote)
 			{
@@ -76,7 +79,6 @@ public class ItemDebugTool extends ItemMod {
 					
 					if (te.infoBlocks.get(0).Object != null && te.infoBlocks.get(0).Object.getUnlocalizedName() == Structure.BIGHHALL)
 					{
-						Structure Object = te.infoBlocks.get(0).Object.copy();
 						List<Structure> ChildObjects = new ArrayList();
 						ChildObjects.addAll(te.infoBlocks.get(0).ChildObjects);
 						List<Structure> AddObjects = new ArrayList();
@@ -128,8 +130,10 @@ public class ItemDebugTool extends ItemMod {
 		{
 			if (world.isRemote)
 			{
-				player.openGui(GliderCore.instance, GuiHandler.MODIFICATORGUI, world, x, y, z);
-				PacketHandler.sendToServer(new OpenGuiOnServerPacket(GuiHandler.MODIFICATORGUI, x, y, z));
+				//	player.openGui(GliderCore.instance, GuiHandler.MODIFICATORGUI, world, x, y, z);
+				//	PacketHandler.sendToServer(new OpenGuiOnServerPacket(GuiHandler.MODIFICATORGUI, x, y, z));
+				ChatUtils.SendChatMessageOnClient(player,
+						ChatUtils.modifyColor(new ChatComponentText(StatCollector.translateToLocal("modificator.notready.name")), EnumChatFormatting.RED));
 			}
 		}
 		return false;

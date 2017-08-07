@@ -1556,7 +1556,7 @@ public class StructureGreenHouse extends Structure {
 	@Override
 	public boolean Check(World world, ForgeDirection dir, int x, int y, int z, int meta)
 	{
-		if (meta != 2 && meta != 5 && meta != -1)
+		if (meta != 2 && meta != 5 && meta != -1 && meta != 0)
 		{
 			return false;
 		}

@@ -105,6 +105,7 @@ modificator.direction.name=напр:
 modificator.rotation.name=повр:
 modificator.children.name=Дочерние
 modificator.additional.name=Дополнительные
+modificator.notready.name=Данный инструмент в данный момент находиться в активной разработке и получить доступ к нему нельзя!
 
 ForgeDirs.DOWN.name=Внизу(Down)
 ForgeDirs.UP.name=Ввреху(Up)

@@ -2,10 +2,8 @@
 package net.glider.src.entity;
 
 import io.netty.buffer.ByteBuf;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import micdoodle8.mods.galacticraft.api.entity.ICameraZoomEntity;
 import micdoodle8.mods.galacticraft.api.entity.IEntityNoisy;
 import micdoodle8.mods.galacticraft.api.entity.IIgnoreShift;
@@ -42,15 +40,14 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
-
 import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICameraZoomEntity, IEntityNoisy, IPacketReceiver {
-	public static enum EnumLaunchPhase {
+	public static enum EnumLaunchPhase
+	{
 		DOCKED, UNDOCKED,
 		
 		NOTROTATED, ROTATED,
@@ -58,7 +55,8 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		FLYAWAY, LAUNCHED
 	}
 	
-	public static enum EnumEngineState {
+	public static enum EnumEngineState
+	{
 		UNIGNITED, IGNITED
 	}
 	
@@ -147,8 +145,7 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		} else if (is.getItem() == AsteroidsItems.tier3Rocket)
 		{
 			return 3;
-		} else
-			return -1;
+		} else return -1;
 	}
 	
 	public int getFuelTankCapacity()
@@ -165,10 +162,8 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		if (dockport != null)
 		{
 			return this.dockport.fuelTank.getFluidAmount() * scale / this.getFuelTankCapacity() / ConfigManagerCore.rocketFuelFactor;
-		} else
-		{
-			return 0;
 		}
+		return 0;
 	}
 	
 	public boolean hasValidFuel()
@@ -176,8 +171,8 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		if (dockport != null)
 		{
 			return this.dockport.fuelTank.getFluidAmount() > 500;
-		} else
-			return false;
+		}
+		return false;
 	}
 	
 	@Override
@@ -199,8 +194,7 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 				if (dockport != null)
 				{
 					player.setPositionAndUpdate(player.posX, dockport.yCoord + 1, player.posZ);
-				} else
-					player.setPositionAndUpdate(player.posX, player.posY + 4, player.posZ);
+				} else player.setPositionAndUpdate(player.posX, player.posY + 4, player.posZ);
 			}
 			
 			return true;
@@ -234,8 +228,7 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 				if (dockport != null)
 				{
 					player.setPositionAndUpdate(player.posX, dockport.yCoord + 1, player.posZ);
-				} else
-					player.setPositionAndUpdate(player.posX, player.posY + 4, player.posZ);
+				} else player.setPositionAndUpdate(player.posX, player.posY + 4, player.posZ);
 			}
 		}
 	}
@@ -272,7 +265,8 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 	
 	@Override
 	protected void entityInit()
-	{}
+	{
+	}
 	
 	@Override
 	public AxisAlignedBB getCollisionBox(Entity par1Entity)
@@ -303,8 +297,7 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		} else if (this.getTier() == 3)
 		{
 			return 0.25F;
-		} else
-			return 0;
+		} else return 0;
 	}
 	
 	protected void spawnParticles(boolean launched)
@@ -325,10 +318,14 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 			if (this.getLaunched())
 			{
 				Vector3 motionVec = new Vector3(x1, y1 - 1, z1);
-				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 + 0.1 - this.rand.nextDouble() / 10, y + 0.5D, z2 + 0.1 - this.rand.nextDouble() / 10), motionVec, new Object[] { riddenByEntity });
-				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 - 0.1 + this.rand.nextDouble() / 10, y + 0.5D, z2 + 0.1 - this.rand.nextDouble() / 10), motionVec, new Object[] { riddenByEntity });
-				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 - 0.1 + this.rand.nextDouble() / 10, y + 0.5D, z2 - 0.1 + this.rand.nextDouble() / 10), motionVec, new Object[] { riddenByEntity });
-				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 + 0.1 - this.rand.nextDouble() / 10, y + 0.5D, z2 - 0.1 + this.rand.nextDouble() / 10), motionVec, new Object[] { riddenByEntity });
+				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 + 0.1 - this.rand.nextDouble() / 10, y + 0.5D, z2 + 0.1 - this.rand.nextDouble() / 10), motionVec,
+						new Object[] { riddenByEntity });
+				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 - 0.1 + this.rand.nextDouble() / 10, y + 0.5D, z2 + 0.1 - this.rand.nextDouble() / 10), motionVec,
+						new Object[] { riddenByEntity });
+				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 - 0.1 + this.rand.nextDouble() / 10, y + 0.5D, z2 - 0.1 + this.rand.nextDouble() / 10), motionVec,
+						new Object[] { riddenByEntity });
+				GliderCore.proxy.spawnParticle("launchFlameSmall", new Vector3(x2 + 0.1 - this.rand.nextDouble() / 10, y + 0.5D, z2 - 0.1 + this.rand.nextDouble() / 10), motionVec,
+						new Object[] { riddenByEntity });
 				
 			}
 			
@@ -375,10 +372,8 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 				
 				return true;
 			}
-		} else
-		{
-			return true;
 		}
+		return true;
 	}
 	
 	public void dropShipAsItem()
@@ -401,12 +396,9 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 	
 	public List<ItemStack> getItemsDropped(List<ItemStack> droppedItemList)
 	{
-		if (this.getTier() == 1)
-			droppedItemList.add(new ItemStack(GCItems.rocketTier1));
-		else if (this.getTier() == 2)
-			droppedItemList.add(new ItemStack(MarsItems.spaceship));
-		else if (this.getTier() == 3)
-			droppedItemList.add(new ItemStack(AsteroidsItems.tier3Rocket));
+		if (this.getTier() == 1) droppedItemList.add(new ItemStack(GCItems.rocketTier1));
+		else if (this.getTier() == 2) droppedItemList.add(new ItemStack(MarsItems.spaceship));
+		else if (this.getTier() == 3) droppedItemList.add(new ItemStack(AsteroidsItems.tier3Rocket));
 		return droppedItemList;
 	}
 	
@@ -422,7 +414,6 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 		return false;
 	}
 	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void onUpdate()
 	{
@@ -595,8 +586,7 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 	{
 		nbt.setInteger("launchPhase", this.launchPhase + 1);
 		nbt.setInteger("TIER", rocketTier);
-		if (dockport != null)
-			nbt.setIntArray("TILE", new int[] { dockport.xCoord, dockport.yCoord, dockport.zCoord });
+		if (dockport != null) nbt.setIntArray("TILE", new int[] { dockport.xCoord, dockport.yCoord, dockport.zCoord });
 	}
 	
 	@Override
@@ -684,7 +674,8 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 	
 	@SideOnly(Side.CLIENT)
 	public void spawnParticle(String var1, double var2, double var4, double var6, double var8, double var10, double var12)
-	{}
+	{
+	}
 	
 	@Override
 	public boolean canRiderInteract()
@@ -779,6 +770,7 @@ public class EntityRocketFakeTiered extends Entity implements IIgnoreShift, ICam
 	
 	@Override
 	public void handlePacketData(Side side, EntityPlayer player)
-	{}
+	{
+	}
 	
 }

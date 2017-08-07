@@ -2,7 +2,6 @@
 package net.glider.src.renderer.models;
 
 import java.util.HashMap;
-
 import net.glider.src.MCAClientLibrary.MCAModelRenderer;
 import net.glider.src.MCACommonLibrary.animation.AnimationHandler;
 import net.glider.src.MCACommonLibrary.math.Matrix4f;
@@ -12,7 +11,6 @@ import net.glider.src.items.ItemSpaceJetpack;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-
 import org.lwjgl.opengl.GL11;
 
 public class ModelJetpack extends ModelBiped {
@@ -228,7 +226,7 @@ public class ModelJetpack extends ModelBiped {
 				// GL11.glRotatef(180, 0F, 0F, 1F);
 				GL11.glTranslatef(0.0F, 0.0F, -0.12F);
 				// GL11.glTranslatef(0, 0, 180 * 0.0625F);
-				ItemSpaceJetpack item = (ItemSpaceJetpack) pl.getCurrentArmor(2).getItem();
+				//	ItemSpaceJetpack item = (ItemSpaceJetpack) pl.getCurrentArmor(2).getItem();
 				ExtendedPlayer prop = ExtendedPlayer.get(pl);
 				if (prop != null)
 				{
@@ -256,12 +254,11 @@ public class ModelJetpack extends ModelBiped {
 		bottomP2.render(par7);
 		bottomP3.render(par7);
 		terminal.render(par7);
-		/*	controlFrist1.render(par7);
-			controlLast1.render(par7);
-			controlHand1.render(par7);
-			controlFrist2.render(par7);
-			controlLast2.render(par7);
-			controlHand2.render(par7);*/
+		/*
+		 * controlFrist1.render(par7); controlLast1.render(par7);
+		 * controlHand1.render(par7); controlFrist2.render(par7);
+		 * controlLast2.render(par7); controlHand2.render(par7);
+		 */
 	}
 	
 	public void setRotationAngles(Entity e, float f, float f1, float f2, float f3, float f4, float f5)
