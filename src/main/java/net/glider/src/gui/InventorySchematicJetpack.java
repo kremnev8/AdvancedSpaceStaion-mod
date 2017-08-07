@@ -40,10 +40,8 @@ public class InventorySchematicJetpack implements IInventory {
 				return null;
 			}
 			return this.getStackInSlot(var3);
-		} else
-		{
-			return null;
 		}
+		return null;
 	}
 	
 	@Override
@@ -60,10 +58,8 @@ public class InventorySchematicJetpack implements IInventory {
 			final ItemStack var2 = this.stackList[par1];
 			this.stackList[par1] = null;
 			return var2;
-		} else
-		{
-			return null;
 		}
+		return null;
 	}
 	
 	@Override
@@ -91,10 +87,8 @@ public class InventorySchematicJetpack implements IInventory {
 				this.eventHandler.onCraftMatrixChanged(this);
 				return var3;
 			}
-		} else
-		{
-			return null;
 		}
+		return null;
 	}
 	
 	@Override
@@ -112,7 +106,8 @@ public class InventorySchematicJetpack implements IInventory {
 	
 	@Override
 	public void markDirty()
-	{}
+	{
+	}
 	
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
@@ -122,11 +117,13 @@ public class InventorySchematicJetpack implements IInventory {
 	
 	@Override
 	public void openInventory()
-	{}
+	{
+	}
 	
 	@Override
 	public void closeInventory()
-	{}
+	{
+	}
 	
 	@Override
 	public boolean hasCustomInventoryName()

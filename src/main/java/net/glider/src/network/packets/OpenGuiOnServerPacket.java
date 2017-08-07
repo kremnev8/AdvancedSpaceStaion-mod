@@ -27,13 +27,6 @@ public class OpenGuiOnServerPacket implements IMessage {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		if (id == GuiHandler.REMOVERGUI)
-		{
-			GuiRemover.prepareToOpen();
-		} else if (id == GuiHandler.MODIFICATORGUI)
-		{
-			GuiModificator.prepareToOpen();
-		}
 	}
 	
 	@Override

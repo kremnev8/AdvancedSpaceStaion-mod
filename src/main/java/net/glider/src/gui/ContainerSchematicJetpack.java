@@ -39,23 +39,23 @@ public class ContainerSchematicJetpack extends Container {
 		for (i = 0; i < 2; i++)
 			this.addSlotToContainer(new SlotSchematicJetpack(this.craftMatrix, count++, 116, 97 + i * 18, x, y, z, par1InventoryPlayer.player));
 		
-		/*     // Miner top layer
-		     for (i = 0; i < 4; i++)
-		     this.addSlotToContainer(new SlotSchematicJetpack(this.craftMatrix, count++, 27 + i * 18, 35 + 26, x, y, z, par1InventoryPlayer.player));
-
-		     // Miner mid layer
-		     for (i = 0; i < 5; i++)
-		     this.addSlotToContainer(new SlotSchematicJetpack(this.craftMatrix, count++, 16 + i * 18, 53 + 26, x, y, z, par1InventoryPlayer.player));
-
-		     // Miner bottom layer
-		     for (i = 0; i < 3; i++)
-		     this.addSlotToContainer(new SlotSchematicJetpack(this.craftMatrix, count++, 44 + i * 18, 71 + 26, x, y, z, par1InventoryPlayer.player));
-
-		     // Laser
-		     for (i = 0; i < 2; ++i)
-		     {
-		         this.addSlotToContainer(new SlotSchematicJetpack(this.craftMatrix, count++, 8 + i * 18, 77 + 26, x, y, z, par1InventoryPlayer.player));
-		     }*/
+		/*
+		 * // Miner top layer for (i = 0; i < 4; i++)
+		 * this.addSlotToContainer(new SlotSchematicJetpack(this.craftMatrix,
+		 * count++, 27 + i * 18, 35 + 26, x, y, z, par1InventoryPlayer.player));
+		 * 
+		 * // Miner mid layer for (i = 0; i < 5; i++)
+		 * this.addSlotToContainer(new SlotSchematicJetpack(this.craftMatrix,
+		 * count++, 16 + i * 18, 53 + 26, x, y, z, par1InventoryPlayer.player));
+		 * 
+		 * // Miner bottom layer for (i = 0; i < 3; i++)
+		 * this.addSlotToContainer(new SlotSchematicJetpack(this.craftMatrix,
+		 * count++, 44 + i * 18, 71 + 26, x, y, z, par1InventoryPlayer.player));
+		 * 
+		 * // Laser for (i = 0; i < 2; ++i) { this.addSlotToContainer(new
+		 * SlotSchematicJetpack(this.craftMatrix, count++, 8 + i * 18, 77 + 26,
+		 * x, y, z, par1InventoryPlayer.player)); }
+		 */
 		
 		// Player inv:
 		
@@ -117,7 +117,6 @@ public class ContainerSchematicJetpack extends Container {
 			final ItemStack var4 = var3.getStack();
 			var2 = var4.copy();
 			
-			boolean done = false;
 			if (par1 <= 24)
 			{
 				if (!this.mergeItemStack(var4, 25, 61, false))
@@ -140,7 +139,7 @@ public class ContainerSchematicJetpack extends Container {
 				}
 				if (valid)
 				{
-					if (!this.mergeOneItemTestValid(var4, 1, 25, false))
+					if (!this.mergeOneItemTestValid(var4, 1, 25))
 					{
 						return null;
 					}
@@ -184,7 +183,7 @@ public class ContainerSchematicJetpack extends Container {
 		return var2;
 	}
 	
-	protected boolean mergeOneItemTestValid(ItemStack par1ItemStack, int par2, int par3, boolean par4)
+	protected boolean mergeOneItemTestValid(ItemStack par1ItemStack, int par2, int par3)
 	{
 		boolean flag1 = false;
 		if (par1ItemStack.stackSize > 0)

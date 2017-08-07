@@ -96,11 +96,9 @@ public class GuiButtonModificator2 extends GuiButton {
 		}
 		if (this.visible)
 		{
-			FontRenderer fontrenderer = mine.fontRenderer;
 			mine.getTextureManager().bindTexture(buttonTextures);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			this.field_146123_n = x >= this.xPosition && y >= NyPos && x < this.xPosition + this.width && y < NyPos + this.height && !GuiButtonModificator.isAnyInFocus;
-			int k = this.getHoverState(this.field_146123_n);
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

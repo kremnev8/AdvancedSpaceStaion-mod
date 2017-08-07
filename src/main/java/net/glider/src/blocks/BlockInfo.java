@@ -7,7 +7,6 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -22,7 +21,7 @@ public class BlockInfo extends BlockContainerMod {
 	public BlockInfo(String uln)
 	{
 		super(uln, invis);
-		this.setHardness(999.0F);
+		this.setHardness(-1F);
 		this.setResistance(6000000.0F);
 		this.setBlockUnbreakable();
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
@@ -64,17 +63,17 @@ public class BlockInfo extends BlockContainerMod {
 		return iconBuffer;
 	}
 	
-	@Override
-	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
-	{
-		return 1.0F;
-	}
+	//	@Override
+	//	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
+	//	{
+	//		return 1.0F;s
+	///	}
 	
-	@Override
-	public float getBlockHardness(World par1World, int par2, int par3, int par4)
-	{
-		return 100.0F;
-	}
+	//	@Override
+	//	public float getBlockHardness(World par1World, int par2, int par3, int par4)
+	//	{
+	//		return 100.0F;
+	//	}
 	
 	@Override
 	public TileEntity createTileEntity(World p_149915_1_, int p_149915_2_)

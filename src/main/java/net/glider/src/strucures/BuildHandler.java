@@ -55,7 +55,7 @@ public class BuildHandler {
 		return false;
 	}
 	
-	public static boolean CheckItems(World world, String FuncName, NBTTagList items, EntityPlayer player)
+	public static boolean CheckItems(World world, String FuncName, NBTTagList items, EntityPlayer player, int rot)
 	{
 		if (player.capabilities.isCreativeMode)
 		{
@@ -63,6 +63,10 @@ public class BuildHandler {
 		}
 		
 		Structure CurStr = Structure.FindStructure(FuncName);
+		if (CurStr instanceof StructureRotatable)
+		{
+			((StructureRotatable) CurStr).setRotation(rot);
+		}
 		List<OreDictItemStack> required = CurStr.getRequiredItems();
 		
 		for (int i = 0; i < required.size(); i++)
@@ -155,7 +159,7 @@ public class BuildHandler {
 			}
 		}
 		
-		boolean skipped = false;
+		//	boolean skipped = false;
 		for (int i = 0; i < required.size(); i++)
 		{
 			if (!haveContainerItem(found, required.get(i)))
@@ -1055,7 +1059,8 @@ public class BuildHandler {
 											}
 										}
 									}
-									if (!(te2.Object.placementPos[0] == curr.placementPos[0] && te2.Object.placementPos[1] == curr.placementPos[1] && te2.Object.placementPos[2] == curr.placementPos[2]))
+									if (!(te2.Object.placementPos[0] == curr.placementPos[0] && te2.Object.placementPos[1] == curr.placementPos[1]
+											&& te2.Object.placementPos[2] == curr.placementPos[2]))
 									{
 										wrong[0] = true;
 									}
@@ -1081,7 +1086,8 @@ public class BuildHandler {
 											}
 										}
 									}
-									if (!(te2.Object.placementPos[0] == curr.placementPos[0] && te2.Object.placementPos[1] == curr.placementPos[1] && te2.Object.placementPos[2] == curr.placementPos[2]))
+									if (!(te2.Object.placementPos[0] == curr.placementPos[0] && te2.Object.placementPos[1] == curr.placementPos[1]
+											&& te2.Object.placementPos[2] == curr.placementPos[2]))
 									{
 										wrong[1] = true;
 									}
@@ -1278,7 +1284,8 @@ public class BuildHandler {
 		if (MatrixHelper.FindPointInMatrix(M, new int[] { Px, y, Pz }) == null)
 		{
 			return true;
-		} else return false;
+		}
+		return false;
 	}
 	
 	public static String getLocolizedName(String uln, int rot, boolean isShort)

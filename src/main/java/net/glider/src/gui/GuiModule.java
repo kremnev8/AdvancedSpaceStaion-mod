@@ -2,18 +2,15 @@
 package net.glider.src.gui;
 
 import java.awt.Rectangle;
-import java.io.IOException;
-import java.util.List;
-
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.inventory.Container;
+import org.lwjgl.opengl.GL11;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.Slot;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 // a sub-gui. Mostly the same as a separate GuiContainer, but doesn't do the calls that affect the game as if this were the only gui
 @SideOnly(Side.CLIENT)
-public abstract class GuiModule extends GuiContainer {
+public abstract class GuiModule extends GuiScreen {
 	
 	protected final GuiModular parent;
 	
@@ -21,19 +18,22 @@ public abstract class GuiModule extends GuiContainer {
 	protected final boolean right;
 	// top or bottom of the parent
 	protected final boolean bottom;
+	public static boolean isEnabled = false;
 	
 	public int yOffset = 0;
 	public int xOffset = 0;
-	public int GuiLeft = this.guiLeft;
-	public int GuiTop = this.guiTop;
 	
-	public GuiModule(GuiModular parent, Container container, boolean right, boolean bottom)
+	public int guiLeft = 0;
+	public int guiTop = 0;
+	public int xSize = 0;
+	public int ySize = 0;
+	
+	public GuiModule(GuiModular parent, boolean right, boolean bottom)
 	{
-		super(container);
-		
 		this.parent = parent;
 		this.right = right;
 		this.bottom = bottom;
+		isEnabled = false;
 	}
 	
 	public int guiRight()
@@ -56,8 +56,7 @@ public abstract class GuiModule extends GuiContainer {
 	{
 		this.guiLeft = (this.width - this.xSize) / 2;
 		this.guiTop = (this.height - this.ySize) / 2;
-		this.GuiLeft = this.guiLeft;
-		this.GuiTop = this.guiTop;
+		
 	}
 	
 	public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY)
@@ -80,8 +79,6 @@ public abstract class GuiModule extends GuiContainer {
 		
 		this.guiLeft += xOffset;
 		this.guiTop += yOffset;
-		this.GuiLeft = this.guiLeft;
-		this.GuiTop = this.guiTop;
 	}
 	
 	public boolean shouldDrawSlot(Slot slot)
@@ -94,38 +91,34 @@ public abstract class GuiModule extends GuiContainer {
 		return mouseX >= this.guiLeft && mouseX < this.guiRight() && mouseY >= this.guiTop && mouseY < this.guiBottom();
 	}
 	
-	public boolean isMouseOverFullSlot(int mouseX, int mouseY)
+	public boolean isDrawEnabled()
 	{
-		for (Slot slot : (List<Slot>) inventorySlots.inventorySlots)
+		return isEnabled;
+	}
+	
+	//public void drawScreen(int x, int y)
+	//{
+	//	if (this.isDrawEnabled())
+	//	{
+	//		drawGuiBackgroundLayer(x, y);
+	//		super.drawScreen(x, y, 0);
+	//		GL11.glTranslatef((float) guiLeft, (float) guiTop, 0.0F);
+	//		drawGuiForegroundLayer(x, y);
+	//		GL11.glTranslatef((float) -guiLeft, (float) -guiTop, 0.0F);
+	//	}
+	//}
+	
+	public void drawGuiBackgroundLayer(int mouseX, int mouseY)
+	{
+		if (this.isDrawEnabled())
 		{
-			if (parent.isMouseOverSlot(slot, mouseX, mouseY) && slot.getHasStack())
-			{
-				return true;
-			}
+			super.drawScreen(mouseX, mouseY, 0);
 		}
-		return false;
 	}
 	
-	/*
-	  public void updateDragged(boolean dragSplitting, Set draggedSlots) {
-	    this.dragSplitting = dragSplitting;
-	    this.dragSplittingSlots.clear();
-	    for(Object o : draggedSlots) {
-	      if(o instanceof SlotWrapper)
-	        this.dragSplittingSlots.add(((SlotWrapper) o).parent);
-	      else
-	        this.dragSplittingSlots.add(o);
-	    }
-	  }
-	*/
-	public void handleDrawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
+	public void drawGuiForegroundLayer(int mouseX, int mouseY)
 	{
-		this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-	}
-	
-	public void handleDrawGuiContainerForegroundLayer(int mouseX, int mouseY)
-	{
-		this.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		
 	}
 	
 	/**
@@ -133,9 +126,8 @@ public abstract class GuiModule extends GuiContainer {
 	 * 
 	 * @return True to prevent the main container handling the mouseclick
 	 */
-	public boolean handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+	public void mouseClicked(int mouseX, int mouseY, int mouseButton)
 	{
-		return false;
 	}
 	
 	/**
@@ -143,9 +135,8 @@ public abstract class GuiModule extends GuiContainer {
 	 * 
 	 * @return True to prevent the main container handling the mouseclick
 	 */
-	public boolean handleMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
+	public void mouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
 	{
-		return false;
 	}
 	
 	/**
@@ -153,7 +144,7 @@ public abstract class GuiModule extends GuiContainer {
 	 * 
 	 * @return True to prevent the main container handling the mouseclick
 	 */
-	public boolean handleMouseReleased(int mouseX, int mouseY, int state)
+	public boolean mouseReleased(int mouseX, int mouseY, int state)
 	{
 		return false;
 	}

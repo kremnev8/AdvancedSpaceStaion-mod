@@ -7,6 +7,7 @@ import net.glider.src.items.ItemMod;
 import net.glider.src.strucures.BuildHandler;
 import net.glider.src.strucures.DeconstructHandler;
 import net.glider.src.strucures.Structure;
+import net.glider.src.strucures.StructureRotatable;
 import net.glider.src.utils.ChatUtils;
 import net.glider.src.utils.GLoger;
 import net.glider.src.utils.LocalizedChatComponent;
@@ -122,24 +123,27 @@ public class BuildPacket implements IMessage {
 				EntityPlayerMP player = ctx.getServerHandler().playerEntity;
 				if (player == null) return null;
 				World world = player.worldObj;
-				boolean items = BuildHandler.CheckItems(world, pkt.Fname, pkt.list, player);
+				boolean items = BuildHandler.CheckItems(world, pkt.Fname, pkt.list, player, pkt.rot);
 				if (!items) ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.failed.noitems", EnumChatFormatting.RED)));
 				else
 				{
 					boolean build = BuildHandler.HandleBuild(world, pkt.dir, pkt.Fname, pkt.x, pkt.y, pkt.z, pkt.rot, player);
 					if (!build) ChatUtils.SendChatMessageOnClient(player, new LocalizedChatComponent(new LocalizedString("builder.failed", EnumChatFormatting.RED)));
-					else ChatUtils.SendChatMessageOnClient(
-							player,
+					else ChatUtils.SendChatMessageOnClient(player,
 							new LocalizedChatComponent(new LocalizedString("builder.successfully", EnumChatFormatting.GREEN)).appendSibling(new ChatComponentText(" "))
-									.appendSibling(
-											new LocalizedChatComponent(new StructureLocalizedString(Structure.FindStructure(pkt.Fname), EnumChatFormatting.GREEN))
-													.appendSibling(new ChatComponentText("!"))));
+									.appendSibling(new LocalizedChatComponent(new StructureLocalizedString(Structure.FindStructure(pkt.Fname), EnumChatFormatting.GREEN))
+											.appendSibling(new ChatComponentText("!"))));
 					
 					if (!build)
 					{
 						if (!player.capabilities.isCreativeMode)
 						{
-							List<OreDictItemStack> I = Structure.FindStructure(pkt.Fname).getRequiredItems();
+							Structure str = Structure.FindStructure(pkt.Fname);
+							if (str instanceof StructureRotatable)
+							{
+								((StructureRotatable) str).setRotation(pkt.rot);
+							}
+							List<OreDictItemStack> I = str.getRequiredItems();
 							List<ItemStack> afterI = new ArrayList();
 							afterI.addAll(DeconstructHandler.modificateRetItems(I));
 							

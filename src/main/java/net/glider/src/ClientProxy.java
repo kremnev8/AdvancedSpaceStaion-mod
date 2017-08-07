@@ -1,7 +1,6 @@
 
 package net.glider.src;
 
-import micdoodle8.mods.galacticraft.api.vector.Vector3;
 import net.glider.src.blocks.BlockContainerMod;
 import net.glider.src.entity.EntityMod;
 import net.glider.src.gui.GuiBuilder;
@@ -37,6 +36,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
+import micdoodle8.mods.galacticraft.api.vector.Vector3;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -49,7 +49,6 @@ public class ClientProxy extends CommonProxy {
 		super.PreInit(event);
 		
 	}
-			
 	
 	@Override
 	public void init(FMLInitializationEvent event)

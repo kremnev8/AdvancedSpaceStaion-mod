@@ -2,10 +2,8 @@
 package net.glider.src.network.packets;
 
 import io.netty.buffer.ByteBuf;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import net.glider.src.gui.GuiBuilderSide;
 import net.glider.src.utils.GLoger;
 import net.minecraft.item.Item;
@@ -21,7 +19,8 @@ public class OpenBuilderGuiPacket implements IMessage {
 	private List<ItemStack> items = new ArrayList();
 	
 	public OpenBuilderGuiPacket()
-	{}
+	{
+	}
 	
 	public OpenBuilderGuiPacket(List<ItemStack> items)
 	{
@@ -78,13 +77,11 @@ public class OpenBuilderGuiPacket implements IMessage {
 		NBTTagCompound tag = ByteBufUtils.readTag(buf);
 		
 		final NBTTagList list = tag.getTagList("Items", 10);
-		int length = list.tagCount();
 		items = new ArrayList();
 		
 		for (int var3 = 0; var3 < list.tagCount(); ++var3)
 		{
 			final NBTTagCompound var4 = list.getCompoundTagAt(var3);
-			final int var5 = var4.getByte("Slot") & 255;
 			items.add(loadItemStackFromNBT(var4));
 		}
 	}

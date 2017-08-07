@@ -9,9 +9,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -55,7 +53,8 @@ public class GuiButtonSwap extends GuiButton {
 	}
 	
 	/**
-	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over this button and 2 if it IS hovering over this button.
+	 * Returns 0 if the button is disabled, 1 if the mouse is NOT hovering over
+	 * this button and 2 if it IS hovering over this button.
 	 */
 	public int getHoverState(boolean p_146114_1_)
 	{
@@ -79,11 +78,11 @@ public class GuiButtonSwap extends GuiButton {
 	{
 		if (this.visible)
 		{
-			FontRenderer fontrenderer = p_146112_1_.fontRenderer;
 			p_146112_1_.getTextureManager().bindTexture(buttonTextures);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.field_146123_n = p_146112_2_ >= this.xPosition && p_146112_3_ >= this.yPosition && p_146112_2_ < this.xPosition + this.width && p_146112_3_ < this.yPosition + this.height;
-			int k = this.getHoverState(this.field_146123_n);
+			this.field_146123_n = p_146112_2_ >= this.xPosition && p_146112_3_ >= this.yPosition && p_146112_2_ < this.xPosition + this.width
+					&& p_146112_3_ < this.yPosition + this.height;
+			
 			GL11.glEnable(GL11.GL_BLEND);
 			OpenGlHelper.glBlendFunc(770, 771, 1, 0);
 			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -97,44 +96,37 @@ public class GuiButtonSwap extends GuiButton {
 			} else if (getHoverState(this.field_146123_n) == 2)
 			{
 				this.drawTexturedModalRect(this.xPosition, this.yPosition, 179, 102, this.width, this.height);//hover
-			} else
-				this.drawTexturedModalRect(this.xPosition, this.yPosition, 179, 87, this.width, this.height);//disable
+			} else this.drawTexturedModalRect(this.xPosition, this.yPosition, 179, 87, this.width, this.height);//disable
 			this.drawTexturedModalRect(this.xPosition, this.yPosition, 179, 117, this.width, this.height);
 			this.mouseDragged(p_146112_1_, p_146112_2_, p_146112_3_);
-			int l = 4210752;
-			
-			if (packedFGColour != 0)
-			{
-				l = packedFGColour;
-			} else if (!this.enabled)
-			{
-				l = 10526880;
-			} else if (this.field_146123_n)
-			{
-				l = 16777120;
-			}
 			
 		}
 	}
 	
 	/**
-	 * Fired when the mouse button is dragged. Equivalent of MouseListener.mouseDragged(MouseEvent e).
+	 * Fired when the mouse button is dragged. Equivalent of
+	 * MouseListener.mouseDragged(MouseEvent e).
 	 */
 	protected void mouseDragged(Minecraft p_146119_1_, int p_146119_2_, int p_146119_3_)
-	{}
+	{
+	}
 	
 	/**
-	 * Fired when the mouse button is released. Equivalent of MouseListener.mouseReleased(MouseEvent e).
+	 * Fired when the mouse button is released. Equivalent of
+	 * MouseListener.mouseReleased(MouseEvent e).
 	 */
 	public void mouseReleased(int p_146118_1_, int p_146118_2_)
-	{}
+	{
+	}
 	
 	/**
-	 * Returns true if the mouse has been pressed on this control. Equivalent of MouseListener.mousePressed(MouseEvent e).
+	 * Returns true if the mouse has been pressed on this control. Equivalent of
+	 * MouseListener.mousePressed(MouseEvent e).
 	 */
 	public boolean mousePressed(Minecraft p_146116_1_, int p_146116_2_, int p_146116_3_)
 	{
-		return this.enabled && this.visible && p_146116_2_ >= this.xPosition && p_146116_3_ >= this.yPosition && p_146116_2_ < this.xPosition + this.width && p_146116_3_ < this.yPosition + this.height;
+		return this.enabled && this.visible && p_146116_2_ >= this.xPosition && p_146116_3_ >= this.yPosition && p_146116_2_ < this.xPosition + this.width
+				&& p_146116_3_ < this.yPosition + this.height;
 	}
 	
 	public boolean func_146115_a()
@@ -143,7 +135,8 @@ public class GuiButtonSwap extends GuiButton {
 	}
 	
 	public void func_146111_b(int p_146111_1_, int p_146111_2_)
-	{}
+	{
+	}
 	
 	public void func_146113_a(SoundHandler p_146113_1_)
 	{

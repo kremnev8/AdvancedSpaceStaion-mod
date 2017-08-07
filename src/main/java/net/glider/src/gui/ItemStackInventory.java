@@ -71,8 +71,8 @@ public class ItemStackInventory implements IInventory {
 		if (par1 < this.getSizeInventory())
 		{
 			return this.containingItems[par1];
-		} else
-			return null;
+		}
+		return null;
 	}
 	
 	@Override
@@ -100,10 +100,8 @@ public class ItemStackInventory implements IInventory {
 				this.markDirty();
 				return var3;
 			}
-		} else
-		{
-			return null;
 		}
+		return null;
 	}
 	
 	@Override
@@ -115,10 +113,8 @@ public class ItemStackInventory implements IInventory {
 			containingItems[par1] = null;
 			this.markDirty();
 			return var2;
-		} else
-		{
-			return null;
 		}
+		return null;
 	}
 	
 	@Override
@@ -164,7 +160,8 @@ public class ItemStackInventory implements IInventory {
 	}
 	
 	/**
-	 * you must call this to save data. also you need to grab stack on end and update it in original place otherwise everything will disappear
+	 * you must call this to save data. also you need to grab stack on end and
+	 * update it in original place otherwise everything will disappear
 	 */
 	@Override
 	public void closeInventory()
@@ -198,7 +195,8 @@ public class ItemStackInventory implements IInventory {
 	
 	@Override
 	public void markDirty()
-	{}
+	{
+	}
 	
 	@Override
 	public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)

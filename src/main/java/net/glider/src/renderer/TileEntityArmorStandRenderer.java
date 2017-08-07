@@ -24,10 +24,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
-
 import buildcraft.BuildCraftTransport;
 import buildcraft.transport.BlockGenericPipe;
 import buildcraft.transport.PipeTransportFluids;
@@ -63,13 +61,17 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 	private Item pumkingetting = Item.getItemFromBlock(Blocks.pumpkin);
 	private ModelDummy modelDummy = new ModelDummy();
 	public static String[] defaultHelmNames = { "item.helmetCloth", "item.helmetIron", "item.helmetChain", "item.helmetGold", "item.helmetDiamond" };
-	public static String[] defaultHelmArmorPaths = { "textures/models/armor/leather_layer_1.png", "textures/models/armor/iron_layer_1.png", "textures/models/armor/chainmail_layer_1.png", "textures/models/armor/gold_layer_1.png", "textures/models/armor/diamond_layer_1.png" };
+	public static String[] defaultHelmArmorPaths = { "textures/models/armor/leather_layer_1.png", "textures/models/armor/iron_layer_1.png",
+			"textures/models/armor/chainmail_layer_1.png", "textures/models/armor/gold_layer_1.png", "textures/models/armor/diamond_layer_1.png" };
 	public static String[] defaultChestNames = { "item.chestplateCloth", "item.chestplateIron", "item.chestplateChain", "item.chestplateGold", "item.chestplateDiamond" };
-	public static String[] defaultChestArmorPaths = { "textures/models/armor/leather_layer_1.png", "textures/models/armor/iron_layer_1.png", "textures/models/armor/chainmail_layer_1.png", "textures/models/armor/gold_layer_1.png", "textures/models/armor/diamond_layer_1.png" };
+	public static String[] defaultChestArmorPaths = { "textures/models/armor/leather_layer_1.png", "textures/models/armor/iron_layer_1.png",
+			"textures/models/armor/chainmail_layer_1.png", "textures/models/armor/gold_layer_1.png", "textures/models/armor/diamond_layer_1.png" };
 	public static String[] defaultLegNames = { "item.leggingsCloth", "item.leggingsIron", "item.leggingsChain", "item.leggingsGold", "item.leggingsDiamond" };
-	public static String[] defaultLegArmorPaths = { "textures/models/armor/leather_layer_2.png", "textures/models/armor/iron_layer_2.png", "textures/models/armor/chainmail_layer_2.png", "textures/models/armor/gold_layer_2.png", "textures/models/armor/diamond_layer_2.png" };
+	public static String[] defaultLegArmorPaths = { "textures/models/armor/leather_layer_2.png", "textures/models/armor/iron_layer_2.png",
+			"textures/models/armor/chainmail_layer_2.png", "textures/models/armor/gold_layer_2.png", "textures/models/armor/diamond_layer_2.png" };
 	public static String[] defaultBootNames = { "item.bootsCloth", "item.bootsIron", "item.bootsChain", "item.bootsGold", "item.bootsDiamond" };
-	public static String[] defaultBootArmorPaths = { "textures/models/armor/leather_layer_1.png", "textures/models/armor/iron_layer_1.png", "textures/models/armor/chainmail_layer_1.png", "textures/models/armor/gold_layer_1.png", "textures/models/armor/diamond_layer_1.png" };
+	public static String[] defaultBootArmorPaths = { "textures/models/armor/leather_layer_1.png", "textures/models/armor/iron_layer_1.png",
+			"textures/models/armor/chainmail_layer_1.png", "textures/models/armor/gold_layer_1.png", "textures/models/armor/diamond_layer_1.png" };
 	private int degreeAngle;
 	public static final ResourceLocation GLINT_PNG = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 	
@@ -97,7 +99,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 			degreeAngle = 90;
 		}
 		
-		float scale = 0.0625F;
+		//	float scale = 0.0625F;
 		
 		if (this.steve == null)
 		{
@@ -204,7 +206,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 						this.thuamcraftRobeChest = true;
 					}
 				}
-				String tchoverTest = cuirassItem.toString();
+				//		String tchoverTest = cuirassItem.toString();
 				if (cuirassModel != null)
 				{
 					this.steve.inventory.armorInventory[2] = chestStack;
@@ -407,7 +409,9 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 			}
 			if (EnergyConfigHandler.isBuildcraftReallyLoaded() && bl == BuildCraftTransport.genericPipeBlock)
 			{
-				if (BlockGenericPipe.getPipe(world, te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0)) == null || BlockGenericPipe.getPipe(world, te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0)).transport instanceof PipeTransportFluids)
+				if (BlockGenericPipe.getPipe(world, te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0)) == null
+						|| BlockGenericPipe.getPipe(world, te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord,
+								te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0)).transport instanceof PipeTransportFluids)
 				{
 					
 				} else
@@ -429,8 +433,9 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 			//TODO disable due i not found immibis microblocks api.
 			if (Loader.isModLoaded("EnderIO") && bl instanceof BlockConduitBundle)
 			{
-				TileConduitBundle te2 = (TileConduitBundle) world.getTileEntity(te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord, te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0));
-				if (te2 != null && te2.hasType(PowerConduit.class) || te2.hasType(ItemConduit.class))
+				TileConduitBundle te2 = (TileConduitBundle) world.getTileEntity(te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord,
+						te.zCoord + (o == 1 || o == 3 ? o == 3 ? 1 : -1 : 0));
+				if (te2 != null && (te2.hasType(PowerConduit.class) || te2.hasType(ItemConduit.class)))
 				{
 					model.render("wire", l + 3 > 3 ? (l - 4) + 3 : l + 3);
 				}
@@ -443,83 +448,45 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 		
 		GL11.glEnable(GL11.GL_LIGHTING);
 		
-		/*	int armortextnum = standTile.getArmorText();
-			if ((armortextnum > 0) && (armortextnum < 5))
-			{
-				ItemStack armorpiece = standTile.getArmor(armortextnum - 1);
-				if (armorpiece != null)
-				{
-					String armorname = armorpiece.func_82833_r();
-					int numlines = 1;
-					String ench1 = "";
-					String ench2 = "";
-					String ench3 = "";
-					String ench4 = "";
-					
-					NBTTagList taglist = func_92056_g(armorpiece);
-					
-					int tcount = taglist.func_74745_c();
-					if ((taglist != null) && (tcount > 0))
-					{
-						if (tcount >= 1)
-						{
-							short var7 = taglist.func_150305_b(0).func_74765_d("id");
-							short var8 = taglist.func_150305_b(0).func_74765_d("lvl");
-							if (Enchantment.field_77331_b[var7] != null)
-							{
-								ench1 = Enchantment.field_77331_b[var7].func_77316_c(var8);
-								numlines = 2;
-							}
-						}
-						if (tcount >= 2)
-						{
-							short var7 = taglist.func_150305_b(1).func_74765_d("id");
-							short var8 = taglist.func_150305_b(1).func_74765_d("lvl");
-							if (Enchantment.field_77331_b[var7] != null)
-							{
-								ench2 = Enchantment.field_77331_b[var7].func_77316_c(var8);
-								numlines = 3;
-							}
-						}
-						if (tcount >= 3)
-						{
-							short var7 = taglist.func_150305_b(2).func_74765_d("id");
-							short var8 = taglist.func_150305_b(2).func_74765_d("lvl");
-							if (Enchantment.field_77331_b[var7] != null)
-							{
-								ench3 = Enchantment.field_77331_b[var7].func_77316_c(var8);
-								numlines = 4;
-							}
-						}
-						if (tcount >= 4)
-						{
-							short var7 = taglist.func_150305_b(3).func_74765_d("id");
-							short var8 = taglist.func_150305_b(3).func_74765_d("lvl");
-							if (Enchantment.field_77331_b[var7] != null)
-							{
-								ench4 = Enchantment.field_77331_b[var7].func_77316_c(var8);
-								numlines = 5;
-							}
-						}
-					}
-					switch (armortextnum)
-					{
-					case 1:
-						renderText(armorname, ench1, ench2, ench3, ench4, numlines, -208.0D, -15.0D);
-						break;
-					case 2:
-						renderText(armorname, ench1, ench2, ench3, ench4, numlines, -85.0D, 10.0D);
-						break;
-					case 3:
-						renderText(armorname, ench1, ench2, ench3, ench4, numlines, 20.0D, 0.0D);
-						break;
-					case 4:
-						renderText(armorname, ench1, ench2, ench3, ench4, numlines, 100.0D, 0.0D);
-						break;
-					}
-				}
-				standTile.setArmorText(0);
-			}*/
+		/*
+		 * int armortextnum = standTile.getArmorText(); if ((armortextnum > 0)
+		 * && (armortextnum < 5)) { ItemStack armorpiece =
+		 * standTile.getArmor(armortextnum - 1); if (armorpiece != null) {
+		 * String armorname = armorpiece.func_82833_r(); int numlines = 1;
+		 * String ench1 = ""; String ench2 = ""; String ench3 = ""; String ench4
+		 * = "";
+		 * 
+		 * NBTTagList taglist = func_92056_g(armorpiece);
+		 * 
+		 * int tcount = taglist.func_74745_c(); if ((taglist != null) && (tcount
+		 * > 0)) { if (tcount >= 1) { short var7 =
+		 * taglist.func_150305_b(0).func_74765_d("id"); short var8 =
+		 * taglist.func_150305_b(0).func_74765_d("lvl"); if
+		 * (Enchantment.field_77331_b[var7] != null) { ench1 =
+		 * Enchantment.field_77331_b[var7].func_77316_c(var8); numlines = 2; } }
+		 * if (tcount >= 2) { short var7 =
+		 * taglist.func_150305_b(1).func_74765_d("id"); short var8 =
+		 * taglist.func_150305_b(1).func_74765_d("lvl"); if
+		 * (Enchantment.field_77331_b[var7] != null) { ench2 =
+		 * Enchantment.field_77331_b[var7].func_77316_c(var8); numlines = 3; } }
+		 * if (tcount >= 3) { short var7 =
+		 * taglist.func_150305_b(2).func_74765_d("id"); short var8 =
+		 * taglist.func_150305_b(2).func_74765_d("lvl"); if
+		 * (Enchantment.field_77331_b[var7] != null) { ench3 =
+		 * Enchantment.field_77331_b[var7].func_77316_c(var8); numlines = 4; } }
+		 * if (tcount >= 4) { short var7 =
+		 * taglist.func_150305_b(3).func_74765_d("id"); short var8 =
+		 * taglist.func_150305_b(3).func_74765_d("lvl"); if
+		 * (Enchantment.field_77331_b[var7] != null) { ench4 =
+		 * Enchantment.field_77331_b[var7].func_77316_c(var8); numlines = 5; } }
+		 * } switch (armortextnum) { case 1: renderText(armorname, ench1, ench2,
+		 * ench3, ench4, numlines, -208.0D, -15.0D); break; case 2:
+		 * renderText(armorname, ench1, ench2, ench3, ench4, numlines, -85.0D,
+		 * 10.0D); break; case 3: renderText(armorname, ench1, ench2, ench3,
+		 * ench4, numlines, 20.0D, 0.0D); break; case 4: renderText(armorname,
+		 * ench1, ench2, ench3, ench4, numlines, 100.0D, 0.0D); break; } }
+		 * standTile.setArmorText(0); }
+		 */
 		GL11.glTranslatef(0, 0.01F, 0);
 		GL11.glPopMatrix();
 		if (this.renderSteve)
@@ -537,46 +504,35 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 		GL11.glTranslatef(0, -0.01F, 0);
 	}
 	
-	/*public void renderText(String text, String text2, String text3, String text4, String text5, int numlines, double yadjust, double zadjust)
-	{
-		FontRenderer fontRender = func_147498_b();
-		GL11.glDepthMask(false);
-		
-		GL11.glScalef(0.005F, 0.005F, 0.005F);
-		GL11.glTranslated(0.0D, 100.0D + yadjust, -45.0D + zadjust);
-		
-		int adjust = fontRender.func_78256_a(text) / 2;
-		fontRender.func_85187_a(text, -adjust, 0, Config.color, Config.textshadow);
-		if (numlines > 1)
-		{
-			int adjust2 = fontRender.func_78256_a(text2) / 2;
-			fontRender.func_85187_a(text2, -adjust2, 10, Config.color2, Config.textshadow);
-		}
-		if (numlines > 2)
-		{
-			int adjust3 = fontRender.func_78256_a(text3) / 2;
-			fontRender.func_85187_a(text3, -adjust3, 20, Config.color2, Config.textshadow);
-		}
-		if (numlines > 3)
-		{
-			int adjust4 = fontRender.func_78256_a(text4) / 2;
-			fontRender.func_85187_a(text4, -adjust4, 30, Config.color2, Config.textshadow);
-		}
-		if (numlines > 4)
-		{
-			int adjust5 = fontRender.func_78256_a(text5) / 2;
-			fontRender.func_85187_a(text5, -adjust5, 40, Config.color2, Config.textshadow);
-		}
-		GL11.glDepthMask(true);
-	}*/
+	/*
+	 * public void renderText(String text, String text2, String text3, String
+	 * text4, String text5, int numlines, double yadjust, double zadjust) {
+	 * FontRenderer fontRender = func_147498_b(); GL11.glDepthMask(false);
+	 * 
+	 * GL11.glScalef(0.005F, 0.005F, 0.005F); GL11.glTranslated(0.0D, 100.0D +
+	 * yadjust, -45.0D + zadjust);
+	 * 
+	 * int adjust = fontRender.func_78256_a(text) / 2;
+	 * fontRender.func_85187_a(text, -adjust, 0, Config.color,
+	 * Config.textshadow); if (numlines > 1) { int adjust2 =
+	 * fontRender.func_78256_a(text2) / 2; fontRender.func_85187_a(text2,
+	 * -adjust2, 10, Config.color2, Config.textshadow); } if (numlines > 2) {
+	 * int adjust3 = fontRender.func_78256_a(text3) / 2;
+	 * fontRender.func_85187_a(text3, -adjust3, 20, Config.color2,
+	 * Config.textshadow); } if (numlines > 3) { int adjust4 =
+	 * fontRender.func_78256_a(text4) / 2; fontRender.func_85187_a(text4,
+	 * -adjust4, 30, Config.color2, Config.textshadow); } if (numlines > 4) {
+	 * int adjust5 = fontRender.func_78256_a(text5) / 2;
+	 * fontRender.func_85187_a(text5, -adjust5, 40, Config.color2,
+	 * Config.textshadow); } GL11.glDepthMask(true); }
+	 */
 	
 	public String getArmor(String itemStackName, int armorType)
 	{
 		String armorDefault = "textures/models/armor/iron_layer_1.png";
 		String armorLegDefault = "textures/models/armor/iron_layer_1.png";
-		String armorName = itemStackName.toLowerCase();
-		switch (armorType)
-		{
+		//	String armorName = itemStackName.toLowerCase();
+		switch (armorType) {
 		case 0:
 			String armorReturn;
 			for (int x = 0; x < defaultHelmNames.length; x++)
@@ -649,8 +605,7 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 			GL11.glRotatef(30.0F - var21 * 60.0F, 0.0F, 0.0F, 1.0F);
 			GL11.glTranslatef(0.0F, var23, 0.0F);
 			GL11.glMatrixMode(5888);
-			switch (armorType)
-			{
+			switch (armorType) {
 			case 0:
 				this.modelDummy.renderHead();
 				break;

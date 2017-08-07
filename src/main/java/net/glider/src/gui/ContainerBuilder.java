@@ -2,13 +2,13 @@ package net.glider.src.gui;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.glider.src.network.PacketHandler;
 import net.glider.src.network.packets.OpenBuilderGuiPacket;
 import net.glider.src.utils.ItemUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -18,12 +18,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class ContainerBuilder extends ContainerModular {
-
+public class ContainerBuilder extends Container {
+	
 	public InventoryPlayer inventory;
 	
 	private List<ItemStack> found = new ArrayList();
-
+	
 	public ContainerBuilder(InventoryPlayer Pinv)
 	{
 		this.inventory = Pinv;
@@ -99,7 +99,7 @@ public class ContainerBuilder extends ContainerModular {
 							// found.remove(i);
 							// found.add(curr);
 						}
-
+						
 						PacketHandler.sendTo(new OpenBuilderGuiPacket(found), (EntityPlayerMP) Pinv.player);
 						
 					} else
@@ -154,7 +154,7 @@ public class ContainerBuilder extends ContainerModular {
 					}
 					PacketHandler.sendTo(new OpenBuilderGuiPacket(found), (EntityPlayerMP) Pinv.player);
 				}
-
+				
 			}
 		}
 	}
@@ -171,50 +171,50 @@ public class ContainerBuilder extends ContainerModular {
 	{
 		return null;
 	}
-
+	
 	public void addCraftingToCrafters(ICrafting p_75132_1_)
 	{
-
+		
 	}
-
+	
 	public Slot getSlot(int p_75139_1_)
 	{
 		return null;
 	}
-
+	
 	public ItemStack slotClick(int p_75144_1_, int p_75144_2_, int p_75144_3_, EntityPlayer p_75144_4_)
 	{
 		return null;
 	}
-
+	
 	public void putStacksInSlots(ItemStack[] p_75131_1_)
 	{
 	}
-
+	
 	public void putStackInSlot(int p_75141_1_, ItemStack p_75141_2_)
 	{
 	}
-
+	
 	protected boolean mergeItemStack(ItemStack p_75135_1_, int p_75135_2_, int p_75135_3_, boolean p_75135_4_)
 	{
 		return false;
 	}
-
+	
 	public boolean canDragIntoSlot(Slot p_94531_1_)
 	{
 		return false;
 	}
-
+	
 	public List getInventory()
 	{
 		return null;
 	}
-
+	
 	@Override
 	public void onContainerClosed(EntityPlayer p_75134_1_)
 	{
 		super.onContainerClosed(p_75134_1_);
-
+		
 	}
-
+	
 }

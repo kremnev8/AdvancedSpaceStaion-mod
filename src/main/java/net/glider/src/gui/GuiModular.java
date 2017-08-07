@@ -7,23 +7,20 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
+import org.lwjgl.opengl.GL12;
 import codechicken.nei.VisiblityData;
 import codechicken.nei.api.INEIGuiHandler;
 import codechicken.nei.api.TaggedInventoryArea;
-
 import com.google.common.collect.Lists;
-
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -32,19 +29,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
 public class GuiModular extends GuiContainer implements INEIGuiHandler {
 	
-	private static Field NEI_Manager;
-	
-	static
-	{
-		try
-		{
-			NEI_Manager = GuiContainer.class.getDeclaredField("manager");
-		} catch (NoSuchFieldException e)
-		{
-			NEI_Manager = null;
-		}
-	}
-	
 	protected List<GuiModule> modules = Lists.newArrayList();
 	
 	public int cornerX;
@@ -52,7 +36,7 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 	public int realWidth;
 	public int realHeight;
 	
-	public GuiModular(ContainerModular container)
+	public GuiModular(Container container)
 	{
 		super(container);
 		
@@ -98,24 +82,15 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
-	{
-		for (GuiModule module : modules)
-		{
-			module.handleDrawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-		}
-	}
-	
-	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		for (GuiModule module : modules)
 		{
 			GL11.glPushMatrix();
 			GL11.glTranslatef(-this.guiLeft, -this.guiTop, 0.0F);
-			GL11.glTranslatef(module.GuiLeft, module.GuiTop, 0.0F);
+			GL11.glTranslatef(module.guiLeft, module.guiTop, 0.0F);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			module.handleDrawGuiContainerForegroundLayer(mouseX, mouseY);
+			module.drawGuiForegroundLayer(mouseX, mouseY);
 			GL11.glPopMatrix();
 		}
 	}
@@ -129,12 +104,6 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 	
 	protected void drawContainerName()
 	{
-		ContainerModular multiContainer = (ContainerModular) this.inventorySlots;
-		IChatComponent localizedName = multiContainer.getInventoryDisplayName();
-		if (localizedName != null)
-		{
-			this.fontRendererObj.drawString(localizedName.getUnformattedText(), 8, 6, 0x404040);
-		}
 	}
 	
 	protected void drawPlayerInventoryName()
@@ -148,21 +117,17 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 	{
 		super.setWorldAndResolution(mc, width, height);
 		
-		try
+		//try
+		//{
+		for (GuiModule module : modules)
 		{
-			for (GuiModule module : modules)
-			{
-				module.setWorldAndResolution(mc, width, height);
-				if (NEI_Manager != null)
-				{
-					NEI_Manager.set(module, NEI_Manager.get(this));
-				}
-				updateSubmodule(module);
-			}
-		} catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
+			module.setWorldAndResolution(mc, width, height);
+			updateSubmodule(module);
 		}
+		//}// catch (IllegalAccessException e)
+		//{
+		//	e.printStackTrace();
+		//}
 	}
 	
 	public void onResize(Minecraft mc, int width, int height)
@@ -203,15 +168,15 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 	{
 		module.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
 		
-		if (module.GuiLeft < this.guiLeft)
+		if (module.guiLeft < this.guiLeft)
 		{
-			this.xSize += this.guiLeft - module.GuiLeft;
-			this.guiLeft = module.GuiLeft;
+			this.xSize += this.guiLeft - module.guiLeft;
+			this.guiLeft = module.guiLeft;
 		}
-		if (module.GuiTop < this.guiTop)
+		if (module.guiTop < this.guiTop)
 		{
-			this.ySize += this.guiTop - module.GuiTop;
-			this.guiTop = module.GuiTop;
+			this.ySize += this.guiTop - module.guiTop;
+			this.guiTop = module.guiTop;
 		}
 		if (module.guiRight() > this.guiLeft + this.xSize)
 		{
@@ -223,44 +188,13 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 		}
 	}
 	
-	public boolean isMouseOverSlot(Slot slotIn, int mouseX, int mouseY)
-	{
-		GuiModule module = getModuleForSlot(slotIn.slotNumber);
-		
-		// mouse inside the module of the slot?
-		if (module != null)
-		{
-			Slot slot = slotIn;
-			// unwrap for the call to the module
-			if (slotIn instanceof SlotWrapper)
-			{
-				slot = ((SlotWrapper) slotIn).parent;
-			}
-			if (!module.shouldDrawSlot(slot))
-			{
-				return false;
-			}
-		}
-		
-		return this.func_146978_c(slotIn.xDisplayPosition, slotIn.yDisplayPosition, 16, 16, mouseX, mouseY);
-	}
-	
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton)
 	{
 		GuiModule module = getModuleForPoint(mouseX, mouseY);
 		if (module != null)
 		{
-			try
-			{
-				if (module.handleMouseClicked(mouseX, mouseY, mouseButton))
-				{
-					return;
-				}
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			module.mouseClicked(mouseX, mouseY, mouseButton);
 		}
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
@@ -271,10 +205,7 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 		GuiModule module = getModuleForPoint(mouseX, mouseY);
 		if (module != null)
 		{
-			if (module.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick))
-			{
-				return;
-			}
+			module.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
 		}
 		
 		super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
@@ -284,7 +215,7 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 	{
 		for (GuiModule module : modules)
 		{
-			if (module.handleMouseReleased(mouseX, mouseY, state))
+			if (module.mouseReleased(mouseX, mouseY, state))
 			{
 				return;
 			}
@@ -297,36 +228,13 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 	{
 		for (GuiModule module : modules)
 		{
-			if (this.isPointInRegion(module.GuiLeft, module.GuiTop, module.guiRight(), module.guiBottom(), x + this.cornerX, y + this.cornerY))
+			if (this.isPointInRegion(module.guiLeft, module.guiTop, module.guiRight(), module.guiBottom(), x + this.cornerX, y + this.cornerY))
 			{
 				return module;
 			}
 		}
 		
 		return null;
-	}
-	
-	protected GuiModule getModuleForSlot(int slotNumber)
-	{
-		return getModuleForContainer(getContainer().getSlotContainer(slotNumber));
-	}
-	
-	protected GuiModule getModuleForContainer(Container container)
-	{
-		for (GuiModule module : modules)
-		{
-			if (module.inventorySlots == container)
-			{
-				return module;
-			}
-		}
-		
-		return null;
-	}
-	
-	protected ContainerModular getContainer()
-	{
-		return (ContainerModular) inventorySlots;
 	}
 	
 	@Override
@@ -367,12 +275,21 @@ public class GuiModular extends GuiContainer implements INEIGuiHandler {
 		}
 		for (GuiModule module : modules)
 		{
-			if (module.GuiLeft < x + w && module.guiRight() > x && module.GuiTop < y + h && module.guiBottom() > y)
+			if (module.guiLeft < x + w && module.guiRight() > x && module.guiTop < y + h && module.guiBottom() > y && module.isEnabled)
 			{
 				return true;
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float time, int x, int y)
+	{
+		for (GuiModule module : modules)
+		{
+			module.drawGuiBackgroundLayer(x, y);
+		}
 	}
 	
 }

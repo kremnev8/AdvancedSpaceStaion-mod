@@ -40,7 +40,7 @@ public class ContainerModificator extends Container {
 			EntityPlayer player = world.getPlayerEntityByName(inv.player.getDisplayName());
 			if (te.infoBlocks != null && te.infoBlocks.size() > 0 && te.infoBlocks.get(0) != null)
 			{
-				if (te.infoBlocks.get(0).Object != null && te.infoBlocks.get(0).Object.getUnlocalizedName() == Structure.BIGHHALL)
+				if (te.infoBlocks.get(0).Object != null && te.infoBlocks.get(0).Object.getUnlocalizedName().equals(Structure.BIGHHALL))
 				{
 					Structure Object = te.infoBlocks.get(0).Object.copy();
 					List<Structure> ChildObjects = new ArrayList();

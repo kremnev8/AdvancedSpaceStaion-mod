@@ -11,7 +11,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
 public class GuiSchematicJetpack extends GuiContainer implements ISchematicResultPage {
@@ -25,7 +24,6 @@ public class GuiSchematicJetpack extends GuiContainer implements ISchematicResul
 		this.ySize = 221;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
@@ -40,8 +38,7 @@ public class GuiSchematicJetpack extends GuiContainer implements ISchematicResul
 	{
 		if (par1GuiButton.enabled)
 		{
-			switch (par1GuiButton.id)
-			{
+			switch (par1GuiButton.id) {
 			case 0:
 				SchematicRegistry.flipToLastPage(this.pageIndex);
 				break;

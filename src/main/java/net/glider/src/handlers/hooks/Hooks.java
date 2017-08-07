@@ -4,6 +4,7 @@ package net.glider.src.handlers.hooks;
 import gloomyfolken.hooklib.asm.Hook;
 import gloomyfolken.hooklib.asm.ReturnCondition;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Satellite;
@@ -24,11 +25,13 @@ import micdoodle8.mods.galacticraft.core.util.WorldUtil;
 import net.glider.src.dimensions.WorldProviderOrbitEarth;
 import net.glider.src.dimensions.WorldProviderOrbitModif;
 import net.glider.src.entity.EntityRocketFakeTiered;
+import net.glider.src.gui.GuiModificator;
 import net.glider.src.items.ItemMod;
 import net.glider.src.network.PacketHandler;
 import net.glider.src.network.packets.SyncPlayerFallPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -41,6 +44,27 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Hooks {
 	
 	public static boolean ignoreThis = false;
+	
+	//@Hook(returnCondition = ReturnCondition.NEVER)
+	//public static void getProviderType(DimensionManager mn, int dim)
+	//{
+	//	try
+	//	{
+	//		TimeUnit.SECONDS.sleep(2);
+	//	}catch(InterruptedException e)
+	//	{
+	//	}
+	//}
+	
+	@Hook(returnCondition = ReturnCondition.ON_TRUE)
+	public static boolean drawScreen(GuiScreen scr, int x, int y, float smth)
+	{
+		if (scr instanceof GuiModificator)
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	@Hook(returnCondition = ReturnCondition.ON_TRUE)
 	public static boolean registerProvider(GalacticraftRegistry reg, int id, Class<? extends WorldProvider> provider, boolean keepLoaded, int defaultID)
@@ -91,10 +115,8 @@ public class Hooks {
 		{
 			final IGalacticraftWorldProvider customProvider = (IGalacticraftWorldProvider) e.worldObj.provider;
 			return Math.max(0.002D, 0.03999999910593033D - customProvider.getGravity() / 1.75D);
-		} else
-		{
-			return 0.03999999910593033D;
 		}
+		return 0.03999999910593033D;
 	}
 	
 	@Hook

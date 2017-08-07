@@ -3,7 +3,6 @@ package net.glider.src.blocks;
 
 import java.lang.reflect.Method;
 import java.util.Random;
-
 import micdoodle8.mods.galacticraft.api.vector.BlockVec3;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.tile.IMultiBlock;
@@ -245,8 +244,7 @@ public class BlockArmorStand extends BlockContainerMod {
 		int change = 0;
 		
 		// Re-orient the block
-		switch (original)
-		{
+		switch (original) {
 		case 0:
 			change = 1;
 			break;
@@ -297,7 +295,6 @@ public class BlockArmorStand extends BlockContainerMod {
 		for (int y = 0; y < 2; y++)
 		{
 			Block blockAt = world.getBlock(x0, y0 + y, z0);
-			int metaAt = world.getBlockMetadata(x0, y0 + y, z0);
 			
 			if (y == 0)
 			{
@@ -336,7 +333,8 @@ public class BlockArmorStand extends BlockContainerMod {
 			{
 				for (int i3 = i2; i3 <= k2; ++i3)
 				{
-					if (World.doesBlockHaveSolidTopSurface(par0World, l2, par2 - 1, i3) && !par0World.getBlock(l2, par2, i3).getMaterial().isOpaque() && !par0World.getBlock(l2, par2 + 1, i3).getMaterial().isOpaque())
+					if (World.doesBlockHaveSolidTopSurface(par0World, l2, par2 - 1, i3) && !par0World.getBlock(l2, par2, i3).getMaterial().isOpaque()
+							&& !par0World.getBlock(l2, par2 + 1, i3).getMaterial().isOpaque())
 					{
 						if (par4 <= 0)
 						{
