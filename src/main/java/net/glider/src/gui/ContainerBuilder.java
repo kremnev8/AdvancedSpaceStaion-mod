@@ -207,7 +207,7 @@ public class ContainerBuilder extends Container {
 	
 	public List getInventory()
 	{
-		return null;
+		return new ArrayList();
 	}
 	
 	@Override

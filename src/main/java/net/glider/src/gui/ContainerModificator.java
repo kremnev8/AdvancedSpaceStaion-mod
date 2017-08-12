@@ -161,7 +161,7 @@ public class ContainerModificator extends Container {
 	
 	public List getInventory()
 	{
-		return null;
+		return new ArrayList();
 	}
 	
 	@Override

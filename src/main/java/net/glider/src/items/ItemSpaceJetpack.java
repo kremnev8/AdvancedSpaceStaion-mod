@@ -244,7 +244,7 @@ public class ItemSpaceJetpack extends ItemArmorMod {
 		if (player.worldObj.provider instanceof WorldProviderOrbitModif)
 		{
 			WorldProviderOrbitModif prow = (WorldProviderOrbitModif) player.worldObj.provider;
-			if (prow.getGravityAdd() > 0.5D)
+			if (prow.artificialG > 0.1D)
 			{
 				return true;
 			}
