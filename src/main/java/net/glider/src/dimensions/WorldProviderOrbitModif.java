@@ -1,23 +1,16 @@
 package net.glider.src.dimensions;
 
-import java.util.ArrayList;
-import java.util.List;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.vector.Vector3;
+import micdoodle8.mods.galacticraft.core.dimension.SpinManager;
 import micdoodle8.mods.galacticraft.core.dimension.WorldProviderOrbit;
-import micdoodle8.mods.galacticraft.core.entities.player.FreefallHandler;
-import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStatsClient;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.planets.mars.MarsModule;
 import net.glider.src.GliderCore;
-import net.glider.src.items.ItemMod;
 import net.glider.src.network.PacketHandler;
 import net.glider.src.network.packets.ClientGravityDataRecivePacket;
 import net.glider.src.tiles.TileEntityGravitySource;
-import net.glider.src.utils.GLoger;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.MathHelper;
@@ -28,15 +21,20 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class WorldProviderOrbitModif extends WorldProviderOrbit {
 	public int spaceStationDimensionID;
 	
-	public static List<Double> ArtificialForces = new ArrayList();
-	public static boolean updatedList = false;
-	public static boolean updateddouble = false;
+	public GravityManager spinManager = new GravityManager(this);
 	
-	public static double artificialG;
+	/**
+	 * Do not return null here, the calling code does not perform a null check!
+	 */
+	public SpinManager getSpinManager()
+	{
+		return (SpinManager) spinManager;
+	}
 	
-	private static double pPrevMotionX;
-	public static double pPrevMotionY;
-	private static double pPrevMotionZ;
+	public double getArtificalGravity()
+	{
+		return GravityManager.artificialG;
+	}
 	
 	@Override
 	public void setDimension(int var1)
@@ -131,7 +129,7 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 			{
 				if (savef.GraviySources.size() > 0)
 				{
-					this.ArtificialForces.clear();
+					spinManager.ArtificialForces.clear();
 					for (int i = 0; i < savef.GraviySources.size(); i++)
 					{
 						if (this.worldObj.getTileEntity(savef.GraviySources.get(i)[0], savef.GraviySources.get(i)[1], savef.GraviySources.get(i)[2]) != null)
@@ -139,18 +137,21 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 							TileEntity te = this.worldObj.getTileEntity(savef.GraviySources.get(i)[0], savef.GraviySources.get(i)[1], savef.GraviySources.get(i)[2]);
 							if (te instanceof TileEntityGravitySource)
 							{
-								ArtificialForces.add(((TileEntityGravitySource) te).gravityAddition);
+								spinManager.ArtificialForces.add(((TileEntityGravitySource) te).gravityAddition);
 							}
 						}
 					}
 					double sum = 0;
-					java.util.Iterator<Double> forces = ArtificialForces.iterator();
+					java.util.Iterator<Double> forces = spinManager.ArtificialForces.iterator();
 					for (int i = 0; forces.hasNext(); i++)
 					{
 						sum += forces.next();
 					}
-					artificialG = sum;
-					PacketHandler.sendToDimension(new ClientGravityDataRecivePacket(ArtificialForces), this.dimensionId);
+					if (sum != spinManager.artificialG)
+					{
+						spinManager.artificialG = sum;
+						PacketHandler.sendToDimension(new ClientGravityDataRecivePacket(spinManager.ArtificialForces), this.dimensionId);
+					}
 				}
 				
 			}
@@ -218,7 +219,7 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 	@Override
 	public float getGravity()
 	{
-		return (float) (0.08F * (1 - artificialG));
+		return (float) (0.0F * (1 - getArtificalGravity()));
 	}
 	
 	@Override
@@ -254,7 +255,7 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 	@Override
 	public float getFallDamageModifier()
 	{
-		return (float) (artificialG > 0.5D ? (1F * artificialG) - 0.2D : 0.4F);
+		return (float) (getArtificalGravity() > 0.5D ? (1F * getArtificalGravity()) - 0.2D : 0.4F);
 	}
 	
 	@Override
@@ -263,60 +264,4 @@ public class WorldProviderOrbitModif extends WorldProviderOrbit {
 		return 50.0F;
 	}
 	
-	@SideOnly(Side.CLIENT)
-	public void postVanillaMotion(EntityPlayerSP p)
-	{
-		if (updatedList && !updateddouble)
-		{
-			
-			double sum = 0;
-			try
-			{
-				if (ArtificialForces != null)
-				{
-					for (int i = 0; i < ArtificialForces.size(); i++)
-					{
-						sum += ArtificialForces.get(i);
-					}
-				}
-			} catch (Exception e)
-			{
-				GLoger.logWarn("Someting Really strange:");
-				e.printStackTrace();
-			}
-			artificialG = sum;
-			updateddouble = true;
-			
-		}
-		
-		if (artificialG < 0.5D)
-		{
-			super.postVanillaMotion(p);
-			GCPlayerStatsClient stats = GCPlayerStatsClient.get(p);
-			
-			if (stats.inFreefall && p.capabilities.isCreativeMode && (p.getCurrentArmor(2) != null && p.getCurrentArmor(2).getItem() == ItemMod.spaceJetpack))
-			{
-				FreefallHandler.freefallMotion(p);
-			}
-		}
-		
-	}
-	
-	public void readFromNBT(NBTTagCompound nbt)
-	{
-		super.readFromNBT(nbt);
-		if (nbt.getBoolean("UPDATED_GVALUE"))
-		{
-			artificialG = nbt.getDouble("Artificial_GRAVITY");
-			updatedList = nbt.getBoolean("UPDATED_GVALUE");
-		}
-	}
-	
-	public void writeToNBT(NBTTagCompound nbt)
-	{
-		super.writeToNBT(nbt);
-		nbt.setBoolean("UPDATED_GVALUE", updatedList);
-		nbt.setDouble("Artificial_GRAVITY", artificialG);
-		
-	}
 }

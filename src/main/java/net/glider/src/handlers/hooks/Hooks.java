@@ -22,6 +22,7 @@ import micdoodle8.mods.galacticraft.core.event.EventHandlerGC;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.WorldUtil;
+import net.glider.src.dimensions.GravityManager;
 import net.glider.src.dimensions.WorldProviderOrbitEarth;
 import net.glider.src.dimensions.WorldProviderOrbitModif;
 import net.glider.src.entity.EntityRocketFakeTiered;
@@ -136,7 +137,7 @@ public class Hooks {
 	{
 		
 		double sum = 0;
-		Iterator<Double> forces = WorldProviderOrbitModif.ArtificialForces.iterator();
+		Iterator<Double> forces = GravityManager.ArtificialForces.iterator();
 		for (int i = 0; forces.hasNext(); i++)
 		{
 			sum += forces.next();

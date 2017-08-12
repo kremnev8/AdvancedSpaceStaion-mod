@@ -77,8 +77,8 @@
 	<classpathentry kind="lib" path="libs/ThermalDynamics-[1.7.10]1.2.0-171-dev.jar"/>
 	<classpathentry kind="lib" path="libs/ThermalExpansion-[1.7.10]4.1.2-240-dev.jar"/>
 	<classpathentry kind="lib" path="libs/ThermalFoundation-[1.7.10]1.2.4-114-dev.jar"/>
-	<classpathentry kind="lib" path="libs/Galacticraft-Planets-Dev-1.7-3.0.12.462.jar"/>
-	<classpathentry kind="lib" path="libs/GalacticraftCore-Dev-1.7-3.0.12.462.jar"/>
-	<classpathentry kind="lib" path="libs/MicdoodleCore-Dev-1.7-3.0.12.462.jar"/>
+	<classpathentry kind="lib" path="libs/Galacticraft-Planets-Dev-1.7-3.0.12.502.jar"/>
+	<classpathentry kind="lib" path="libs/GalacticraftCore-Dev-1.7-3.0.12.502.jar"/>
+	<classpathentry kind="lib" path="libs/MicdoodleCore-Dev-1.7-3.0.12.502.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import micdoodle8.mods.galacticraft.api.entity.IRocketType;
+import micdoodle8.mods.galacticraft.api.event.ZeroGravityEvent;
 import micdoodle8.mods.galacticraft.api.event.oxygen.GCCoreOxygenSuffocationEvent;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
 import micdoodle8.mods.galacticraft.core.blocks.GCBlocks;
 import micdoodle8.mods.galacticraft.core.client.CloudRenderer;
 import micdoodle8.mods.galacticraft.core.dimension.WorldProviderOrbit;
+import micdoodle8.mods.galacticraft.core.entities.player.FreefallHandler;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStats;
 import micdoodle8.mods.galacticraft.core.entities.player.GCPlayerStatsClient;
 import micdoodle8.mods.galacticraft.core.tile.TileEntityParaChest;
@@ -17,6 +19,7 @@ import micdoodle8.mods.galacticraft.core.util.ConfigManagerCore;
 import micdoodle8.mods.galacticraft.core.util.OxygenUtil;
 import net.glider.src.ClientProxy;
 import net.glider.src.dimensions.DockingPortSaveData;
+import net.glider.src.dimensions.GravityManager;
 import net.glider.src.dimensions.SkyProviderOrbitEarth;
 import net.glider.src.dimensions.SkyProviderOrbitModif;
 import net.glider.src.dimensions.WorldProviderOrbitEarth;
@@ -252,6 +255,47 @@ public class Events {
 	}
 	
 	//CLIENT
+	@SubscribeEvent
+	public void inFreefall(ZeroGravityEvent.InFreefall e)
+	{
+		if (GravityManager.artificialG > 0.1D)
+		{
+			e.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void PostVlMotion(ZeroGravityEvent.Motion e)
+	{
+		if (GravityManager.updatedList && !GravityManager.updateddouble)
+		{
+			
+			double sum = 0;
+			try
+			{
+				if (GravityManager.ArtificialForces != null)
+				{
+					for (int i = 0; i < GravityManager.ArtificialForces.size(); i++)
+					{
+						sum += GravityManager.ArtificialForces.get(i);
+					}
+				}
+			} catch (Exception er)
+			{
+				GLoger.logWarn("Someting Really strange:");
+				er.printStackTrace();
+			}
+			GravityManager.artificialG = sum;
+			GravityManager.updateddouble = true;
+			
+		}
+		
+		if (GravityManager.artificialG > 0.3D)
+		{
+			//e.setCanceled(true);
+			
+		}
+	}
 	
 	protected static final ResourceLocation Fuel = new ResourceLocation(GliderModInfo.ModTestures, "textures/FuelTank.png");
 	
@@ -383,7 +427,7 @@ public class Events {
 				{
 					world.provider
 							.setSkyRenderer(new SkyProviderOrbitEarth(new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/celestialbodies/earth.png"), true, true));
-					((SkyProviderOrbitEarth) world.provider.getSkyRenderer()).spinDeltaPerTick = ((WorldProviderOrbitEarth) world.provider).getSpinRate();
+					((SkyProviderOrbitEarth) world.provider.getSkyRenderer()).spinDeltaPerTick = ((WorldProviderOrbitEarth) world.provider).getSpinManager().getSpinRate();
 					GCPlayerStatsClient.get(player).inFreefallFirstCheck = false;
 				}
 				
@@ -397,7 +441,7 @@ public class Events {
 				{
 					world.provider
 							.setSkyRenderer(new SkyProviderOrbitModif(new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/celestialbodies/mars.png"), true, true));
-					((SkyProviderOrbitModif) world.provider.getSkyRenderer()).spinDeltaPerTick = ((WorldProviderOrbitModif) world.provider).getSpinRate();
+					((SkyProviderOrbitModif) world.provider.getSkyRenderer()).spinDeltaPerTick = ((WorldProviderOrbitModif) world.provider).getSpinManager().getSpinRate();
 					GCPlayerStatsClient.get(player).inFreefallFirstCheck = false;
 				}
 				

@@ -3,6 +3,7 @@ package net.glider.src.network.packets;
 import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.List;
+import net.glider.src.dimensions.GravityManager;
 import net.glider.src.dimensions.WorldProviderOrbitModif;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagDouble;
@@ -61,9 +62,9 @@ public class ClientGravityDataRecivePacket implements IMessage {
 		{
 			if (pkt.souces != null)
 			{
-				WorldProviderOrbitModif.ArtificialForces = pkt.souces;
-				WorldProviderOrbitModif.updatedList = true;
-				WorldProviderOrbitModif.updateddouble = false;
+				GravityManager.ArtificialForces = pkt.souces;
+				GravityManager.updatedList = true;
+				GravityManager.updateddouble = false;
 				
 			}
 			
