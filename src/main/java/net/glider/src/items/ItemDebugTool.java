@@ -44,7 +44,6 @@ public class ItemDebugTool extends ItemMod {
 	@Override
 	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float f1, float f2, float f3)
 	{
-		// TODO add tool that can change structures data to anything.
 		Block b = world.getBlock(x, y, z);
 		
 		if (b == BlockContainerMod.BlockRemoveInfo && !player.isSneaking())

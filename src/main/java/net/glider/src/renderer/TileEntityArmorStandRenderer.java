@@ -430,7 +430,6 @@ public class TileEntityArmorStandRenderer extends TileEntitySpecialRenderer {
 					model.render("fuel", l + 3 > 3 ? (l - 4) + 3 : l + 3);
 				}
 			}
-			//TODO disable due i not found immibis microblocks api.
 			if (Loader.isModLoaded("EnderIO") && bl instanceof BlockConduitBundle)
 			{
 				TileConduitBundle te2 = (TileConduitBundle) world.getTileEntity(te.xCoord + (o == 0 || o == 2 ? o == 2 ? 1 : -1 : 0), te.yCoord,

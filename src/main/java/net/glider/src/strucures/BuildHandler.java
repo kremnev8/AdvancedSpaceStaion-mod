@@ -688,7 +688,7 @@ public class BuildHandler {
 				}
 				return true;
 			}
-		case "window":
+		case "window"://TODO: make window use glass that was in players inventory
 			if (str6.Check(world, dir, x, y, z, -1))
 			{
 				int[] MatrixPoint = MatrixHelper.findPointForAddOBJ(world, dir, x, y, z);
@@ -707,7 +707,7 @@ public class BuildHandler {
 				str6.Build(world, dir, x, y, z);
 				return true;
 			}
-		case "cupola":
+		case "cupola"://TODO: make window use glass that was in players inventory
 			if (str7.Check(world, dir, x, y, z, -1))
 			{
 				int[] MatrixPoint = MatrixHelper.findPointForAddOBJ(world, dir, x, y, z);
@@ -868,7 +868,7 @@ public class BuildHandler {
 				
 				return true;
 			}
-		case "bighall":
+		case "bighall"://TODO: Corners in this strucure is not sealable
 			if (str11.Check(world, dir, x, y, z, -1))
 			{
 				int[] IPoint = MatrixHelper.findMatrixPoint(world, dir, x, y, z);

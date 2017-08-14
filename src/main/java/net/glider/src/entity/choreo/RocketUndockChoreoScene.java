@@ -58,7 +58,7 @@ public class RocketUndockChoreoScene extends ChoreoScene {
 			this.SetEntitySpeedInSec(-0.2D, false, true, false);
 			break;
 		case 350:
-			this.SetEntitySpeedInSec(0D, true, true, true);
+			//this.SetEntitySpeedInSec(0D, true, true, true);
 			rocket.setLaunchPhase(EnumLaunchPhase.NOTROTATED);
 			
 			if (entity.worldObj.isRemote)

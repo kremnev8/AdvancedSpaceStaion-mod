@@ -24,7 +24,8 @@ import net.glider.src.blocks.BlockMod;
 import net.glider.src.dimensions.WorldProviderOrbitModif;
 import net.glider.src.entity.EntityMod;
 import net.glider.src.gui.GuiHandler;
-import net.glider.src.handlers.Events;
+import net.glider.src.handlers.FMLEvents;
+import net.glider.src.handlers.ForgeEvents;
 import net.glider.src.handlers.ItemsToolTips;
 import net.glider.src.handlers.hooks.Hooks;
 import net.glider.src.items.ItemMod;
@@ -44,6 +45,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -194,7 +196,8 @@ public class GliderCore {
 				.registerSpaceStation(new SpaceStationType(ConfigManagerCore.idDimensionOverworldOrbit, ConfigManagerCore.idDimensionOverworld, new SpaceStationRecipe(inputMap)));
 		Hooks.ignoreThis = false;
 		GalacticraftRegistry.registerSpaceStation(new SpaceStationType(40, MarsModule.planetMars.getDimensionID(), new SpaceStationRecipe(inputMap)));
-		MinecraftForge.EVENT_BUS.register(new Events());
+		MinecraftForge.EVENT_BUS.register(new ForgeEvents());
+		FMLCommonHandler.instance().bus().register(new FMLEvents());
 		MinecraftForge.EVENT_BUS.register(new ItemsToolTips());
 		
 	}

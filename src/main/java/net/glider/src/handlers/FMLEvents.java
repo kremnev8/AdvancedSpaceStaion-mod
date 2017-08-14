@@ -58,7 +58,7 @@ import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Events {
+public class FMLEvents {
 	
 	//SERVER  
 	@SubscribeEvent
@@ -71,22 +71,6 @@ public class Events {
 				EntityItem item = new EntityItem(event.player.worldObj, event.player.posX, event.player.posY, event.player.posZ, new ItemStack(ItemMod.filledIdea));
 				item.delayBeforeCanPickup = 0;
 				event.player.worldObj.spawnEntityInWorld(item);
-			}
-		}
-	}
-	
-	@SubscribeEvent
-	public void cancelSuffucationInRocket(GCCoreOxygenSuffocationEvent.Pre event)
-	{
-		if (event.entity instanceof EntityPlayer)
-		{
-			EntityPlayer player = (EntityPlayer) event.entity;
-			if (player.ridingEntity instanceof EntityRocketFakeTiered)
-			{
-				if (((EntityRocketFakeTiered) player.ridingEntity).canBreath())
-				{
-					event.setCanceled(true);
-				}
 			}
 		}
 	}
@@ -251,70 +235,6 @@ public class Events {
 		}
 	}
 	
-	//CLIENT
-	
-	protected static final ResourceLocation Fuel = new ResourceLocation(GliderModInfo.ModTestures, "textures/FuelTank.png");
-	
-	public void drawTexturedModalRect(int p_73729_1_, int p_73729_2_, int p_73729_3_, int p_73729_4_, int p_73729_5_, int p_73729_6_)
-	{
-		float f = 0.00390625F;
-		float f1 = 0.00390625F;
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV((double) (p_73729_1_ + 0), (double) (p_73729_2_ + p_73729_6_), (double) 1, (double) ((float) (p_73729_3_ + 0) * f),
-				(double) ((float) (p_73729_4_ + p_73729_6_) * f1));
-		tessellator.addVertexWithUV((double) (p_73729_1_ + p_73729_5_), (double) (p_73729_2_ + p_73729_6_), (double) 1, (double) ((float) (p_73729_3_ + p_73729_5_) * f),
-				(double) ((float) (p_73729_4_ + p_73729_6_) * f1));
-		tessellator.addVertexWithUV((double) (p_73729_1_ + p_73729_5_), (double) (p_73729_2_ + 0), (double) 1, (double) ((float) (p_73729_3_ + p_73729_5_) * f),
-				(double) ((float) (p_73729_4_ + 0) * f1));
-		tessellator.addVertexWithUV((double) (p_73729_1_ + 0), (double) (p_73729_2_ + 0), (double) 1, (double) ((float) (p_73729_3_ + 0) * f),
-				(double) ((float) (p_73729_4_ + 0) * f1));
-		tessellator.draw();
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onRender(RenderGameOverlayEvent.Post event)
-	{
-		Minecraft mc = Minecraft.getMinecraft();
-		int xPos = event.resolution.getScaledWidth() - 10 - 19;
-		int yPos = 63;
-		
-		if (event.type != ElementType.EXPERIENCE)
-		{
-			return;
-		}
-		if (!OxygenUtil.shouldDisplayTankGui(mc.currentScreen))
-		{
-			return;
-		}
-		if (mc.thePlayer.getCurrentArmor(2) != null && mc.thePlayer.getCurrentArmor(2).getItem() == ItemMod.spaceJetpack)
-		{
-			Minecraft.getMinecraft().renderEngine.bindTexture(Fuel);
-			
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glEnable(GL11.GL_ALPHA_TEST);
-			
-			drawTexturedModalRect(xPos, yPos, 0, 0, 19, 47);
-			
-			ItemSpaceJetpack jetpack = (ItemSpaceJetpack) mc.thePlayer.getCurrentArmor(2).getItem();
-			
-			int fuelLevel;
-			
-			if (jetpack.RCSFuel.getCapacity() <= 0)
-			{
-				fuelLevel = 0;
-			} else
-			{
-				fuelLevel = jetpack.RCSFuel.getFluidAmount() * 44 / jetpack.RCSFuel.getCapacity() / ConfigManagerCore.rocketFuelFactor;
-			}
-			drawTexturedModalRect(xPos + 1, yPos + 1 + 44 - fuelLevel, 19, 45 - fuelLevel, 44, fuelLevel);
-			
-		}
-		GL11.glDisable(GL11.GL_ALPHA_TEST);
-		
-	}
-	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onTick(ClientTickEvent event)
@@ -420,33 +340,6 @@ public class Events {
 			ClientProxy.lastSpacebarDown = true;
 		}
 		
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onRenderPlayerPre(RenderPlayerEvent.Pre event)
-	{
-		GL11.glPushMatrix();
-		
-		final EntityPlayer player = event.entityPlayer;
-		
-		if (player.ridingEntity instanceof EntityRocketFakeTiered && player == Minecraft.getMinecraft().thePlayer)
-		{
-			EntityRocketFakeTiered entity = (EntityRocketFakeTiered) player.ridingEntity;
-			GL11.glTranslatef(0, -entity.getRotateOffset() - 1.6200000047683716F, 0);
-			float anglePitch = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * event.partialRenderTick;
-			float angleYaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * event.partialRenderTick;
-			GL11.glRotatef(-angleYaw, 0.0F, 1.0F, 0.0F);
-			GL11.glRotatef(anglePitch, 0.0F, 0.0F, 1.0F);
-			GL11.glTranslatef(0, entity.getRotateOffset() + 1.6200000047683716F, 0);
-		}
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onRenderPlayerPost(RenderPlayerEvent.Post event)
-	{
-		GL11.glPopMatrix();
 	}
 	
 }

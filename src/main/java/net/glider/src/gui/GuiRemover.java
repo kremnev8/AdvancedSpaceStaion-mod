@@ -88,8 +88,7 @@ public class GuiRemover extends GuiContainer {
 	
 	@Override
 	public void initGui()
-	{// TODO make deleting part possible even if it has children when children
-		// have other connection to some part of station
+	{
 		
 		int x = (width - Xsize - 40) / 2;
 		int y = (height - Ysize) / 2;
@@ -204,8 +203,8 @@ public class GuiRemover extends GuiContainer {
 			if (toDobjects.size() == 0)
 			{
 				Minecraft.getMinecraft().thePlayer.closeScreen();
-				Minecraft.getMinecraft().thePlayer.addChatMessage(ChatUtils.modifyColor(new ChatComponentText(StatCollector.translateToLocal("remover.no_selected.name")),
-						EnumChatFormatting.RED));
+				Minecraft.getMinecraft().thePlayer
+						.addChatMessage(ChatUtils.modifyColor(new ChatComponentText(StatCollector.translateToLocal("remover.no_selected.name")), EnumChatFormatting.RED));
 			} else
 			{// sending packet
 				PacketHandler.sendToServer(new DeconstructPacket(toDobjects, new int[] { x, y, z }));
@@ -280,7 +279,7 @@ public class GuiRemover extends GuiContainer {
 						((GuiButton) buttonList.get(1)).enabled = true;
 					}
 				}
-			} else ((GuiButton) buttonList.get(1)).enabled = false;
+			} else((GuiButton) buttonList.get(1)).enabled = false;
 			
 		}
 		

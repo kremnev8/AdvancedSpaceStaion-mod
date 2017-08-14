@@ -24,9 +24,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PlayerChatMessagePacket implements IMessage {
 	
 	private IChatComponent comp;
-	//TODO delete this packet. It is useless. I even can't tell what it does.
+	
 	public PlayerChatMessagePacket()
-	{}
+	{
+	}
 	
 	public PlayerChatMessagePacket(IChatComponent comp)
 	{
@@ -134,7 +135,8 @@ public class PlayerChatMessagePacket implements IMessage {
 							IString str;
 							if (tagSub.getBoolean("ISSTR"))
 							{
-								str = new StructureLocalizedString(Structure.FindStructure(tagSub.getString("INPUT")), EnumChatFormatting.getValueByName(tagSub.getString("COLOR")));
+								str = new StructureLocalizedString(Structure.FindStructure(tagSub.getString("INPUT")),
+										EnumChatFormatting.getValueByName(tagSub.getString("COLOR")));
 							} else if (tagSub.getBoolean("ISBASIC"))
 							{
 								str = new USString(tagSub.getString("INPUT"), EnumChatFormatting.getValueByName(tagSub.getString("COLOR")));

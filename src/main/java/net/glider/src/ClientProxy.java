@@ -4,7 +4,7 @@ package net.glider.src;
 import net.glider.src.blocks.BlockContainerMod;
 import net.glider.src.entity.EntityMod;
 import net.glider.src.gui.GuiBuilder;
-import net.glider.src.handlers.Events;
+import net.glider.src.handlers.ForgeEvents;
 import net.glider.src.handlers.KeyHandlerClient;
 import net.glider.src.items.ItemMod;
 import net.glider.src.renderer.ItemRenderArmorStand;
@@ -67,7 +67,7 @@ public class ClientProxy extends CommonProxy {
 		
 		MinecraftForgeClient.registerItemRenderer(ItemMod.spaceJetpack, new ItemRenderJetpack());
 		
-		FMLCommonHandler.instance().bus().register(new Events());
+		FMLCommonHandler.instance().bus().register(new ForgeEvents());
 		FMLCommonHandler.instance().bus().register(new KeyHandlerClient());
 		
 		RenderPlayerAPI.register(GliderModInfo.MOD_ID, RendererPlayer.class);
